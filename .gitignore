@@ -1,11 +1,15 @@
-$ cat .gitignore
-
-# Use wildcards as well
+# Visual Studio Files and security files
+######################
 *.suo
 *.user
 *.Publish.xml
 
-# Can also ignore all directories and files in a directory.
+# Build Outputs and App_Data
+######################
 BizzBingo.Web/App_Data/**/* 
 BizzBingo.Web/bin/**/* 
 BizzBingo.Web/obj/**/* 
+
+# OS generated files #
+######################
+Thumbs.db
