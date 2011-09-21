@@ -6,9 +6,10 @@
 
 # Build Outputs and App_Data
 ######################
-BizzBingo.Web/App_Data/**/* 
-BizzBingo.Web/bin/**/* 
-BizzBingo.Web/obj/**/* 
+BizzBingo.Web/App_Data/ 
+BizzBingo.Web/bin/ 
+BizzBingo.Web/obj/
+_ReSharper.BizzBingo/
 
 # OS generated files #
 ######################
