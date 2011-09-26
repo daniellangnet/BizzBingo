@@ -6,7 +6,7 @@
 
 # Build Outputs and App_Data
 ######################
-BizzBingo.Web/App_Data/ 
+BizzBingo.Web/App_Data/
 bin/
 BizzBingo.Web/obj/
 _ReSharper.BizzBingo/
