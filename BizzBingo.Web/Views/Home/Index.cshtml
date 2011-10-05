@@ -1,107 +1,88 @@
-﻿@{
+﻿@using BizzBingo.Web.Models.Home
+@{
     ViewBag.Title = "Home Page";
 }
+@model IndexViewModel
+           
+<div class="hero-unit">
+    <h1>
+        Hello, Bizzer!</h1>
+    <p>
+        Do you speak Management? Did you hear a super cool new buzzword? Share your best
+        words...</p>
+    <p>
+        <a class="btn primary large" data-controls-modal="modal-from-dom" data-backdrop="static">
+            Share a buzzword...</a></p>
+</div>
+<div class="row">
+    <div class="span8">
+        <h2>
+            Top</h2>
+        @foreach (var topWords in Model.Top)
+        { 
+        <h3>
+            @topWords.Value &nbsp; @if (topWords.UpVotes > 0) {<span class="label">@topWords.UpVotes Likes!</span>}</h3>
+        <p>
+            @topWords.Description</p>
+        <p>
+            <a class="btn" href="@Url.Action("Detail")?id=@topWords.Id">View details &raquo;</a></p>
+        }
+    </div>
+    <div class="span8">
+        <h2>
+            Newest</h2>
+        @foreach (var newWords in Model.Newest)
+        { 
+        <h3>
+            @newWords.Value  <small>@newWords.CreatedOn.ToShortDateString()</small></h3>
+        <p>
+            @newWords.Description</p>
+        <p>
+            <a class="btn" href="@Url.Action("Detail")?id=@newWords.Id">View details &raquo;</a></p>
+        }
+</div>
+<div id="modal-from-dom" class="modal hide fade">
+    <div class="modal-header">
+        <a href="#" class="close">&times;</a>
+        <h3>
+            Share a new buzzword</h3>
+    </div>
+    @using (Ajax.BeginForm("Share", "Home", new AjaxOptions() { HttpMethod = "POST", OnComplete = "shareCallback" }))
+    {
+    <div class="modal-body">
 
-        <!-- Main hero unit for a primary marketing message or call to action -->
-        <div class="hero-unit">
-            <h1>
-                Hello, Bizzer!</h1>
-            <p>
-                Do you speak Management?</p>
-            <p>
-                <a class="btn primary large">Learn more &raquo;</a></p>
-        </div>
-        <!-- Example row of columns -->
-        <div class="row">
-            <div class="span8">
-                <h2>
-                    Top</h2>
-                <h3>
-                    Cloud <span class="label">300 Upvotes</span></h3>
-                <p>
-                    Etiam porta sem malesuada magna mollis euismod. Integer posuere erat a ante venenatis
-                    dapibus posuere velit aliquet. Aenean eu leo quam. Pellentesque ornare sem lacinia
-                    quam venenatis vestibulum. Duis mollis, est non commodo luctus, nisi erat porttitor
-                    ligula, eget lacinia odio sem nec elit.</p>
-                <p>
-                    <a class="btn" href="#">View details &raquo;</a></p>
-                <h3>
-                    Cloud</h3>
-                <p>
-                    Etiam porta sem malesuada magna mollis euismod. Integer posuere erat a ante venenatis
-                    dapibus posuere velit aliquet. Aenean eu leo quam. Pellentesque ornare sem lacinia
-                    quam venenatis vestibulum. Duis mollis, est non commodo luctus, nisi erat porttitor
-                    ligula, eget lacinia odio sem nec elit.</p>
-                <p>
-                    <a class="btn" href="#">View details &raquo;</a></p>
-                <h3>
-                    Cloud</h3>
-                <p>
-                    Etiam porta sem malesuada magna mollis euismod. Integer posuere erat a ante venenatis
-                    dapibus posuere velit aliquet. Aenean eu leo quam. Pellentesque ornare sem lacinia
-                    quam venenatis vestibulum. Duis mollis, est non commodo luctus, nisi erat porttitor
-                    ligula, eget lacinia odio sem nec elit.</p>
-                <p>
-                    <a class="btn" href="#">View details &raquo;</a></p>
-                <h3>
-                    Cloud</h3>
-                <p>
-                    Etiam porta sem malesuada magna mollis euismod. Integer posuere erat a ante venenatis
-                    dapibus posuere velit aliquet. Aenean eu leo quam. Pellentesque ornare sem lacinia
-                    quam venenatis vestibulum. Duis mollis, est non commodo luctus, nisi erat porttitor
-                    ligula, eget lacinia odio sem nec elit.</p>
-                <p>
-                    <a class="btn" href="#">View details &raquo;</a></p>
+        <fieldset>
+            <div class="clearfix">
+                <label for="value">
+                    Buzzword</label>
+                <div class="input">
+                    <input class="xlarge" name="value" size="30" type="text">
+                </div>
             </div>
-            <div class="span8">
-                <h2>
-                    Newest</h2>
-                <h3>Super-High-Performance
-                    <small>Today</small>
-                </h3>
-                <p>
-                    Donec id elit non mi porta gravida at eget metus. Fusce dapibus, tellus ac cursus
-                    commodo, tortor mauris condimentum nibh, ut fermentum massa justo sit amet risus.
-                    Etiam porta sem malesuada magna mollis euismod. Donec sed odio dui.
-                </p>
-                <p>
-                    <a class="btn" href="#">View details &raquo;</a></p>
-                                <h3>Super-High-Performance
-                </h3>
-                <p>
-                    Donec id elit non mi porta gravida at eget metus. Fusce dapibus, tellus ac cursus
-                    commodo, tortor mauris condimentum nibh, ut fermentum massa justo sit amet risus.
-                    Etiam porta sem malesuada magna mollis euismod. Donec sed odio dui.
-                </p>
-                <p>
-                    <a class="btn" href="#">View details &raquo;</a></p>
-                                <h3>Super-High-Performance
-                </h3>
-                <p>
-                    Donec id elit non mi porta gravida at eget metus. Fusce dapibus, tellus ac cursus
-                    commodo, tortor mauris condimentum nibh, ut fermentum massa justo sit amet risus.
-                    Etiam porta sem malesuada magna mollis euismod. Donec sed odio dui.
-                </p>
-                <p>
-                    <a class="btn" href="#">View details &raquo;</a></p>
-                                <h3>Super-High-Performance
-                </h3>
-                <p>
-                    Donec id elit non mi porta gravida at eget metus. Fusce dapibus, tellus ac cursus
-                    commodo, tortor mauris condimentum nibh, ut fermentum massa justo sit amet risus.
-                    Etiam porta sem malesuada magna mollis euismod. Donec sed odio dui.
-                </p>
-                <p>
-                    <a class="btn" href="#">View details &raquo;</a></p>
-                                <h3>Super-High-Performance
-                </h3>
-                <p>
-                    Donec id elit non mi porta gravida at eget metus. Fusce dapibus, tellus ac cursus
-                    commodo, tortor mauris condimentum nibh, ut fermentum massa justo sit amet risus.
-                    Etiam porta sem malesuada magna mollis euismod. Donec sed odio dui.
-                </p>
-                <p>
-                    <a class="btn" href="#">View details &raquo;</a></p>
+            <!-- /clearfix -->
+            <div class="clearfix">
+                <label for="description">
+                    Description</label>
+                <div class="input">
+                    <textarea class="xlarge" name="description" rows="3"></textarea>
+                </div>
             </div>
+            <!-- /clearfix -->
+        </fieldset>
+           
+    </div>
+    <div class="modal-footer">
+        <input type="submit" id="shareButton" value="Share" class="btn primary">
+    </div>
+    }
+</div>
 
-        </div>
+@section Scripts
+{
+    <script type="text/javascript">
+	    function shareCallback() {
+	        $('#modal-from-dom').modal('hide');
+	        window.location.reload();
+	    }
+    </script>  
+}

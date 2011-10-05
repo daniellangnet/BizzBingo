@@ -174,16 +174,13 @@
     <Compile Include="App_Start\Combres.cs" />
     <Compile Include="Controllers\BaseController.cs" />
     <Compile Include="Controllers\HomeController.cs" />
-    <Compile Include="Controllers\WordsController.cs" />
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
     <Compile Include="Infrastructure\Raven\DocumentStoreHolder.cs" />
     <Compile Include="Infrastructure\Raven\RavenActionFilterAttribute.cs" />
-    <Compile Include="Models\Game.cs" />
-    <Compile Include="Models\Player.cs" />
+    <Compile Include="Models\Home\IndexViewModel.cs" />
     <Compile Include="Models\Word.cs" />
-    <Compile Include="Models\WordPosition.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>
@@ -239,25 +236,21 @@
     <Content Include="Scripts\MicrosoftMvcValidation.js" />
     <Content Include="Scripts\MicrosoftMvcValidation.debug.js" />
     <Content Include="Views\_ViewStart.cshtml" />
-    <Content Include="Views\Account\ChangePassword.cshtml" />
-    <Content Include="Views\Account\ChangePasswordSuccess.cshtml" />
-    <Content Include="Views\Account\LogOn.cshtml" />
-    <Content Include="Views\Account\Register.cshtml" />
-    <Content Include="Views\Home\About.cshtml" />
+    <Content Include="Views\Home\Contact.cshtml" />
     <Content Include="Views\Home\Index.cshtml" />
     <Content Include="Views\Shared\Error.cshtml" />
-    <Content Include="Views\Shared\_LogOnPartial.cshtml" />
     <Content Include="Views\Shared\_Layout.cshtml" />
     <Content Include="Views\Web.config" />
-    <None Include="Content\bootstrap.less" />
-    <None Include="Content\forms.less" />
-    <None Include="Content\mixins.less" />
-    <None Include="Content\patterns.less" />
-    <None Include="Content\reset.less" />
-    <None Include="Content\scaffolding.less" />
-    <None Include="Content\tables.less" />
-    <None Include="Content\type.less" />
-    <None Include="Content\variables.less" />
+    <Content Include="Content\bootstrap.less" />
+    <Content Include="Content\forms.less" />
+    <Content Include="Content\mixins.less" />
+    <Content Include="Content\patterns.less" />
+    <Content Include="Content\reset.less" />
+    <Content Include="Content\scaffolding.less" />
+    <Content Include="Content\tables.less" />
+    <Content Include="Content\type.less" />
+    <Content Include="Content\variables.less" />
+    <Content Include="Views\Home\Detail.cshtml" />
     <None Include="_bin_deployableAssemblies\System.Web.Mvc.dll" />
     <None Include="_bin_deployableAssemblies\WebMatrix.WebData.xml" />
     <None Include="_bin_deployableAssemblies\WebMatrix.WebData.dll" />
@@ -280,13 +273,6 @@
   </ItemGroup>
   <ItemGroup>
     <Content Include="packages.config" />
-  </ItemGroup>
-  <ItemGroup>
-    <Content Include="Views\Words\Index.cshtml" />
-    <Content Include="Views\Words\Details.cshtml" />
-    <Content Include="Views\Words\Create.cshtml" />
-    <Content Include="Views\Words\Edit.cshtml" />
-    <Content Include="Views\Words\Delete.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
