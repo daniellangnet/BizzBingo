@@ -1,28 +1,30 @@
 ﻿@using BizzBingo.Web.Models
 @model Word
-
 @{
     ViewBag.Title = Model.Value;
 }
-
 <div class="row">
     <div class="span16">
-                <h1>
+        <h1>
             @Model.Value</h1>
-             <p>
+        <p>
             @Model.Description</p>
-            <div class="well" style="padding: 14px 19px;">
+        <div class="well" style="padding: 14px 19px;">
             @using (Html.BeginForm("Upvote", "Home", FormMethod.Post))
             { 
-            @Html.HiddenFor(m => m.Id)
-            <input class="btn success" type="submit" value="Like! (@Model.UpVotes)" />
+                @Html.HiddenFor(m => m.Id)
+                <input class="btn success" type="submit" value="Like! (@Model.UpVotes)" />
             }
-
             @using (Html.BeginForm("Downvote", "Home", FormMethod.Post))
             { 
-            @Html.HiddenFor(m => m.Id)
-            <input class="btn danger" type="submit" value="Don´t like! (@Model.DownVotes)" />
+                @Html.HiddenFor(m => m.Id)
+                <input class="btn danger" type="submit" value="Don´t like! (@Model.DownVotes)" />
             }
-      </div>
+        </div>
+        <h2> See how popular this word is
+        </h2>
+        <iframe src="http://www.gmodules.com/ig/ifr?url=http://www.google.com/ig/modules/trends_gadget.xml&amp;source=imag&amp;up_is_init=true&amp;up_cur_term=@Url.Encode(Model.Value)"
+                style="border: 1px solid #ccc; padding: 10px;" width="620" height="250" frameborder="0"
+                scrolling="no"></iframe>
     </div>
 </div>
