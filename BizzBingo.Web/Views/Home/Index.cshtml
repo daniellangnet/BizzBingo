@@ -21,11 +21,11 @@
         @foreach (var topWords in Model.Top)
         { 
         <h3>
-            @topWords.Value &nbsp; @if (topWords.UpVotes > 0) {<span class="label">@topWords.UpVotes Likes!</span>}</h3>
+            @topWords.Title &nbsp; @if (topWords.UpVotes > 0) {<span class="label">@topWords.UpVotes Likes!</span>}</h3>
         <p>
             @topWords.Description</p>
         <p>
-            <a class="btn" href="@Url.Action("Detail")?id=@topWords.Id">View details &raquo;</a></p>
+            <a class="btn" href="@Url.Action("Detail", "Word", new { area = "Wiki", slug = topWords.Slug })">View details &raquo;</a></p>
         }
     </div>
     <div class="span8">
@@ -34,11 +34,11 @@
         @foreach (var newWords in Model.Newest)
         { 
         <h3>
-            @newWords.Value  <small>@newWords.CreatedOn.ToShortDateString()</small></h3>
+            @newWords.Title  <small>@newWords.CreatedOn.ToShortDateString()</small></h3>
         <p>
             @newWords.Description</p>
         <p>
-            <a class="btn" href="@Url.Action("Detail")?id=@newWords.Id">View details &raquo;</a></p>
+            <a class="btn" href="@Url.Action("Detail", "Word", new { area = "Wiki", slug = newWords.Slug })">View details &raquo;</a></p>
         }
 </div>
 <div id="modal-from-dom" class="modal hide fade">
@@ -53,10 +53,10 @@
 
         <fieldset>
             <div class="clearfix">
-                <label for="value">
+                <label for="title">
                     Buzzword</label>
                 <div class="input">
-                    <input class="xlarge" name="value" size="30" type="text">
+                    <input class="xlarge" name="title" size="30" type="text">
                 </div>
             </div>
             <!-- /clearfix -->
@@ -80,6 +80,7 @@
 @section Scripts
 {
     <script type="text/javascript">
+
 	    function shareCallback() {
 	        $('#modal-from-dom').modal('hide');
 	        window.location.reload();

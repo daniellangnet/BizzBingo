@@ -30,6 +30,7 @@
       <resource path="~/Scripts/underscore.min.js" />
       <resource path="~/Scripts/backbone.min.js" />
       <resource path="~/scripts/jquery.unobtrusive-ajax.min.js" />
+      <resource path="~/scripts/knockout-1.3.0beta.js" />
       <resource path="~/scripts/bootstrap-alerts.js" />
       <resource path="~/scripts/bootstrap-dropdown.js" />
       <resource path="~/scripts/bootstrap-modal.js" />

@@ -7,6 +7,8 @@ using Raven.Client;
 
 namespace BizzBingo.Web.Infrastructure.Raven
 {
+    using global::Raven.Client.MvcIntegration;
+
     /// <summary>
     /// This filter will manage the session for all of the controllers that needs a Raven Document Session.
     /// It does so by automatically injecting a session to the first public property of type IDocumentSession available
@@ -29,6 +31,9 @@ namespace BizzBingo.Web.Infrastructure.Raven
             if (filterContext.IsChildAction)
                 return;
             DocumentStoreHolder.TryComplete(filterContext.Controller, filterContext.Exception == null);
+
+            if (filterContext.Exception != null && filterContext.ExceptionHandled == false)
+                throw filterContext.Exception;
         }
     }
 }

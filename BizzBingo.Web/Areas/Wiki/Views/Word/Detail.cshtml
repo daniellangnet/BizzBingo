@@ -1,0 +1,130 @@
+﻿@using BizzBingo.Web.Models
+@model Word
+@{
+    ViewBag.Title = Model.Title;
+}
+<div class="row">
+    <div class="span11">
+        <h1>
+            @Model.Title</h1>
+        <p>
+            @Model.Description</p>
+        <div class="well" style="padding: 14px 19px;">
+            <input id="upvote" class="btn success" type="button" value="Like!" />
+            <input id="downvote" class="btn danger" type="button" value="Don´t like!" />
+        </div>
+    </div>
+    <div class="span5">
+        <table class="zebra-striped">
+            <thead>
+                <tr>
+                    <th colspan="2" style="width: 190px;">
+                        <h2>
+                            Stats</h2>
+                    </th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr>
+                    <td>
+                        Shared on
+                    </td>
+                    <td>
+                        @Model.CreatedOn.ToShortDateString()
+                    </td>
+                </tr>
+                <tr>
+                    <td>
+                        Views
+                    </td>
+                    <td id="stateViews">
+                        @Model.Views
+                    </td>
+                </tr>
+                <tr>
+                    <td>
+                        Likes
+                    </td>
+                    <td id="stateUpvotes">
+                        @Model.UpVotes
+                    </td>
+                </tr>
+                <tr>
+                    <td>
+                        Don´t likes
+                    </td>
+                    <td id="stateDownvotes">
+                        @Model.DownVotes
+                    </td>
+                </tr>
+            </tbody>
+        </table>
+    </div>
+</div>
+<div class="row">
+    <div class="span16">
+        <h2>
+            See how popular this word is
+        </h2>
+        <iframe src="http://www.gmodules.com/ig/ifr?url=http://www.google.com/ig/modules/trends_gadget.xml&amp;source=imag&amp;up_is_init=true&amp;up_cur_term=@Url.Encode(Model.Title)"
+                style="border: 1px solid #ccc; padding: 10px;" width="620" height="250" frameborder="0"
+                scrolling="no"></iframe>
+    </div>
+</div>
+<div class="row">
+    <div class="span11">
+        <h2>
+            Comments
+        </h2>
+        <div id="disqus_thread">
+        </div>
+        <script type="text/javascript">
+            /* * * CONFIGURATION VARIABLES: EDIT BEFORE PASTING INTO YOUR WEBPAGE * * */
+            var disqus_shortname = 'bizzbingo'; // required: replace example with your forum shortname
+            var disqus_developer = 1; // developer mode is on
+            /* * * DON'T EDIT BELOW THIS LINE * * */
+            (function () {
+                var dsq = document.createElement('script'); dsq.type = 'text/javascript'; dsq.async = true;
+                dsq.src = 'http://' + disqus_shortname + '.disqus.com/embed.js';
+                (document.getElementsByTagName('head')[0] || document.getElementsByTagName('body')[0]).appendChild(dsq);
+            })();
+        </script>
+        <noscript>
+            Please enable JavaScript to view the <a href="http://disqus.com/?ref_noscript">comments
+                powered by Disqus.</a></noscript>
+        <a href="http://disqus.com" class="dsq-brlink">blog comments powered by <span class="logo-disqus">
+            Disqus</span></a>
+    </div>
+</div>
+@section Scripts
+{
+    <script type="text/javascript">
+        $(function () {
+            $("#upvote").click(function () {
+                $.ajax({
+                    url: '@Url.Action("Upvote")?id=@Model.Id',
+                    type: 'PUT',
+                    success: function(result) {
+                        refreshStats(result);
+                    }    
+                });
+            });
+            
+            $("#downvote").click(function () {
+                $.ajax({
+                    url: '@Url.Action("Downvote")?id=@Model.Id',
+                    type: 'PUT',
+                    success: function(result) {
+                        refreshStats(result);
+                    }    
+                });
+            });
+        });
+        
+        function refreshStats(result) {
+            $("#stateViews").html(result.Views);
+            $("#stateDownvotes").html(result.DownVotes);
+            $("#stateUpvotes").html(result.UpVotes);
+        }
+    </script>
+}

@@ -32,13 +32,15 @@
     </style>
 </head>
 <body>
+
+@*    @Raven.Client.MvcIntegration.RavenProfiler.CurrentRequestSessions();*@
     <div class="topbar">
         <div class="fill">
             <div class="container">
-                <a class="brand" href="@Url.Action("Index", "Home")">BizzBingo</a>
+                <a class="brand" href="@Url.Action("Index", "Home", new { area = "" })">BizzBingo</a>
                 <ul class="nav">
-                    <li><a href="@Url.Action("Index", "Home")">Home</a></>
-                    <li><a href="@Url.Action("Contact", "Home")">Contact</a></li>
+                    <li><a href="@Url.Action("Index", "Home", new { area = ""})">Home</a></>
+                    <li><a href="@Url.Action("Contact", "Home", new { area = ""})">Contact</a></li>
                 </ul>
             </div>
         </div>
@@ -51,8 +53,8 @@
     </div>
     <!-- /container -->
     <!-- JavaScript at the bottom for fast page loading -->
-    <script src="//ajax.googleapis.com/ajax/libs/jquery/1.6.2/jquery.min.js"></script>
-    <script src="//ajax.googleapis.com/ajax/libs/jqueryui/1.8.14/jquery-ui.min.js"></script>
+    <script src="//ajax.googleapis.com/ajax/libs/jquery/1.6.4/jquery.min.js"></script>
+    <script src="//ajax.googleapis.com/ajax/libs/jqueryui/1.8.16/jquery-ui.min.js"></script>
     <script src="@Html.CombresUrl("siteJs")"></script>
     @RenderSection("Scripts", required: false)
     <!-- end scripts-->
