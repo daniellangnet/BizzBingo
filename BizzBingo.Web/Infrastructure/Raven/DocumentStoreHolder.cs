@@ -27,7 +27,8 @@ namespace BizzBingo.Web.Infrastructure.Raven
         {
             var documentStore = new EmbeddableDocumentStore
             {
-                ConnectionStringName = "RavenDB"
+                ConnectionStringName = "RavenDB",
+                UseEmbeddedHttpServer = true
             }.Initialize();
 
             return documentStore;

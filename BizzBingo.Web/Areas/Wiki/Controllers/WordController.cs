@@ -33,6 +33,11 @@
             return View(word);
         }
 
+        public ViewResult Archive()
+        {
+            return View();
+        }
+
         [HttpPut]
         public JsonResult Upvote(Guid id)
         {

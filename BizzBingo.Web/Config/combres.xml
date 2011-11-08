@@ -34,6 +34,7 @@
       <resource path="~/scripts/bootstrap-alerts.js" />
       <resource path="~/scripts/bootstrap-dropdown.js" />
       <resource path="~/scripts/bootstrap-modal.js" />
+      <resource path="~/scripts/bootstrap-tabs.js" />
       <resource path="~/scripts/logger.js" />
     </resourceSet>
   </resourceSets>

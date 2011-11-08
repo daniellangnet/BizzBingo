@@ -62,13 +62,99 @@
     </div>
 </div>
 <div class="row">
-    <div class="span16">
-        <h2>
-            See how popular this word is
-        </h2>
-        <iframe src="http://www.gmodules.com/ig/ifr?url=http://www.google.com/ig/modules/trends_gadget.xml&amp;source=imag&amp;up_is_init=true&amp;up_cur_term=@Url.Encode(Model.Title)"
+    <div class="span11">
+        <ul class="tabs">
+            <li><a href="#all">All resources</a></li>
+            <li class="active"><a href="#popular">Popularity</a></li>
+        </ul>
+        <div class="tab-content">
+            <div class="tab-pane" id="all">
+                <p>
+                    Foo bar asomeas asld jasdii asdkjal ksdasldk jasld jkjl lkjl</p>
+                <table>
+                    <thead>
+                        <tr>
+                            <th>
+                                #
+                            </th>
+                            <th>
+                                First Name
+                            </th>
+                            <th>
+                                Last Name
+                            </th>
+                            <th>
+                                Language
+                            </th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td>
+                                1
+                            </td>
+                            <td>
+                                Some
+                            </td>
+                            <td>
+                                One
+                            </td>
+                            <td>
+                                English
+                            </td>
+                        </tr>
+                        <tr>
+                            <td>
+                                2
+                            </td>
+                            <td>
+                                Joe
+                            </td>
+                            <td>
+                                Sixpack
+                            </td>
+                            <td>
+                                English
+                            </td>
+                        </tr>
+                        <tr>
+                            <td>
+                                3
+                            </td>
+                            <td>
+                                Stu
+                            </td>
+                            <td>
+                                Dent
+                            </td>
+                            <td>
+                                Code
+                            </td>
+                        </tr>
+                        <tr>
+                            <td colspan="4">
+                                span 4 columns
+                            </td>
+                        </tr>
+                        <tr>
+                            <td colspan="2">
+                                span 2 columns
+                            </td>
+                            <td colspan="2">
+                                span 2 columns
+                            </td>
+                        </tr>
+                    </tbody>
+                </table>
+              
+              
+            </div>
+            <div class="tab-pane active" id="popular">
+                <iframe src="http://www.gmodules.com/ig/ifr?url=http://www.google.com/ig/modules/trends_gadget.xml&amp;source=imag&amp;up_is_init=true&amp;up_cur_term=@Url.Encode(Model.Title)"
                 style="border: 1px solid #ccc; padding: 10px;" width="620" height="250" frameborder="0"
                 scrolling="no"></iframe>
+            </div>
+        </div>
     </div>
 </div>
 <div class="row">
@@ -104,23 +190,25 @@
                 $.ajax({
                     url: '@Url.Action("Upvote")?id=@Model.Id',
                     type: 'PUT',
-                    success: function(result) {
+                    success: function (result) {
                         refreshStats(result);
-                    }    
+                    }
                 });
             });
-            
+
             $("#downvote").click(function () {
                 $.ajax({
                     url: '@Url.Action("Downvote")?id=@Model.Id',
                     type: 'PUT',
-                    success: function(result) {
+                    success: function (result) {
                         refreshStats(result);
-                    }    
+                    }
                 });
             });
+
+            $('.tabs').tabs();
         });
-        
+
         function refreshStats(result) {
             $("#stateViews").html(result.Views);
             $("#stateDownvotes").html(result.DownVotes);
