@@ -7,7 +7,7 @@
     <div class="span17">
         <h1>
             @Model.Title</h1>
-            </div>
+    </div>
 </div>
 <div class="row">
     <div class="span11">
@@ -72,88 +72,74 @@
             <li class="active"><a href="#popular">Popularity</a></li>
         </ul>
         <div class="tab-content">
-            <div class="tab-pane" id="all">
-                <p>
-                    Foo bar asomeas asld jasdii asdkjal ksdasldk jasld jkjl lkjl</p>
-                <table>
-                    <thead>
-                        <tr>
-                            <th>
-                                #
-                            </th>
-                            <th>
-                                First Name
-                            </th>
-                            <th>
-                                Last Name
-                            </th>
-                            <th>
-                                Language
-                            </th>
-                        </tr>
-                    </thead>
-                    <tbody>
-                        <tr>
-                            <td>
-                                1
-                            </td>
-                            <td>
-                                Some
-                            </td>
-                            <td>
-                                One
-                            </td>
-                            <td>
-                                English
-                            </td>
-                        </tr>
-                        <tr>
-                            <td>
-                                2
-                            </td>
-                            <td>
-                                Joe
-                            </td>
-                            <td>
-                                Sixpack
-                            </td>
-                            <td>
-                                English
-                            </td>
-                        </tr>
-                        <tr>
-                            <td>
-                                3
-                            </td>
-                            <td>
-                                Stu
-                            </td>
-                            <td>
-                                Dent
-                            </td>
-                            <td>
-                                Code
-                            </td>
-                        </tr>
-                        <tr>
-                            <td colspan="4">
-                                span 4 columns
-                            </td>
-                        </tr>
-                        <tr>
-                            <td colspan="2">
-                                span 2 columns
-                            </td>
-                            <td colspan="2">
-                                span 2 columns
-                            </td>
-                        </tr>
-                    </tbody>
-                </table>
-              
-              
+            <div class="tab-pane active" id="all">
+                @for (int i = 0; i < 10; i++)
+                {
+                    <div class="row">
+                        <div class="span3">
+                            <img class="thumbnail" src="http://placehold.it/150x113" alt="">
+                            
+                        </div>
+                        <div class="span8">
+                            <h4>
+                                Websiteblablub <small>Blogpost</small>&nbsp;<span class="label">+500</span></h4>
+                            <p>
+                                Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nullam libero massa, elementum
+                                sed gravida ac, facilisis ac massa. Pellentesque consequat urna leo, at posuere
+                                magna. Integer lacinia nisi a erat faucibus fringilla. Nulla eget magna quis neque
+                                hendrerit aliquet condimentum quis nibh. Maecenas pulvinar neque rhoncus enim sodales
+                                sit amet elementum purus varius. Vivamus ornare nibh ut massa condimentum at feugiat
+                                nisi egestas. Pellentesque eget adipiscing tellus. Morbi malesuada placerat elit,
+                                vel ornare nunc bibendum non. Maecenas quam massa, aliquam vitae congue in, mollis
+                                eget ligula. In hac habitasse platea dictumst. Aenean pharetra congue massa, ac
+                                faucibus mauris congue malesuada. Suspendisse pharetra sollicitudin tellus nec auctor.</p>
+                            <div class="well" style="padding: 14px 19px;">
+                                <input id="upvote" class="btn success" type="button" value="Like!">
+                                <input id="downvote" class="btn danger" type="button" value="Don´t like!">
+                            </div>
+                        </div>
+                    </div>
+                }
+                <div class="row">
+                    <div class="span11">
+                        <legend><h3>
+                            Add a new resource</h3></legend>
+                        <form>
+                        <fieldset>
+                            <div class="clearfix">
+                                <label for="xlInput">
+                                    Title</label>
+                                <div class="input">
+                                    <input class="xlarge" id="xlInput" name="xlInput" size="30" type="text">
+                                </div>
+                            </div>
+                            <div class="clearfix">
+                                <label for="textarea">
+                                    Description</label>
+                                <div class="input">
+                                    <textarea class="xlarge" id="textarea2" name="textarea2" rows="3"></textarea>
+                                    <span class="help-block">Block of help text to describe the field above if need be.
+                                    </span>
+                                </div>
+                            </div>
+                            <div class="clearfix">
+                                <label for="xlInput">
+                                    Url</label>
+                                <div class="input">
+                                    <input class="xlarge" id="xlInput" name="xlInput" size="30" type="text">
+                                </div>
+                            </div>
+                            <div class="actions">
+                                <input type="submit" class="btn primary" value="Save changes">&nbsp;
+                                <button type="reset" class="btn">
+                                    Cancel</button>
+                            </div>
+                        </fieldset>
+                        </form>
+                    </div>
+                </div>
             </div>
-            <div class="tab-pane active" id="popular">
+            <div class="tab-pane" id="popular">
                 <iframe src="http://www.gmodules.com/ig/ifr?url=http://www.google.com/ig/modules/trends_gadget.xml&amp;source=imag&amp;up_is_init=true&amp;up_cur_term=@Url.Encode(Model.Title)"
                 style="border: 1px solid #ccc; padding: 10px;" width="620" height="250" frameborder="0"
                 scrolling="no"></iframe>
