@@ -173,7 +173,9 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="App_Start\Combres.cs" />
-    <Compile Include="Areas\Wiki\Controllers\WordController.cs" />
+    <Compile Include="Areas\Wiki\Controllers\TermController.cs" />
+    <Compile Include="Areas\Wiki\Models\CreateResourceModel.cs" />
+    <Compile Include="Areas\Wiki\Models\DetailTermViewModel.cs" />
     <Compile Include="Areas\Wiki\WikiAreaRegistration.cs" />
     <Compile Include="Controllers\BaseController.cs" />
     <Compile Include="Controllers\HomeController.cs" />
@@ -184,6 +186,7 @@
     <Compile Include="Infrastructure\Raven\DocumentStoreHolder.cs" />
     <Compile Include="Infrastructure\Raven\RavenActionFilterAttribute.cs" />
     <Compile Include="Models\Home\IndexViewModel.cs" />
+    <Compile Include="Models\Resource.cs" />
     <Compile Include="Models\Word.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
@@ -193,6 +196,7 @@
     <Content Include="App_Readme\glimpse.readme.txt" />
     <Content Include="Content\bootstrap.min.css" />
     <Content Include="Content\icons.png" />
+    <Content Include="Content\style.css" />
     <Content Include="crossdomain.xml" />
     <Content Include="Global.asax" />
     <Content Include="humans.txt" />
@@ -260,9 +264,10 @@
     <Content Include="Content\type.less" />
     <Content Include="Content\variables.less" />
     <Content Include="Areas\Wiki\Views\Web.config" />
-    <Content Include="Areas\Wiki\Views\Word\Detail.cshtml" />
+    <Content Include="Areas\Wiki\Views\Term\Detail.cshtml" />
     <Content Include="Areas\Wiki\Views\_ViewStart.cshtml" />
-    <Content Include="Areas\Wiki\Views\Word\Archive.cshtml" />
+    <Content Include="Areas\Wiki\Views\Term\Archive.cshtml" />
+    <Content Include="Views\Shared\DisqusComments.cshtml" />
     <None Include="_bin_deployableAssemblies\System.Web.Mvc.dll" />
     <None Include="_bin_deployableAssemblies\WebMatrix.WebData.xml" />
     <None Include="_bin_deployableAssemblies\WebMatrix.WebData.dll" />
@@ -288,7 +293,6 @@
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
-    <Folder Include="Areas\Wiki\Models\" />
     <Folder Include="Areas\Wiki\Views\Shared\" />
   </ItemGroup>
   <Import Project="$(MSBuildBinPath)\Microsoft.CSharp.targets" />

@@ -14,8 +14,8 @@ namespace BizzBingo.Web.Controllers
         public ActionResult Index()
         {
             IndexViewModel model = new IndexViewModel();
-            model.Top = Session.Query<Word>().OrderByDescending(x => x.UpVotes).Take(5).ToList();
-            model.Newest = Session.Query<Word>().OrderByDescending(x => x.CreatedOn).Take(5).ToList(); ;
+            model.Top = Session.Query<Term>().OrderByDescending(x => x.UpVotes).Take(5).ToList();
+            model.Newest = Session.Query<Term>().OrderByDescending(x => x.CreatedOn).Take(5).ToList(); ;
             return View(model);
         }
 
@@ -24,16 +24,16 @@ namespace BizzBingo.Web.Controllers
             return View();
         }
 
-        public ActionResult Share(Word word)
+        public ActionResult Share(Term term)
         {
-            if (string.IsNullOrWhiteSpace(word.Title) || string.IsNullOrWhiteSpace(word.Description))
+            if (string.IsNullOrWhiteSpace(term.Title) || string.IsNullOrWhiteSpace(term.Description))
                 return Json(true);
 
-            word.Id = Guid.NewGuid();
-            word.CreatedOn = DateTime.Now;
-            word.LcId = "1033";
-            word.Slug = SearchForSlug(word.Title);
-            Session.Store(word);
+            term.Id = Guid.NewGuid();
+            term.CreatedOn = DateTime.UtcNow;
+            term.LcId = "1033";
+            term.Slug = SearchForSlug(term.Title);
+            Session.Store(term);
             Session.SaveChanges();
             return Json(true);
         }
@@ -52,7 +52,7 @@ namespace BizzBingo.Web.Controllers
 
         private bool IsSlugAlreadyTaken(string slug)
         {
-            var result = Session.Query<Word>().Where(x => x.Slug == slug).SingleOrDefault();
+            var result = Session.Query<Term>().Where(x => x.Slug == slug).SingleOrDefault();
             if (result == null) return false;
 
             return true;

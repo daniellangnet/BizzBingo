@@ -4,7 +4,7 @@ namespace BizzBingo.Web.Models.Home
 {
     public class IndexViewModel
     {
-        public List<Word> Top { get; set; }
-        public List<Word> Newest { get; set; }
+        public List<Term> Top { get; set; }
+        public List<Term> Newest { get; set; }
     }
 }

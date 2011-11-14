@@ -15,9 +15,9 @@ namespace BizzBingo.Web.Areas.Wiki
         public override void RegisterArea(AreaRegistrationContext context)
         {
             context.MapRoute(
-                "Wiki_Word_SEO",
+                "Wiki_Term_SEO",
                 "Wiki/{slug}",
-                new { controller = "Word", action = "Detail" }
+                new { controller = "Term", action = "Detail" }
             );
 
             context.MapRoute(

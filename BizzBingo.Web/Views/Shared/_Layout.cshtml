@@ -22,15 +22,11 @@
     <link rel="apple-touch-icon" href="@Url.Content("~/apple-touch-icon.png")">
     <!-- CSS: implied media="all" -->
     <link rel="stylesheet" href="@Url.Content("~/Content/bootstrap.min.css")">
+    <link rel="stylesheet" href="@Url.Content("~/Content/style.css")">
+
     @*  <link rel="stylesheet" href="@Html.CombresUrl("siteCss")">*@
     <!-- All JavaScript at the bottom, except for Modernizr which enables HTML5 elements & feature detects -->
     <script src="@Url.Content("~/Scripts/modernizr-2.0.6.js")"></script>
-
-    <style type="text/css">
-      body {
-        padding-top: 60px;
-      }
-    </style>
 </head>
 <body>
 
@@ -48,11 +44,16 @@
     </div>
     <div class="container">
             @RenderBody()
-@*        <footer>
-        <p>&copy; BizzBingo 2011</p>
-      </footer>*@
     </div>
     <!-- /container -->
+    <footer class="footer">
+      <div class="container">
+        <p class="pull-right"><a href="#">Back to top</a></p>
+        <p>
+          Thumbnails powered by <a target="_blank" href="http://thumber.de" title="Thumbshots by Thumber.de">Thumbshots</a> <br/>
+        </p>
+      </div>
+    </footer>
     <!-- JavaScript at the bottom for fast page loading -->
     <script src="//ajax.googleapis.com/ajax/libs/jquery/1.6.4/jquery.min.js"></script>
     <script src="//ajax.googleapis.com/ajax/libs/jqueryui/1.8.16/jquery-ui.min.js"></script>

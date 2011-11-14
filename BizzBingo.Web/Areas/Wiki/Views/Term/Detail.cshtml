@@ -1,0 +1,191 @@
+﻿@using BizzBingo.Web.Areas.Wiki.Models
+@using BizzBingo.Web.Models
+@model DetailTermViewModel
+@{
+    ViewBag.Title = Model.Title;
+}
+<div class="row">
+    <div class="span17">
+        <h1>
+            @Model.Title</h1>
+    </div>
+</div>
+<div class="row">
+    <div class="span11">
+        <p>
+            @Model.Description</p>
+        <div class="well" style="padding: 14px 19px;">
+            <input id="upvote" class="btn success" type="button" value="Like!" />
+            <input id="downvote" class="btn danger" type="button" value="Don´t like!" />
+        </div>
+    </div>
+    <div class="span5">
+        <table class="zebra-striped">
+            <thead>
+                <tr>
+                    <th colspan="2" style="width: 190px;">
+                        <h3>
+                            Stats</h3>
+                    </th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr>
+                    <td>
+                        Shared on
+                    </td>
+                    <td>
+                        @Model.CreatedOn
+                    </td>
+                </tr>
+                <tr>
+                    <td>
+                        Views
+                    </td>
+                    <td id="stateViews">
+                        @Model.Views
+                    </td>
+                </tr>
+                <tr>
+                    <td>
+                        Likes
+                    </td>
+                    <td id="stateUpvotes">
+                        @Model.UpVotes
+                    </td>
+                </tr>
+                <tr>
+                    <td>
+                        Don´t likes
+                    </td>
+                    <td id="stateDownvotes">
+                        @Model.DownVotes
+                    </td>
+                </tr>
+            </tbody>
+        </table>
+    </div>
+</div>
+<div class="row">
+    <div class="span11">
+        <ul class="tabs">
+            <li><a href="#all">All resources</a></li>
+            <li class="active"><a href="#popular">Popularity</a></li>
+        </ul>
+        <div class="tab-content">
+            <div class="tab-pane " id="all">
+                @foreach (Resource resource in Model.Resources)
+                {
+                    <div class="row">
+                        <div class="span3">
+                            <img class="thumbnail" src="http://placehold.it/150x113" alt="">
+                        </div>
+                        <div class="span8">
+                            <h4>
+                                @resource.Title <small>&nbsp;</small>&nbsp;<span class="label">@resource.Upvotes -@resource.Downvotes</span></h4>
+                            <p>@resource.Description</p>
+                            <div class="well" style="padding: 14px 19px;">
+                                <input id="upvote" class="btn" type="button" value="+">
+                                <input id="downvote" class="btn" type="button" value="-">
+                            </div>
+                        </div>
+                    </div>
+                }
+                <div class="row">
+                    <div class="span11">
+                        <legend>
+                            <h3>
+                                Add a new resource</h3>
+                        </legend>
+                            @using (Ajax.BeginForm("Resource", "Term", new AjaxOptions() { HttpMethod = "POST", OnComplete = "resourceAdded" }))
+                            {
+                                <fieldset>
+                                    @Html.Hidden("TermId", Model.Id)
+                                    <div class="clearfix">
+                                        <label for="title">
+                                            Title</label>
+                                        <div class="input">
+                                            <input class="xlarge" id="title" name="title" size="30" type="text">
+                                        </div>
+                                    </div>
+                                    <div class="clearfix">
+                                        <label for="description">
+                                            Description</label>
+                                        <div class="input">
+                                            <textarea class="xlarge" id="description" name="description" rows="3"></textarea>
+                                            <span class="help-block">Block of help text to describe the field above if need be.
+                                            </span>
+                                        </div>
+                                    </div>
+                                    <div class="clearfix">
+                                        <label for="url">
+                                            Url</label>
+                                        <div class="input">
+                                            <input class="xlarge" id="url" name="url" size="30" type="text">
+                                        </div>
+                                    </div>
+                                    <div class="actions">
+                                        <input type="submit" class="btn primary" value="Save changes">&nbsp;
+                                        <button type="reset" class="btn">
+                                            Cancel</button>
+                                    </div>
+                                </fieldset>
+                            }
+                    </div>
+                </div>
+            </div>
+            <div class="tab-pane active" id="popular">
+                <iframe src="http://www.gmodules.com/ig/ifr?url=http://www.google.com/ig/modules/trends_gadget.xml&amp;source=imag&amp;up_is_init=true&amp;up_cur_term=@Url.Encode(Model.Title)"
+                style="border: 1px solid #ccc; padding: 10px;" width="620" height="250" frameborder="0"
+                scrolling="no"></iframe>
+            </div>
+        </div>
+    </div>
+</div>
+<div class="row">
+    <div class="span11">
+        <h2>
+            Comments
+        </h2>
+        @{Html.RenderPartial("DisqusComments");}
+    </div>
+</div>
+@section Scripts
+{
+    <script type="text/javascript">
+        $(function () {
+            $("#upvote").click(function () {
+                $.ajax({
+                    url: '@Url.Action("Upvote")?id=@Model.Id',
+                    type: 'PUT',
+                    success: function (result) {
+                        refreshStats(result);
+                    }
+                });
+            });
+
+            $("#downvote").click(function () {
+                $.ajax({
+                    url: '@Url.Action("Downvote")?id=@Model.Id',
+                    type: 'PUT',
+                    success: function (result) {
+                        refreshStats(result);
+                    }
+                });
+            });
+
+
+            $('.tabs').tabs();
+        });
+
+        function refreshStats(result) {
+            $("#stateViews").html(result.Views);
+            $("#stateDownvotes").html(result.DownVotes);
+            $("#stateUpvotes").html(result.UpVotes);
+        }
+
+        function resourceAdded() {
+            window.location.reload();
+        }
+    </script>
+}

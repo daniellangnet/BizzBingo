@@ -25,7 +25,7 @@
         <p>
             @topWords.Description</p>
         <p>
-            <a class="btn" href="@Url.Action("Detail", "Word", new { area = "Wiki", slug = topWords.Slug })">View details &raquo;</a></p>
+            <a class="btn" href="@Url.Action("Detail", "Term", new { area = "Wiki", slug = topWords.Slug })">View details &raquo;</a></p>
         }
     </div>
     <div class="span8">
@@ -38,8 +38,9 @@
         <p>
             @newWords.Description</p>
         <p>
-            <a class="btn" href="@Url.Action("Detail", "Word", new { area = "Wiki", slug = newWords.Slug })">View details &raquo;</a></p>
+            <a class="btn" href="@Url.Action("Detail", "Term", new { area = "Wiki", slug = newWords.Slug })">View details &raquo;</a></p>
         }
+</div>
 </div>
 <div id="modal-from-dom" class="modal hide fade">
     <div class="modal-header">
