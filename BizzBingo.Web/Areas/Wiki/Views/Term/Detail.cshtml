@@ -69,20 +69,21 @@
 <div class="row">
     <div class="span11">
         <ul class="tabs">
-            <li><a href="#all">All resources</a></li>
-            <li class="active"><a href="#popular">Popularity</a></li>
+            <li class="active"><a href="#all">All resources</a></li>
+            <li><a href="#popular">Popularity</a></li>
         </ul>
         <div class="tab-content">
-            <div class="tab-pane " id="all">
+            <div class="tab-pane active" id="all">
                 @foreach (Resource resource in Model.Resources)
                 {
                     <div class="row">
                         <div class="span3">
-                            <img class="thumbnail" src="http://placehold.it/150x113" alt="">
+
+                            <img class="thumbnail" src="http://image.thumber.de/?size=L&amp;url=@Url.Encode(resource.Url)" alt="">
                         </div>
                         <div class="span8">
                             <h4>
-                                @resource.Title <small>&nbsp;</small>&nbsp;<span class="label">@resource.Upvotes -@resource.Downvotes</span></h4>
+                                <a href="@resource.Url">@resource.Title</a> <small>&nbsp;</small>&nbsp;<span class="label">@resource.Upvotes -@resource.Downvotes</span></h4>
                             <p>@resource.Description</p>
                             <div class="well" style="padding: 14px 19px;">
                                 <input id="upvote" class="btn" type="button" value="+">
@@ -102,6 +103,13 @@
                                 <fieldset>
                                     @Html.Hidden("TermId", Model.Id)
                                     <div class="clearfix">
+                                        <label for="url">
+                                            Url</label>
+                                        <div class="input">
+                                            <input class="xlarge" id="url" name="url" size="30" type="text">
+                                        </div>
+                                    </div>
+                                    <div class="clearfix">
                                         <label for="title">
                                             Title</label>
                                         <div class="input">
@@ -113,15 +121,8 @@
                                             Description</label>
                                         <div class="input">
                                             <textarea class="xlarge" id="description" name="description" rows="3"></textarea>
-                                            <span class="help-block">Block of help text to describe the field above if need be.
+                                            <span class="help-block">Short description...
                                             </span>
-                                        </div>
-                                    </div>
-                                    <div class="clearfix">
-                                        <label for="url">
-                                            Url</label>
-                                        <div class="input">
-                                            <input class="xlarge" id="url" name="url" size="30" type="text">
                                         </div>
                                     </div>
                                     <div class="actions">
@@ -134,10 +135,9 @@
                     </div>
                 </div>
             </div>
-            <div class="tab-pane active" id="popular">
-                <iframe src="http://www.gmodules.com/ig/ifr?url=http://www.google.com/ig/modules/trends_gadget.xml&amp;source=imag&amp;up_is_init=true&amp;up_cur_term=@Url.Encode(Model.Title)"
-                style="border: 1px solid #ccc; padding: 10px;" width="620" height="250" frameborder="0"
-                scrolling="no"></iframe>
+            <div class="tab-pane" id="popular">
+                <img src="http://www.google.com/trends/viz?q=@Url.Encode(Model.Title)&geo=all&date=all&graph=gadget&width=640&height=190&hl=en" />
+                <p><a href="http://www.google.com/insights/search/#q=@Url.Encode(Model.Title)&cmpt=date">Search Insight by Google</a></p>
             </div>
         </div>
     </div>
@@ -174,6 +174,18 @@
                 });
             });
 
+            $("#url").blur(function () {
+                $.ajax({
+                    url: '@Url.Action("Lookup")?url=' + $("#url").val(),
+                    type: 'GET',
+                    success: function (result) {
+                        if(result != false) {
+                            $("#title").val(result.Title);
+                            $("#description").val(result.Description);
+                        }
+                    }
+                });
+            });
 
             $('.tabs').tabs();
         });

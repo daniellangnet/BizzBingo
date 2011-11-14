@@ -10,6 +10,8 @@ using Raven.Client.Indexes;
 
 namespace BizzBingo.Web.Infrastructure.Raven
 {
+    using global::Raven.Database.Server;
+
     /// <summary>
     /// This class manages the state of objects that desire a document session. We aren't relying on an IoC container here
     /// because this is the sole case where we actually need to do injection.
@@ -25,10 +27,12 @@ namespace BizzBingo.Web.Infrastructure.Raven
 
         private static IDocumentStore CreateDocumentStore()
         {
+            //NonAdminHttp.EnsureCanListenToWhenInNonAdminContext(8080); 
+
             var documentStore = new EmbeddableDocumentStore
             {
                 ConnectionStringName = "RavenDB",
-                UseEmbeddedHttpServer = true
+                UseEmbeddedHttpServer = false
             }.Initialize();
 
             return documentStore;

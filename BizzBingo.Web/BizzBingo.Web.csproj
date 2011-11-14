@@ -81,6 +81,15 @@
       <SpecificVersion>False</SpecificVersion>
       <HintPath>..\packages\Glimpse.Mvc3.0.85\lib\net40\Glimpse.Mvc3.dll</HintPath>
     </Reference>
+    <Reference Include="Google.GData.Client">
+      <HintPath>..\packages\Google.GData.Client.1.9.0.0\lib\Google.GData.Client.dll</HintPath>
+    </Reference>
+    <Reference Include="Google.GData.Extensions">
+      <HintPath>..\packages\Google.GData.Extensions.1.9.0.0\lib\Google.GData.Extensions.dll</HintPath>
+    </Reference>
+    <Reference Include="Google.GData.YouTube">
+      <HintPath>..\packages\Google.GData.YouTube.1.9.0.0\lib\Google.GData.YouTube.dll</HintPath>
+    </Reference>
     <Reference Include="ICSharpCode.NRefactory, Version=3.0.0.3800, Culture=neutral, PublicKeyToken=efe927acf176eea2, processorArchitecture=MSIL">
       <HintPath>..\packages\RavenDB-Embedded.1.0.495\lib\net40\ICSharpCode.NRefactory.dll</HintPath>
     </Reference>
@@ -191,7 +200,9 @@
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>
-    <Content Include="Config\combres.xml" />
+    <Content Include="Config\combres.xml">
+      <SubType>Designer</SubType>
+    </Content>
     <Content Include="App_Readme\glimpse.mvc3.readme.txt" />
     <Content Include="App_Readme\glimpse.readme.txt" />
     <Content Include="Content\bootstrap.min.css" />
@@ -266,7 +277,6 @@
     <Content Include="Areas\Wiki\Views\Web.config" />
     <Content Include="Areas\Wiki\Views\Term\Detail.cshtml" />
     <Content Include="Areas\Wiki\Views\_ViewStart.cshtml" />
-    <Content Include="Areas\Wiki\Views\Term\Archive.cshtml" />
     <Content Include="Views\Shared\DisqusComments.cshtml" />
     <None Include="_bin_deployableAssemblies\System.Web.Mvc.dll" />
     <None Include="_bin_deployableAssemblies\WebMatrix.WebData.xml" />

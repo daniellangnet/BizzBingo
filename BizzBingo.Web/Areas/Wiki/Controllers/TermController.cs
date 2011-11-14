@@ -2,8 +2,14 @@
 {
     using System;
     using System.Collections.Generic;
+    using System.IO;
     using System.Linq;
+    using System.Net;
+    using System.Text;
     using System.Web.Mvc;
+    using System.Xml.Linq;
+    using Google.GData.Client;
+    using Google.YouTube;
     using Models;
     using Web.Controllers;
     using Web.Models;
@@ -63,11 +69,39 @@
             return Json(word);
         }
 
+        [HttpGet]
+        public JsonResult Lookup(string url)
+        {
+            if (url.ToLower().StartsWith("http://www.youtube.com/watch?v="))
+            {
+                Uri youTubeLink = new Uri(url);
+                var parameters = System.Web.HttpUtility.ParseQueryString(youTubeLink.Query);
+                var video = parameters["v"];
+
+                
+                if (string.IsNullOrWhiteSpace(video)) return Json(false);
+
+                Uri youTubeApi = new Uri(string.Format("http://gdata.youtube.com/feeds/api/videos/{0}", video));
+                YouTubeRequestSettings settings = new YouTubeRequestSettings(null, null);
+
+                Google.YouTube.YouTubeRequest request = new YouTubeRequest(settings);
+                var result = request.Retrieve<Video>(youTubeApi);
+
+                Resource suggestion = new Resource();
+                suggestion.Title = result.Title;
+                suggestion.Description = result.Description;
+
+                return Json(suggestion, JsonRequestBehavior.AllowGet);
+            }
+
+            return Json(false);
+        }
+
         [HttpPost]
         public JsonResult Resource(CreateResourceModel model)
         {
             Term word = Session.Load<Term>(model.TermId);
-            
+
             Resource resource = new Resource();
             resource.Id = Guid.NewGuid();
             resource.CreatedOn = DateTime.UtcNow;
@@ -75,7 +109,7 @@
             resource.Description = model.Description;
             resource.Url = model.Url;
 
-            if(word.Resources == null) word.Resources = new List<Resource>();
+            if (word.Resources == null) word.Resources = new List<Resource>();
             word.Resources.Add(resource);
 
             Session.Store(word);
