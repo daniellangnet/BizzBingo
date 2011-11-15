@@ -1,12 +1,13 @@
-﻿@{
+﻿@using System.Configuration
+@{
     Layout = "";   
 }
 <div id="disqus_thread">
 </div>
 <script type="text/javascript">
     /* * * CONFIGURATION VARIABLES: EDIT BEFORE PASTING INTO YOUR WEBPAGE * * */
-    var disqus_shortname = 'bizzbingo'; // required: replace example with your forum shortname
-    var disqus_developer = 1; // developer mode is on
+    var disqus_shortname = '@ConfigurationManager.AppSettings["DisqusName"]'; // required: replace example with your forum shortname
+    var disqus_developer = @ConfigurationManager.AppSettings["DisqusDevMode"]; // developer mode is on
     /* * * DON'T EDIT BELOW THIS LINE * * */
     (function () {
         var dsq = document.createElement('script'); dsq.type = 'text/javascript'; dsq.async = true;

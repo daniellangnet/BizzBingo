@@ -16,7 +16,7 @@ namespace BizzBingo.Web.Areas.Wiki
         {
             context.MapRoute(
                 "Wiki_Term_SEO",
-                "Wiki/{slug}",
+                "what-is/{slug}",
                 new { controller = "Term", action = "Detail" }
             );
 

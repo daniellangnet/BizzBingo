@@ -188,6 +188,7 @@
     <Compile Include="Areas\Wiki\WikiAreaRegistration.cs" />
     <Compile Include="Controllers\BaseController.cs" />
     <Compile Include="Controllers\HomeController.cs" />
+    <Compile Include="Controllers\MetaController.cs" />
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
@@ -277,7 +278,9 @@
     <Content Include="Areas\Wiki\Views\Web.config" />
     <Content Include="Areas\Wiki\Views\Term\Detail.cshtml" />
     <Content Include="Areas\Wiki\Views\_ViewStart.cshtml" />
-    <Content Include="Views\Shared\DisqusComments.cshtml" />
+    <Content Include="Views\Shared\3rdPartyScripts_DisqusComments.cshtml" />
+    <Content Include="Views\Shared\3rdPartyScripts_GoogleAnalytics.cshtml" />
+    <Content Include="Views\Shared\3rdPartyScripts_Uservoice.cshtml" />
     <None Include="_bin_deployableAssemblies\System.Web.Mvc.dll" />
     <None Include="_bin_deployableAssemblies\WebMatrix.WebData.xml" />
     <None Include="_bin_deployableAssemblies\WebMatrix.WebData.dll" />

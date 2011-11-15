@@ -147,7 +147,7 @@
         <h2>
             Comments
         </h2>
-        @{Html.RenderPartial("DisqusComments");}
+        @{Html.RenderAction("Render3rdPartyScripts", "Meta", new { preventFromRenderingInDevelopment = false, name = "DisqusComments", area = "" });}
     </div>
 </div>
 @section Scripts

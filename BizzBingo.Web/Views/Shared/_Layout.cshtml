@@ -64,5 +64,8 @@
     <script src="@Url.Content("~/Scripts/dd_belatedpng.js")"></script>
     <script>DD_belatedPNG.fix("img, .png_bg"); // Fix any <img> or .png_bg bg-images. Also, please read goo.gl/mZiyb </script>
   <![endif]-->
+
+   @{Html.RenderAction("Render3rdPartyScripts", "Meta", new { preventFromRenderingInDevelopment = true, name = "GoogleAnalytics", area = "" });}
+   @{Html.RenderAction("Render3rdPartyScripts", "Meta", new { preventFromRenderingInDevelopment = false, name = "UserVoice", area = "" });}
 </body>
 </html>
