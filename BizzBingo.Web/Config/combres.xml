@@ -27,6 +27,7 @@
       <resource path="~/content/patterns.less" />
     </resourceSet>
     <resourceSet name="siteJs" type="js">
+      <resource path="~/scripts/json2.min.js" />
       <resource path="~/Scripts/underscore.min.js" />
       <resource path="~/Scripts/backbone.min.js" />
       <resource path="~/scripts/jquery.unobtrusive-ajax.min.js" />

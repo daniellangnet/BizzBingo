@@ -82,9 +82,11 @@
 {
     <script type="text/javascript">
 
-	    function shareCallback() {
+	    function shareCallback(result) {
 	        $('#modal-from-dom').modal('hide');
-	        window.location.reload();
+	        var resultObject = $.parseJSON(result.responseText);
+	        window.location.href = resultObject.ToTermDetailsUrl;
 	    }
+	    
     </script>  
 }

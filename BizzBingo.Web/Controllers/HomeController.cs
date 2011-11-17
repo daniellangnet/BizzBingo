@@ -35,7 +35,11 @@ namespace BizzBingo.Web.Controllers
             term.Slug = SearchForSlug(term.Title);
             Session.Store(term);
             Session.SaveChanges();
-            return Json(true);
+
+            ShareTermViewModel result = new ShareTermViewModel();
+            result.ToTermDetailsUrl = Url.Action("Detail", "Term", new {area = "Wiki", slug = term.Slug});
+
+            return Json(result);
         }
 
         private string SearchForSlug(string title)
