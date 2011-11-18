@@ -11,5 +11,7 @@ namespace BizzBingo.Web.Models
         public int Downvotes { get; set; }
         public DateTime CreatedOn { get; set; }
         public string Url { get; set; }
+        public Type Type { get; set; }
+        public Provider Provider { get; set; }
     }
 }

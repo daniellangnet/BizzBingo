@@ -37,7 +37,6 @@
                 <a class="brand" href="@Url.Action("Index", "Home", new { area = "" })">BizzBingo</a>
                 <ul class="nav">
                     <li><a href="@Url.Action("Index", "Home", new { area = ""})">Home</a></>
-                    <li><a href="@Url.Action("Contact", "Home", new { area = ""})">Contact</a></li>
                 </ul>
             </div>
         </div>
@@ -51,6 +50,7 @@
         <p class="pull-right"><a href="#">Back to top</a></p>
         <p>
           Thumbnails powered by <a target="_blank" href="http://thumber.de" title="Thumbshots by Thumber.de">Thumbshots</a> <br/>
+          Do you want to contact us? See <a href="@Url.Action("Contact", "Home", new { area = ""})" title="Thumbshots by Thumber.de">this</a> page.<br/>
         </p>
       </div>
     </footer>

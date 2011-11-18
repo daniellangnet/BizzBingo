@@ -13,6 +13,7 @@
     using Models;
     using Web.Controllers;
     using Web.Models;
+    using Type = Web.Models.Type;
 
     public class TermController : BaseController
     {
@@ -28,6 +29,12 @@
         {
             var result = Session.Query<Term>().OrderByDescending(x => x.CreatedOn).Take(5).ToList();
             return Json(result);
+        }
+
+        [HttpGet]
+        public ViewResult Create()
+        {
+            return View();
         }
 
         [HttpGet]
@@ -103,6 +110,17 @@
             resource.Title = model.Title;
             resource.Description = model.Description;
             resource.Url = model.Url;
+
+            if (resource.Url.ToLower().StartsWith("http://www.youtube.com/watch?v="))
+            {
+                resource.Provider = Provider.YouTube;
+                resource.Type = Type.Video;
+            }
+            else if (resource.Url.ToLower().StartsWith("http://speakerdeck.com/u/"))
+            {
+                resource.Provider = Provider.Speakersdeck;
+                resource.Type = Type.Presentation;
+            }
 
             if (word.Resources == null) word.Resources = new List<Resource>();
             word.Resources.Add(resource);

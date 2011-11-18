@@ -27,7 +27,7 @@ namespace BizzBingo.Web.Controllers
         public ActionResult Share(Term term)
         {
             if (string.IsNullOrWhiteSpace(term.Title) || string.IsNullOrWhiteSpace(term.Description))
-                return Json(true);
+                return Json(false);
 
             term.Id = Guid.NewGuid();
             term.CreatedOn = DateTime.UtcNow;
@@ -36,9 +36,8 @@ namespace BizzBingo.Web.Controllers
             Session.Store(term);
             Session.SaveChanges();
 
-            ShareTermViewModel result = new ShareTermViewModel();
-            result.ToTermDetailsUrl = Url.Action("Detail", "Term", new {area = "Wiki", slug = term.Slug});
-
+            string url = Url.Action("Detail", "Term", new {area = "Wiki", slug = term.Slug});
+            dynamic result = new {ToTermUrl = url};
             return Json(result);
         }
 

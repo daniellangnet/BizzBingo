@@ -9,9 +9,6 @@ namespace BizzBingo.Web.Areas.Wiki.Models
     {
         public string Title { get; set; }
         public string Description { get; set; }
-        public int Upvotes { get; set; }
-        public int Downvotes { get; set; }
-        public DateTime CreatedOn { get; set; }
         public string Url { get; set; }
         public Guid TermId { get; set; }
     }

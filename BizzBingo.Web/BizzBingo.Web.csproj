@@ -195,9 +195,11 @@
     <Compile Include="Helper\Extensions.cs" />
     <Compile Include="Infrastructure\Raven\DocumentStoreHolder.cs" />
     <Compile Include="Infrastructure\Raven\RavenActionFilterAttribute.cs" />
+    <Compile Include="Models\Category.cs" />
     <Compile Include="Models\Home\IndexViewModel.cs" />
-    <Compile Include="Models\Home\ShareTermViewModel.cs" />
+    <Compile Include="Models\Provider.cs" />
     <Compile Include="Models\Resource.cs" />
+    <Compile Include="Models\Type.cs" />
     <Compile Include="Models\Word.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
@@ -284,6 +286,7 @@
     <Content Include="Views\Shared\3rdPartyScripts_DisqusComments.cshtml" />
     <Content Include="Views\Shared\3rdPartyScripts_GoogleAnalytics.cshtml" />
     <Content Include="Views\Shared\3rdPartyScripts_Uservoice.cshtml" />
+    <Content Include="Areas\Wiki\Views\Term\Create.cshtml" />
     <None Include="_bin_deployableAssemblies\System.Web.Mvc.dll" />
     <None Include="_bin_deployableAssemblies\WebMatrix.WebData.xml" />
     <None Include="_bin_deployableAssemblies\WebMatrix.WebData.dll" />

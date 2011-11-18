@@ -3,7 +3,6 @@
     ViewBag.Title = "Home Page";
 }
 @model IndexViewModel
-           
 <div class="hero-unit">
     <h1>
         Hello, Bizzer!</h1>
@@ -20,12 +19,15 @@
             Top</h2>
         @foreach (var topWords in Model.Top)
         { 
-        <h3>
-            @topWords.Title &nbsp; @if (topWords.UpVotes > 0) {<span class="label">@topWords.UpVotes Likes!</span>}</h3>
-        <p>
-            @topWords.Description</p>
-        <p>
-            <a class="btn" href="@Url.Action("Detail", "Term", new { area = "Wiki", slug = topWords.Slug })">View details &raquo;</a></p>
+            <h3>
+                @topWords.Title &nbsp;
+                @if (topWords.UpVotes > 0)
+                {<span class="label">@topWords.UpVotes Likes!</span>}</h3>
+            <p>
+                @topWords.Description</p>
+            <p>
+                <a class="btn" href="@Url.Action("Detail", "Term", new { area = "Wiki", slug = topWords.Slug })">
+                    View details &raquo;</a></p>
         }
     </div>
     <div class="span8">
@@ -33,14 +35,15 @@
             Newest</h2>
         @foreach (var newWords in Model.Newest)
         { 
-        <h3>
-            @newWords.Title  <small>@newWords.CreatedOn.ToShortDateString()</small></h3>
-        <p>
-            @newWords.Description</p>
-        <p>
-            <a class="btn" href="@Url.Action("Detail", "Term", new { area = "Wiki", slug = newWords.Slug })">View details &raquo;</a></p>
+            <h3>
+                @newWords.Title <small>@newWords.CreatedOn.ToShortDateString()</small></h3>
+            <p>
+                @newWords.Description</p>
+            <p>
+                <a class="btn" href="@Url.Action("Detail", "Term", new { area = "Wiki", slug = newWords.Slug })">
+                    View details &raquo;</a></p>
         }
-</div>
+    </div>
 </div>
 <div id="modal-from-dom" class="modal hide fade">
     <div class="modal-header">
@@ -50,43 +53,44 @@
     </div>
     @using (Ajax.BeginForm("Share", "Home", new AjaxOptions() { HttpMethod = "POST", OnComplete = "shareCallback" }))
     {
-    <div class="modal-body">
-
-        <fieldset>
-            <div class="clearfix">
-                <label for="title">
-                    Buzzword</label>
-                <div class="input">
-                    <input class="xlarge" name="title" size="30" type="text">
+        <div class="modal-body">
+            <fieldset>
+                <div class="clearfix">
+                    <label for="title">
+                        Buzzword</label>
+                    <div class="input">
+                        <input class="xlarge" name="title" size="30" type="text">
+                    </div>
                 </div>
-            </div>
-            <!-- /clearfix -->
-            <div class="clearfix">
-                <label for="description">
-                    Description</label>
-                <div class="input">
-                    <textarea class="xlarge" name="description" rows="3"></textarea>
+                <!-- /clearfix -->
+                <div class="clearfix">
+                    <label for="description">
+                        Description</label>
+                    <div class="input">
+                        <textarea class="xlarge" name="description" rows="3"></textarea>
+                    </div>
                 </div>
-            </div>
-            <!-- /clearfix -->
-        </fieldset>
-           
-    </div>
-    <div class="modal-footer">
-        <input type="submit" id="shareButton" value="Share" class="btn primary">
-    </div>
+                <!-- /clearfix -->
+            </fieldset>
+        </div>
+        <div class="modal-footer">
+            <input type="submit" id="shareButton" value="Share" class="btn primary">
+        </div>
     }
 </div>
-
 @section Scripts
 {
     <script type="text/javascript">
 
-	    function shareCallback(result) {
-	        $('#modal-from-dom').modal('hide');
-	        var resultObject = $.parseJSON(result.responseText);
-	        window.location.href = resultObject.ToTermDetailsUrl;
-	    }
+        function shareCallback(result) {
+
+            if (result.responseText != 'false') {
+
+                $('#modal-from-dom').modal('hide');
+                var resultObject = $.parseJSON(result.responseText);
+                window.location.href = resultObject.ToTermUrl;
+            }
+        }
 	    
-    </script>  
+    </script>
 }
