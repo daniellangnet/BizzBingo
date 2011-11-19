@@ -14,9 +14,11 @@
     <div class="span11">
         <p>
             @Model.Description</p>
-        <div class="well" style="padding: 14px 19px;">
-            <input id="upvote" class="btn success" type="button" value="Like!" />
-            <input id="downvote" class="btn danger" type="button" value="Don´t like!" />
+        <div class="span4">
+            <div class="well" style="padding: 14px 19px;">
+                <input id="upvote" class="btn" type="button" value="Like!" />
+                <input id="downvote" class="btn" type="button" value="Don´t like!" />
+            </div>
         </div>
     </div>
     <div class="span5">
@@ -74,23 +76,23 @@
         </ul>
         <div class="tab-content">
             <div class="tab-pane active" id="all">
-                @foreach (Resource resource in Model.Resources)
+                @foreach (DetailResourceViewModel resource in Model.Resources)
                 {
                     <div class="row">
+                        <div class="span11"><h4>@resource.Title &nbsp;<small><span class="label">@resource.Votes</span></small></h4><p>@resource.Description</p></div>
+                    </div>
+                    <div class="row">
                         <div class="span3">
-
-                            <img class="thumbnail" src="http://image.thumber.de/?size=L&amp;url=@Url.Encode(resource.Url)" alt="">
+                                <div class="well" style="padding: 14px 19px;">
+                                    <input id="upvote" class="btn" type="button" value="+1">
+                                    <input id="downvote" class="btn" type="button" value="-1">
+                                </div>
                         </div>
                         <div class="span8">
-                            <h4>
-                                <a href="@resource.Url">@resource.Title</a> <small>&nbsp;</small>&nbsp;<span class="label">@resource.Upvotes -@resource.Downvotes</span></h4>
-                            <p>@resource.Description</p>
-                            <div class="well" style="padding: 14px 19px;">
-                                <input id="upvote" class="btn" type="button" value="+">
-                                <input id="downvote" class="btn" type="button" value="-">
-                            </div>
+                            <a href="@resource.Url">Link</a>
                         </div>
                     </div>
+
                 }
                 <div class="row">
                     <div class="span11">
@@ -98,46 +100,48 @@
                             <h3>
                                 Add a new resource</h3>
                         </legend>
-                            @using (Ajax.BeginForm("Resource", "Term", new AjaxOptions() { HttpMethod = "POST", OnComplete = "resourceAdded" }))
-                            {
-                                <fieldset>
-                                    @Html.Hidden("TermId", Model.Id)
-                                    <div class="clearfix">
-                                        <label for="url">
-                                            Url</label>
-                                        <div class="input">
-                                            <input class="xlarge" id="url" name="url" size="30" type="text">
-                                        </div>
+                        @using (Ajax.BeginForm("Resource", "Term", new AjaxOptions() { HttpMethod = "POST", OnComplete = "resourceAdded" }))
+                        {
+                            <fieldset>
+                                @Html.Hidden("TermId", Model.Id)
+                                <div class="clearfix">
+                                    <label for="url">
+                                        Url</label>
+                                    <div class="input">
+                                        <input class="xlarge" id="url" name="url" size="30" type="text">
                                     </div>
-                                    <div class="clearfix">
-                                        <label for="title">
-                                            Title</label>
-                                        <div class="input">
-                                            <input class="xlarge" id="title" name="title" size="30" type="text">
-                                        </div>
+                                </div>
+                                <div class="clearfix">
+                                    <label for="title">
+                                        Title</label>
+                                    <div class="input">
+                                        <input class="xlarge" id="title" name="title" size="30" type="text">
                                     </div>
-                                    <div class="clearfix">
-                                        <label for="description">
-                                            Description</label>
-                                        <div class="input">
-                                            <textarea class="xlarge" id="description" name="description" rows="3"></textarea>
-                                            <span class="help-block">Short description...
-                                            </span>
-                                        </div>
+                                </div>
+                                <div class="clearfix">
+                                    <label for="description">
+                                        Description</label>
+                                    <div class="input">
+                                        <textarea class="xlarge" id="description" name="description" rows="3"></textarea>
                                     </div>
-                                    <div class="actions">
-                                        <input type="submit" class="btn primary" value="Save changes">&nbsp;
-                                        <button type="reset" class="btn">
-                                            Cancel</button>
-                                    </div>
-                                </fieldset>
-                            }
+                                </div>
+                                <div class="clearfix" id="preview">
+                                </div>
+                                <div class="actions">
+                                    <input type="submit" class="btn primary" value="Save changes">&nbsp;
+                                    <button type="reset" class="btn">
+                                        Cancel</button>
+                                </div>
+                            </fieldset>
+                        }
                     </div>
                 </div>
             </div>
             <div class="tab-pane" id="popular">
                 <img src="http://www.google.com/trends/viz?q=@Url.Encode(Model.Title)&geo=all&date=all&graph=gadget&width=640&height=190&hl=en" />
-                <p><a href="http://www.google.com/insights/search/#q=@Url.Encode(Model.Title)&cmpt=date">Search Insight by Google</a></p>
+                <p>
+                    <a href="http://www.google.com/insights/search/#q=@Url.Encode(Model.Title)&cmpt=date">
+                        Search Insight by Google</a></p>
             </div>
         </div>
     </div>
@@ -175,19 +179,22 @@
             });
 
             $("#url").blur(function () {
-                $.ajax({
-                    url: '@Url.Action("Lookup")?url=' + $("#url").val(),
-                    type: 'GET',
-                    success: function (result) {
-                        if(result != false) {
-                            $("#title").val(result.Title);
-                            $("#description").val(result.Description);
-                        }
-                    }
+                $.embedly($("#url").val(), { key: Global_EmbedLy_Key, maxWidth: 640 }, function (oembed, dict) {
+                    $("#title").val(oembed.title);
+                    $("#description").val(oembed.description);
+                    $("#preview").html(oembed.html);
                 });
+
             });
 
             $('.tabs').tabs();
+
+            $('#all').embedly({
+                maxWidth: 400,
+                wmode: 'transparent',
+                method: 'replace',
+                key: Global_EmbedLy_Key
+            });
         });
 
         function refreshStats(result) {

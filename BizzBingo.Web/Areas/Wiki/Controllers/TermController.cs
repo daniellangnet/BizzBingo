@@ -13,7 +13,6 @@
     using Models;
     using Web.Controllers;
     using Web.Models;
-    using Type = Web.Models.Type;
 
     public class TermController : BaseController
     {
@@ -55,8 +54,19 @@
             model.UpVotes = word.UpVotes;
             model.Slug = word.Slug;
             model.CreatedOn = word.CreatedOn.ToShortDateString();
-            if (word.Resources == null) model.Resources = new List<Resource>();
-            else model.Resources = word.Resources;
+            model.Resources = new List<DetailResourceViewModel>();
+            if (word.Resources != null)
+            {
+                foreach (var resource in word.Resources)
+                {
+                    DetailResourceViewModel viewModelForResource = new DetailResourceViewModel();
+                    viewModelForResource.Title = resource.Title;
+                    viewModelForResource.Url = resource.Url;
+                    viewModelForResource.Description = resource.Description;
+                    viewModelForResource.Votes = resource.Upvotes - resource.Downvotes;
+                    model.Resources.Add(viewModelForResource);
+                }
+            }
 
             return View(model);
         }
@@ -71,34 +81,6 @@
             return Json(word);
         }
 
-        [HttpGet]
-        public JsonResult Lookup(string url)
-        {
-            if (url.ToLower().StartsWith("http://www.youtube.com/watch?v="))
-            {
-                Uri youTubeLink = new Uri(url);
-                var parameters = System.Web.HttpUtility.ParseQueryString(youTubeLink.Query);
-                var video = parameters["v"];
-
-                
-                if (string.IsNullOrWhiteSpace(video)) return Json(false);
-
-                Uri youTubeApi = new Uri(string.Format("http://gdata.youtube.com/feeds/api/videos/{0}", video));
-                YouTubeRequestSettings settings = new YouTubeRequestSettings(null, null);
-
-                Google.YouTube.YouTubeRequest request = new YouTubeRequest(settings);
-                var result = request.Retrieve<Video>(youTubeApi);
-
-                Resource suggestion = new Resource();
-                suggestion.Title = result.Title;
-                suggestion.Description = result.Description;
-
-                return Json(suggestion, JsonRequestBehavior.AllowGet);
-            }
-
-            return Json(false);
-        }
-
         [HttpPost]
         public JsonResult Resource(CreateResourceModel model)
         {
@@ -110,17 +92,6 @@
             resource.Title = model.Title;
             resource.Description = model.Description;
             resource.Url = model.Url;
-
-            if (resource.Url.ToLower().StartsWith("http://www.youtube.com/watch?v="))
-            {
-                resource.Provider = Provider.YouTube;
-                resource.Type = Type.Video;
-            }
-            else if (resource.Url.ToLower().StartsWith("http://speakerdeck.com/u/"))
-            {
-                resource.Provider = Provider.Speakersdeck;
-                resource.Type = Type.Presentation;
-            }
 
             if (word.Resources == null) word.Resources = new List<Resource>();
             word.Resources.Add(resource);

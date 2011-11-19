@@ -57,6 +57,7 @@
     <!-- JavaScript at the bottom for fast page loading -->
     <script src="//ajax.googleapis.com/ajax/libs/jquery/1.6.4/jquery.min.js"></script>
     <script src="//ajax.googleapis.com/ajax/libs/jqueryui/1.8.16/jquery-ui.min.js"></script>
+    <script src="http://scripts.embed.ly/jquery.embedly.min.js"></script>
     <script src="@Html.CombresUrl("siteJs")"></script>
     @RenderSection("Scripts", required: false)
     <!-- end scripts-->
@@ -67,5 +68,7 @@
 
    @{Html.RenderAction("Render3rdPartyScripts", "Meta", new { preventFromRenderingInDevelopment = true, name = "GoogleAnalytics", area = "" });}
    @{Html.RenderAction("Render3rdPartyScripts", "Meta", new { preventFromRenderingInDevelopment = false, name = "UserVoice", area = "" });}
+   @{Html.RenderAction("Render3rdPartyScripts", "Meta", new { preventFromRenderingInDevelopment = false, name = "Embedly", area = "" });}
+
 </body>
 </html>

@@ -17,6 +17,6 @@ namespace BizzBingo.Web.Areas.Wiki.Models
         public string Slug { get; set; }
         public int Views { get; set; }
         public string CreatedOn { get; set; }
-        public IEnumerable<Resource> Resources { get; set; }
+        public List<DetailResourceViewModel> Resources { get; set; }
     }
 }
