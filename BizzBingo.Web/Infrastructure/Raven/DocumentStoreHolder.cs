@@ -10,6 +10,7 @@ using Raven.Client.Indexes;
 
 namespace BizzBingo.Web.Infrastructure.Raven
 {
+    using System.Configuration;
     using global::Raven.Database.Server;
 
     /// <summary>
@@ -27,13 +28,21 @@ namespace BizzBingo.Web.Infrastructure.Raven
 
         private static IDocumentStore CreateDocumentStore()
         {
-            //NonAdminHttp.EnsureCanListenToWhenInNonAdminContext(8080); 
-
-            var documentStore = new EmbeddableDocumentStore
+            if (ConfigurationManager.AppSettings["EmbeddedRavenDB"].ToLower() == "true")
             {
-                ConnectionStringName = "RavenDB",
-                UseEmbeddedHttpServer = false
-            }.Initialize();
+                var embeddedDocumentStore = new EmbeddableDocumentStore
+                {
+                    DataDirectory = @"~\App_Data",
+                    UseEmbeddedHttpServer = true
+                }.Initialize();
+
+                return embeddedDocumentStore;
+            }
+
+            var documentStore = new DocumentStore
+                                    {
+                                        ConnectionStringName = "RavenDB"
+                                    }.Initialize();
 
             return documentStore;
         }
