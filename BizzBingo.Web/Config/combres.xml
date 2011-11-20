@@ -16,16 +16,6 @@
                 localChangeMonitorInterval="30"
                 remoteChangeMonitorInterval="60"
                 >
-    <resourceSet name="siteCss" type="css">
-      <resource path="~/content/reset.less" />
-      <resource path="~/content/variables.less" />
-      <resource path="~/content/mixins.less" />
-      <resource path="~/content/scaffolding.less" />
-      <resource path="~/content/type.less" />
-      <resource path="~/content/forms.less" />
-      <resource path="~/content/tables.less" />
-      <resource path="~/content/patterns.less" />
-    </resourceSet>
     <resourceSet name="siteJs" type="js">
       <resource path="~/scripts/json2.min.js" />
       <resource path="~/Scripts/underscore.min.js" />
