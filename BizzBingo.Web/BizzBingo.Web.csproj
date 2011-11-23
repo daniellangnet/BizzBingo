@@ -180,6 +180,7 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="App_Start\Combres.cs" />
+    <Compile Include="Areas\Wiki\Controllers\ResourceController.cs" />
     <Compile Include="Areas\Wiki\Controllers\TermController.cs" />
     <Compile Include="Areas\Wiki\Models\CreateResourceModel.cs" />
     <Compile Include="Areas\Wiki\Models\DetailResourceViewModel.cs" />
@@ -193,11 +194,11 @@
     </Compile>
     <Compile Include="Helper\Extensions.cs" />
     <Compile Include="Infrastructure\Raven\DocumentStoreHolder.cs" />
+    <Compile Include="Infrastructure\Raven\Indexes\LatestResourceIndex.cs" />
     <Compile Include="Infrastructure\Raven\RavenActionFilterAttribute.cs" />
-    <Compile Include="Models\Category.cs" />
     <Compile Include="Models\Home\IndexViewModel.cs" />
     <Compile Include="Models\Resource.cs" />
-    <Compile Include="Models\Word.cs" />
+    <Compile Include="Models\Term.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>
@@ -285,6 +286,7 @@
     <Content Include="Views\Shared\3rdPartyScripts_Uservoice.cshtml" />
     <Content Include="Areas\Wiki\Views\Term\Create.cshtml" />
     <Content Include="Views\Shared\3rdPartyScripts_Embedly.cshtml" />
+    <Content Include="Areas\Wiki\Views\Resource\MostRecent.cshtml" />
     <None Include="_bin_deployableAssemblies\System.Web.Mvc.dll" />
     <None Include="_bin_deployableAssemblies\WebMatrix.WebData.xml" />
     <None Include="_bin_deployableAssemblies\WebMatrix.WebData.dll" />

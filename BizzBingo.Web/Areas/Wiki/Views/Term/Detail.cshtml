@@ -79,17 +79,17 @@
                 @foreach (DetailResourceViewModel resource in Model.Resources)
                 {
                     <div class="row">
-                        <div class="span11"><h4>@resource.Title &nbsp;<small><span class="label">@resource.Votes</span></small></h4><p>@resource.Description</p></div>
+                        <div class="span11"><h4>@resource.Title &nbsp;@*<small><span class="label">@resource.Votes</span></small>*@</h4><p>@resource.Description</p></div>
                     </div>
                     <div class="row">
-                        <div class="span3">
+@*                        <div class="span3">
                                 <div class="well" style="padding: 14px 19px;">
                                     <input id="upvote" class="btn" type="button" value="+1">
                                     <input id="downvote" class="btn" type="button" value="-1">
                                 </div>
-                        </div>
-                        <div class="span8">
-                            <a href="@resource.Url">Link</a>
+                        </div>*@
+                        <div class="span11">
+                            <a href="@resource.Url">Loading...</a>
                         </div>
                     </div>
 
@@ -104,6 +104,7 @@
                         {
                             <fieldset>
                                 @Html.Hidden("TermId", Model.Id)
+                                @Html.Hidden("Type", "link", new { id="type" })
                                 <div class="clearfix">
                                     <label for="url">
                                         Url</label>
@@ -183,6 +184,7 @@
                     $("#title").val(oembed.title);
                     $("#description").val(oembed.description);
                     $("#preview").html(oembed.html);
+                    $("#type").val(oembed.type);
                 });
 
             });

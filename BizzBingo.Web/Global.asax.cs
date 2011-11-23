@@ -8,7 +8,12 @@ using BizzBingo.Web.Infrastructure.Raven;
 
 namespace BizzBingo.Web
 {
+    using System.Net;
+    using System.Net.Sockets;
+    using Infrastructure.Raven.Indexes;
     using Raven.Client;
+    using Raven.Client.Document;
+    using Raven.Client.Indexes;
     using Raven.Client.MvcIntegration;
 
     // Note: For instructions on enabling IIS6 or IIS7 classic mode, 
@@ -38,8 +43,41 @@ namespace BizzBingo.Web
         {
             AreaRegistration.RegisterAllAreas();
             DocumentStoreHolder.Initailize();
+            TryCreatingIndexesOrRedirectToErrorPage();
             RegisterGlobalFilters(GlobalFilters.Filters);
             RegisterRoutes(RouteTable.Routes);
+        }
+
+                private static void TryCreatingIndexesOrRedirectToErrorPage()
+        {
+            try
+            {
+                IndexCreation.CreateIndexes(typeof(LatestResourceIndex).Assembly, DocumentStoreHolder.DocumentStore);
+            }
+            catch (WebException e)
+            {
+                var socketException = e.InnerException as SocketException;
+                if (socketException == null)
+                    throw;
+
+                switch (socketException.SocketErrorCode)
+                {
+                    case SocketError.AddressNotAvailable:
+                    case SocketError.NetworkDown:
+                    case SocketError.NetworkUnreachable:
+                    case SocketError.ConnectionAborted:
+                    case SocketError.ConnectionReset:
+                    case SocketError.TimedOut:
+                    case SocketError.ConnectionRefused:
+                    case SocketError.HostDown:
+                    case SocketError.HostUnreachable:
+                    case SocketError.HostNotFound:
+                        HttpContext.Current.Response.Redirect("~/RavenNotReachable.htm");
+                        break;
+                    default:
+                        throw;
+                }
+            }
         }
     }
 }

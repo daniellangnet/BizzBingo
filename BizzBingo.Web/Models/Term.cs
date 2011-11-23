@@ -15,6 +15,5 @@
         public int Views { get; set; }
         public DateTime CreatedOn { get; set; }
         public IList<Resource> Resources { get; set; }
-        public Category Category { get; set; }
     }
 }

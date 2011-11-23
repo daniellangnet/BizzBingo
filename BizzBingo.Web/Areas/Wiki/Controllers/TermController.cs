@@ -92,6 +92,7 @@
             resource.Title = model.Title;
             resource.Description = model.Description;
             resource.Url = model.Url;
+            resource.Type = model.Type;
 
             if (word.Resources == null) word.Resources = new List<Resource>();
             word.Resources.Add(resource);

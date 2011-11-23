@@ -14,6 +14,15 @@
             Share a buzzword...</a></p>
 </div>
 <div class="row">
+    <div class="span16">
+        <h2>Recent added to those buzzwords</h2>
+        <div class="row" id="recentResources">
+            @{ Html.RenderAction("MostRecent", "Resource", new { area = "Wiki" }); }
+        </div>
+    </div>
+</div>
+<br/>
+<div class="row">
     <div class="span8">
         <h2>
             Top</h2>
@@ -48,8 +57,7 @@
 <div id="modal-from-dom" class="modal hide fade">
     <div class="modal-header">
         <a href="#" class="close">&times;</a>
-        <h3>
-            Share a new buzzword</h3>
+        <h3>Share a new buzzword</h3>
     </div>
     @using (Ajax.BeginForm("Share", "Home", new AjaxOptions() { HttpMethod = "POST", OnComplete = "shareCallback" }))
     {
@@ -81,6 +89,12 @@
 @section Scripts
 {
     <script type="text/javascript">
+
+        $(function() {
+            $('#recentResources').embedly({ key: Global_EmbedLy_Key, 
+                                            maxWidth: 250,
+                                            maxHeight: 250});
+        });
 
         function shareCallback(result) {
 
