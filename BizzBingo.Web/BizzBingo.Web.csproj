@@ -287,6 +287,7 @@
     <Content Include="Areas\Wiki\Views\Term\Create.cshtml" />
     <Content Include="Views\Shared\3rdPartyScripts_Embedly.cshtml" />
     <Content Include="Areas\Wiki\Views\Resource\MostRecent.cshtml" />
+    <Content Include="Areas\Wiki\Views\Term\Like.cshtml" />
     <None Include="_bin_deployableAssemblies\System.Web.Mvc.dll" />
     <None Include="_bin_deployableAssemblies\WebMatrix.WebData.xml" />
     <None Include="_bin_deployableAssemblies\WebMatrix.WebData.dll" />

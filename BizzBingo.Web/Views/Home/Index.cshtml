@@ -15,7 +15,7 @@
 </div>
 <div class="row">
     <div class="span16">
-        <h2>Recent added to those buzzwords</h2>
+        <h2>Recently added to those buzzwords</h2>
         <div class="row" id="recentResources">
             @{ Html.RenderAction("MostRecent", "Resource", new { area = "Wiki" }); }
         </div>
@@ -92,8 +92,8 @@
 
         $(function() {
             $('#recentResources').embedly({ key: Global_EmbedLy_Key, 
-                                            maxWidth: 250,
-                                            maxHeight: 250});
+                                            maxWidth: 450,
+                                            maxHeight: 450});
         });
 
         function shareCallback(result) {

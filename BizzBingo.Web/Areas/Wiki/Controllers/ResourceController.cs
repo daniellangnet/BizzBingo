@@ -21,7 +21,7 @@
         [ChildActionOnly]
         public ViewResult MostRecent()
         {
-            var result = Session.Query<LatestResourceIndex.LatestResourceResult, LatestResourceIndex>().Where(x => x.Type != "link").OrderByDescending(x => x.CreatedOn).Take(3).ToList(); ;
+            var result = Session.Query<LatestResourceIndex.LatestResourceResult, LatestResourceIndex>().Where(x => x.Type != "link").OrderByDescending(x => x.CreatedOn).Take(2).ToList(); ;
             return View(result);
         }
 
