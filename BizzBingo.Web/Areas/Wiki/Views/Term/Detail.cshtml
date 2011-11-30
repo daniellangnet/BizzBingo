@@ -12,22 +12,19 @@
 </div>
 <div class="row">
     <div class="span10">
-        <div class="row">
-            <div class="span10">
-                <div class="page-header">
-                    <h2>
-                        Description</h2>
-                </div>
-                <p>
-                    @Model.Description</p>
-                <div class="span4">
-                    @*                    <div class="well" style="padding: 14px 19px;">
-                        <input id="upvote" class="btn" type="button" value="Like!" />
-                        <input id="downvote" class="btn" type="button" value="Don´t like!" />
-                    </div>*@
+        <section>
+            <div class="row">
+                <div class="span10">
+                    <div class="page-header">
+                        <h2>
+                            Description</h2>
+                    </div>
+                    <p>
+                        @Model.Description</p>
                 </div>
             </div>
-        </div>
+        </section>
+        <section>
         <div class="row">
             <div class="span5">
                 <div class="page-header">
@@ -44,6 +41,8 @@
                     asdhakjda askd ahdk a</p>
             </div>
         </div>
+        </section>
+        <section>
         <div class="row">
 
             <div class="span10">
@@ -131,6 +130,8 @@
                 </div>
             </div>
         </div>
+        </section>
+        <section>
         <div class="row">
             <div class="span10">
                 <h2>
@@ -138,14 +139,15 @@
                 </h2>
                 @{Html.RenderAction("Render3rdPartyScripts", "Meta", new { preventFromRenderingInDevelopment = false, name = "DisqusComments", area = "" });}
             </div>
-        </div>
+        </div></section>
     </div>
     <div class="span5 offset1">
-        <div class="row">
-             <div class="page-header">
-                    <h2>
-                        Stats</h2>
-                </div>
+        <section>
+            <div class="row">
+            <div class="page-header">
+                <h2>
+                    Stats</h2>
+            </div>
             <table class="zebra-striped">
                 <tbody>
                     <tr>
@@ -183,6 +185,7 @@
                 </tbody>
             </table>
         </div>
+        </section>
     </div>
 </div>
 @section Scripts

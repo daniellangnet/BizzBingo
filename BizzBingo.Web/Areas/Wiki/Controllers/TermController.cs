@@ -31,10 +31,25 @@
         }
 
         [HttpGet]
-        public ViewResult Create()
+        public ViewResult Suckness(string slug)
         {
-            return View();
+            Term word = Session.Query<Term>()
+                               .Where(x => x.Slug == slug)
+                               .SingleOrDefault();
+
+            return View(word);
         }
+
+        [HttpGet]
+        public ViewResult Awesomeness(string slug)
+        {
+            Term word = Session.Query<Term>()
+                               .Where(x => x.Slug == slug)
+                               .SingleOrDefault();
+
+            return View(word);
+        }
+
 
         [HttpGet]
         public ViewResult Like(string slug)
@@ -117,6 +132,16 @@
             return Json(word);
         }
 
+        [HttpPut]
+        public JsonResult Downvote(Guid id)
+        {
+            Term word = Session.Load<Term>(id);
+            word.DownVotes = word.DownVotes + 1;
+            Session.Store(word);
+            Session.SaveChanges();
+            return Json(word);
+        }
+
         [HttpPost]
         public JsonResult Resource(CreateResourceModel model)
         {
@@ -138,15 +163,7 @@
             return Json(word);
         }
 
-        [HttpPut]
-        public JsonResult Downvote(Guid id)
-        {
-            Term word = Session.Load<Term>(id);
-            word.DownVotes = word.DownVotes + 1;
-            Session.Store(word);
-            Session.SaveChanges();
-            return Json(word);
-        }
+
 
     }
 }
