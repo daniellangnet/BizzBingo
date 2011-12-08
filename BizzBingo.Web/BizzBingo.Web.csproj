@@ -66,6 +66,9 @@
     <Reference Include="dotless.Core, Version=1.2.1.0, Culture=neutral, PublicKeyToken=96b446c9e63eae34, processorArchitecture=MSIL">
       <HintPath>..\packages\dotless.1.2.1.0\lib\dotless.Core.dll</HintPath>
     </Reference>
+    <Reference Include="DotNetOpenAuth">
+      <HintPath>..\packages\DotNetOpenAuth.3.4.7.11121\lib\DotNetOpenAuth.dll</HintPath>
+    </Reference>
     <Reference Include="EcmaScript.NET.modified, Version=0.1.1.0, Culture=neutral, PublicKeyToken=7d53ba4f537753a5, processorArchitecture=MSIL">
       <HintPath>..\packages\YUICompressor.NET.1.6.0.2\lib\net35\EcmaScript.NET.modified.dll</HintPath>
     </Reference>
@@ -186,6 +189,7 @@
     <Compile Include="Areas\Wiki\Models\DetailResourceViewModel.cs" />
     <Compile Include="Areas\Wiki\Models\DetailTermViewModel.cs" />
     <Compile Include="Areas\Wiki\WikiAreaRegistration.cs" />
+    <Compile Include="Controllers\AuthController.cs" />
     <Compile Include="Controllers\BaseController.cs" />
     <Compile Include="Controllers\HomeController.cs" />
     <Compile Include="Controllers\MetaController.cs" />
@@ -193,6 +197,8 @@
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
     <Compile Include="Helper\Extensions.cs" />
+    <Compile Include="Infrastructure\DotNetOAuth\RavenDbTokenManager.cs" />
+    <Compile Include="Infrastructure\DotNetOAuth\TwitterConsumer.cs" />
     <Compile Include="Infrastructure\Raven\DocumentStoreHolder.cs" />
     <Compile Include="Infrastructure\Raven\Indexes\LatestResourceIndex.cs" />
     <Compile Include="Infrastructure\Raven\RavenActionFilterAttribute.cs" />
@@ -210,6 +216,7 @@
     <Content Include="Content\bootstrap.min.css" />
     <Content Include="Content\icons.png" />
     <Content Include="Content\style.css" />
+    <Content Include="Content\wtf.png" />
     <Content Include="crossdomain.xml" />
     <Content Include="Global.asax" />
     <Content Include="humans.txt" />
