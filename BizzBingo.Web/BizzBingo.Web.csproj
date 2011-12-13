@@ -214,11 +214,11 @@
       <SubType>Designer</SubType>
     </Content>
     <Content Include="Content\bootstrap.min.css" />
+    <Content Include="Content\Images\cerealman.png" />
     <Content Include="Content\icons.png" />
-    <Content Include="Content\serialman.png" />
     <Content Include="Content\style.css" />
-    <Content Include="Content\wtf.png" />
-    <Content Include="Content\yeah.png" />
+    <Content Include="Content\Images\wtf.png" />
+    <Content Include="Content\Images\yeah.png" />
     <Content Include="crossdomain.xml" />
     <Content Include="Global.asax" />
     <Content Include="humans.txt" />

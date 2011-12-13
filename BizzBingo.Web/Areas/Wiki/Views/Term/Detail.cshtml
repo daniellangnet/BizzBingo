@@ -5,12 +5,12 @@
     ViewBag.Title = Model.Title;
 }
 <div class="hero-unit">
-    <img style="margin-left: 655px; opacity: .3; height: 150px; position: absolute;" src="@Url.Content("~/Content/serialman.png")" alt="" />
-
+    <img style="margin-left: 655px; opacity: .3; height: 150px; position: absolute;" src="@Url.Content("~/Content/Images/cerealman.png")" alt="" />
     <h1>
         @Model.Title</h1>
     <p>
-        Every thing you always wanted to know about "@Model.Title" but were afraid to ask </p>
+        Everything you always wanted to know about "@Model.Title" but were afraid to ask
+    </p>
 </div>
 <div class="row">
     <div class="span16">
@@ -69,37 +69,46 @@
             </div>
         </section>
         <section>
-        <div class="row">
+        <div class="row" id="wtf">
             <div class="span16" >
                 <div class="page-header">
-                    <h3>WTF! This sucks!</h3>
+                    <h3>WTF! This sucks!&nbsp;<small data-scrollspy="omg">Wait! That´s not true - IT IS AWESOME! - Just scroll down</small></h3>
+                </div>
+                <div class="span16">
+                    <div class="alert-message warning">
+                        <p><strong>Your best WTF moment is wanted! </strong>Share your story of pain and <a href="@Url.Action("Suckness", "Term", new { slug = Model.Slug })">why this really sucks</a>.</p>
+                    </div>
                 </div>
                 <div class="well" style="min-height: 450px;">
-                    <img style="margin-left: 125px; opacity: .3; position: absolute;" src="@Url.Content("~/Content/wtf.png")" alt="">
-                    <a href="#" style="position: absolute; margin-left: 300px; margin-top: 200px;" class="" rel="popover" data-content="And here's some amazing content. It's very engaging. right?" data-original-title="A title">WTF!</a>
+                    <img style="margin-left: 125px; opacity: .3; position: absolute;" src="@Url.Content("~/Content/Images/wtf.png")" alt="">
+                   @* <a href="#" style="position: absolute; margin-left: 300px; margin-top: 200px;" class="" rel="popover" data-content="And here's some amazing content. It's very engaging. right?" data-original-title="A title">WTF!</a>
                     <a href="#" style="position: absolute; margin-left: 200px; margin-top: 50px;" class="" rel="popover" data-content="And here's some amazing content. It's very engaging. right?" data-original-title="A title">WTF!</a>
                     <a href="#" style="position: absolute; margin-left: 20px; margin-top: 50px;" class="" rel="popover" data-content="And here's some amazing content. It's very engaging. right?" data-original-title="A title">WTF!</a>
                     <a href="#" style="position: absolute; margin-left: 350px; margin-top: 300px;" class="" rel="popover" data-content="And here's some amazing content. It's very engaging. right?" data-original-title="A title">WTF!</a>
                     <a href="#" style="position: absolute; margin-left: 230px; margin-top: 30px;" class="" rel="popover" data-content="And here's some amazing content. It's very engaging. right?" data-original-title="A title">WTF!</a>
-                    
+                    *@
                 </div>
             </div>
         </div>
         </section>
         <section>
-        <div class="row">
+        <div class="row" id="omg">
             <div class="span16" >
                 <div class="page-header">
-                    <h3>OMG! I &lt;3 it!</h3>
+                    <h3>OMG! I &lt;3 it!&nbsp;<small data-scrollspy="wtf">Nope, it sucks. - Scroll up.</small></h3>
+                </div>
+                <div class="span16">
+                    <div class="alert-message warning">
+                        <p><strong>Greatest invention ever? </strong>Share your story of success and <a href="@Url.Action("Awesomeness", "Term", new { slug = Model.Slug })">why this really rocks</a>.</p>
+                    </div>
                 </div>
                 <div class="well" style="min-height: 450px;">
-                    <img style="margin-left: 250px; opacity: .3; position: absolute;" src="@Url.Content("~/Content/yeah.png")" alt="">
-                    <a href="#" style="position: absolute; margin-left: 300px; margin-top: 200px;" class="" rel="popover" data-content="And here's some amazing content. It's very engaging. right?" data-original-title="A title">WTF!</a>
-                    <a href="#" style="position: absolute; margin-left: 200px; margin-top: 50px;" class="" rel="popover" data-content="And here's some amazing content. It's very engaging. right?" data-original-title="A title">WTF!</a>
+                    <img style="margin-left: 250px; opacity: .3; position: absolute;" src="@Url.Content("~/Content/Images/yeah.png")" alt="">
+                    @*<a href="#" style="position: absolute; margin-left: 200px; margin-top: 50px;" class="" rel="popover" data-content="And here's some amazing content. It's very engaging. right?" data-original-title="A title">WTF!</a>
                     <a href="#" style="position: absolute; margin-left: 20px; margin-top: 50px;" class="" rel="popover" data-content="And here's some amazing content. It's very engaging. right?" data-original-title="A title">WTF!</a>
                     <a href="#" style="position: absolute; margin-left: 350px; margin-top: 300px;" class="" rel="popover" data-content="And here's some amazing content. It's very engaging. right?" data-original-title="A title">WTF!</a>
                     <a href="#" style="position: absolute; margin-left: 230px; margin-top: 30px;" class="" rel="popover" data-content="And here's some amazing content. It's very engaging. right?" data-original-title="A title">WTF!</a>
-                    
+             *@       
                 </div>
             </div>
         </div>
@@ -207,8 +216,6 @@
 {
     <script type="text/javascript">
         $(function () {
-            $("a").popover();
-            
             $("#upvote").click(function () {
                 $.ajax({
                     url: '@Url.Action("Upvote")?id=@Model.Id',
