@@ -2,14 +2,8 @@
 {
     using System;
     using System.Collections.Generic;
-    using System.IO;
     using System.Linq;
-    using System.Net;
-    using System.Text;
     using System.Web.Mvc;
-    using System.Xml.Linq;
-    using Google.GData.Client;
-    using Google.YouTube;
     using Models;
     using Web.Controllers;
     using Web.Models;
@@ -50,6 +44,34 @@
             return View(word);
         }
 
+        [HttpPost]
+        public ActionResult Reaction(CreateReactionModel model)
+        {
+            Term word = Session.Load<Term>(model.TermId);
+
+            Reaction reaction = new Reaction();
+            reaction.Id = Guid.NewGuid();
+            reaction.CreatedOn = DateTime.UtcNow;
+            reaction.Name = model.Name;
+            reaction.Story = model.Story;
+            reaction.IsPositive = model.IsPositive;
+
+            if (reaction.IsPositive)
+            {
+                word.UpVotes = word.UpVotes + 1;
+            }
+            else
+            {
+                word.DownVotes = word.DownVotes + 1;
+            }
+
+            if (word.Reactions == null) word.Reactions = new List<Reaction>();
+            word.Reactions.Add(reaction);
+
+            Session.Store(word);
+            Session.SaveChanges();
+            return RedirectToAction("Detail", new {slug = word.Slug});
+        }
 
         [HttpGet]
         public ViewResult Like(string slug)
@@ -86,7 +108,6 @@
             return View(model);
         }
 
-
         [HttpGet]
         public ViewResult Detail(string slug)
         {
@@ -120,26 +141,6 @@
             }
 
             return View(model);
-        }
-
-        [HttpPut]
-        public JsonResult Upvote(Guid id)
-        {
-            Term word = Session.Load<Term>(id);
-            word.UpVotes = word.UpVotes + 1;
-            Session.Store(word);
-            Session.SaveChanges();
-            return Json(word);
-        }
-
-        [HttpPut]
-        public JsonResult Downvote(Guid id)
-        {
-            Term word = Session.Load<Term>(id);
-            word.DownVotes = word.DownVotes + 1;
-            Session.Store(word);
-            Session.SaveChanges();
-            return Json(word);
         }
 
         [HttpPost]

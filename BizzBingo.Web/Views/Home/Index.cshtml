@@ -25,13 +25,13 @@
 <div class="row">
     <div class="span8">
         <h2>
-            Top</h2>
+            Greatest</h2>
         @foreach (var topWords in Model.Top)
         { 
             <h3>
                 @topWords.Title &nbsp;
                 @if (topWords.UpVotes > 0)
-                {<span class="label">@topWords.UpVotes Likes!</span>}</h3>
+                {<span class="label">@topWords.UpVotes awesome stories!</span>}</h3>
             <p>
                 @topWords.Description</p>
             <p>

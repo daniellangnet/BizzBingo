@@ -7,6 +7,11 @@ section {
     padding-top: 30px;
 }
 
+.hero-unit a {
+    font-weight: normal;
+    color: #404040;
+}
+
 .footer
 {
     background-color: #EEE;

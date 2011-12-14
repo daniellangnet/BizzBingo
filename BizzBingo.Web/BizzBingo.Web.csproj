@@ -185,6 +185,7 @@
     <Compile Include="App_Start\Combres.cs" />
     <Compile Include="Areas\Wiki\Controllers\ResourceController.cs" />
     <Compile Include="Areas\Wiki\Controllers\TermController.cs" />
+    <Compile Include="Areas\Wiki\Models\CreateReactionModel.cs" />
     <Compile Include="Areas\Wiki\Models\CreateResourceModel.cs" />
     <Compile Include="Areas\Wiki\Models\DetailResourceViewModel.cs" />
     <Compile Include="Areas\Wiki\Models\DetailTermViewModel.cs" />
@@ -203,6 +204,7 @@
     <Compile Include="Infrastructure\Raven\Indexes\LatestResourceIndex.cs" />
     <Compile Include="Infrastructure\Raven\RavenActionFilterAttribute.cs" />
     <Compile Include="Models\Home\IndexViewModel.cs" />
+    <Compile Include="Models\Reaction.cs" />
     <Compile Include="Models\Resource.cs" />
     <Compile Include="Models\Term.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />

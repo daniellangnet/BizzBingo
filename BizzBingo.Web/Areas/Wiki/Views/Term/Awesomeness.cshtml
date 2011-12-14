@@ -1,11 +1,13 @@
 ﻿@using BizzBingo.Web.Areas.Wiki.Models
-@model DetailTermViewModel
+@using BizzBingo.Web.Models
+@model Term
 
 @{
     ViewBag.Title = "Why " + Model.Title + " is awesome";
 }
 
 <div class="hero-unit">
+    <img style="margin-left: 750px; opacity: .3; height: 190px; position: absolute;" src="@Url.Content("~/Content/Images/yeah.png")" alt="">
     <h1>Why @Model.Title is awesome</h1>
     <p>
         ... and why people just love it.</p>
@@ -13,12 +15,35 @@
     <p><a href="@Url.Action("Detail", "Term", new { slug = Model.Slug })">← Sry, I´ll tell you later!</a></p>
 </div>
 <div class="row">
-
     <div class="span16">
         <div class="page-header">
-    <h1>About Bootstrap <small>Brief history, browser support, and more</small></h1>
-  </div>
-        <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. In cursus iaculis eleifend. Etiam at dui aliquam purus pretium lobortis id sit amet nibh. Proin quis neque at magna sagittis aliquet in elementum sapien. Donec a nulla sed dolor venenatis pellentesque. Duis a interdum leo. Integer a dui vitae ante rutrum auctor. Donec porttitor metus sit amet velit facilisis tincidunt. Aliquam risus neque, molestie ac malesuada vel, sollicitudin quis leo.</p>
+            <h1>Ok, here is my ...</h1>
+        </div>
+        @using (Html.BeginForm("Reaction", "Term", FormMethod.Post)) {
+            @Html.Hidden("TermId", Model.Id)
+            @Html.Hidden("IsPositive", "true")
+        <fieldset>
+            <div class="clearfix">
+                <label for="Story">Story
+                </label>
+                <div class="input">
+                    <textarea class="xxlarge" name="Story" rows="15"></textarea>
+                </div>
+            </div>
+            <div class="clearfix">
+                <label for="Name">Name
+                </label>
+                <div class="input">
+                    <input class="xxlarge" name="Name" size="30" type="text">
+                </div>
+            </div>
+            <!-- /clearfix -->
+            <div class="actions">
+                <input type="submit" class="btn primary" value="Save changes">&nbsp;
+                <button type="reset" class="btn">
+                    Cancel</button>
+            </div>
+        </fieldset>
+        }
     </div>
-
 </div>
