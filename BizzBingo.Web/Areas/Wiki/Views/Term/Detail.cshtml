@@ -72,22 +72,35 @@
         <div class="row" id="wtf">
             <div class="span16" >
                 <div class="page-header">
-                    <h3>WTF! This sucks!&nbsp;<small data-scrollspy="omg">Wait! That´s not true - IT IS AWESOME! - Just scroll down</small></h3>
+                    <h3>WTF! @Model.Title sucks!&nbsp;<small data-scrollspy="omg">Wait! That´s not true - IT IS AWESOME! Just scroll down</small></h3>
                 </div>
-                <div class="span16">
-                    <div class="alert-message warning">
-                        <p><strong>Your best WTF moment is wanted! </strong>Share your story of pain and <a href="@Url.Action("Suckness", "Term", new { slug = Model.Slug })">why @Model.Title really sucks</a>.</p>
+                <div class="row">
+                    <div class="span6">
+                    <div class="well" style="min-height: 220px;">
+                        <img style="margin-left: 5px; opacity: .3; position: absolute; height: 200px;" src="@Url.Content("~/Content/Images/wtf.png")" alt="">
                     </div>
                 </div>
-                <div class="well" style="min-height: 450px;">
-                    <img style="margin-left: 125px; opacity: .3; position: absolute;" src="@Url.Content("~/Content/Images/wtf.png")" alt="">
-                   @* <a href="#" style="position: absolute; margin-left: 300px; margin-top: 200px;" class="" rel="popover" data-content="And here's some amazing content. It's very engaging. right?" data-original-title="A title">WTF!</a>
-                    <a href="#" style="position: absolute; margin-left: 200px; margin-top: 50px;" class="" rel="popover" data-content="And here's some amazing content. It's very engaging. right?" data-original-title="A title">WTF!</a>
-                    <a href="#" style="position: absolute; margin-left: 20px; margin-top: 50px;" class="" rel="popover" data-content="And here's some amazing content. It's very engaging. right?" data-original-title="A title">WTF!</a>
-                    <a href="#" style="position: absolute; margin-left: 350px; margin-top: 300px;" class="" rel="popover" data-content="And here's some amazing content. It's very engaging. right?" data-original-title="A title">WTF!</a>
-                    <a href="#" style="position: absolute; margin-left: 230px; margin-top: 30px;" class="" rel="popover" data-content="And here's some amazing content. It's very engaging. right?" data-original-title="A title">WTF!</a>
-                    *@
+                    <div class="offset1 span9">
+                    @foreach (var reaction in Model.NegativeReaction)
+                    { 
+                    <div class="row">
+                        <div class="page-header">
+                            <h4>@Model.Title <i>is</i> @reaction.Title <small>@reaction.CreatedOn.ToShortDateString()</small></h4>
+                        </div>
+                        <p><i>because</i> @reaction.Reason</p>
+                    </div>
+                    }
+                    <div class="row">
+                        <div class="alert-message block-message warning">
+                            <p><strong>Your best WTF moment is wanted!</strong> Share your story of pain and tell us why @Model.Title really sucks.</p>
+                            <div class="alert-actions">
+                              <a class="btn small" href="@Url.Action("Suckness", "Term", new { slug = Model.Slug })">Yeah, great idea!</a>
+                            </div>
+                        </div>
+                    </div>
                 </div>
+                </div>
+                
             </div>
         </div>
         </section>
@@ -95,21 +108,35 @@
         <div class="row" id="omg">
             <div class="span16" >
                 <div class="page-header">
-                    <h3>OMG! I &lt;3 it!&nbsp;<small data-scrollspy="wtf">Nope, it sucks. - Scroll up.</small></h3>
+                    <h3>OMG! I &lt;3 @Model.Title!&nbsp;<small data-scrollspy="wtf">Nope, it sucks. - Scroll up.</small></h3>
                 </div>
-                <div class="span16">
-                    <div class="alert-message warning">
-                        <p><strong>Greatest invention ever? </strong>Share your story of success and <a href="@Url.Action("Awesomeness", "Term", new { slug = Model.Slug })">why @Model.Title really rocks</a>.</p>
+                <div class="row">
+                    <div class="span6">
+                        <div class="well" style="min-height: 220px;">
+                            <img style="margin-left: 70px; opacity: .3; position: absolute; height: 220px;" src="@Url.Content("~/Content/Images/yeah.png")" alt="">
+                        </div>
+                    </div>
+                    <div class="offset1 span9">
+                    @foreach (var reaction in Model.PositiveReaction)
+                    { 
+                    <div class="row">
+                        <div class="page-header">
+                            <h4>@Model.Title <i>is</i> @reaction.Title <small>@reaction.CreatedOn.ToShortDateString()</small></h4>
+                        </div>
+                        <p><i>because</i> @reaction.Reason</p>
+                    </div>
+                    }
+                    <div class="row">
+                        <div class="alert-message block-message warning">
+                            <p><strong>Greatest thing since sliced bread?</strong> Share your story of success and why @Model.Title really rocks.</p>
+                            <div class="alert-actions">
+                              <a class="btn small" href="@Url.Action("Awesomeness", "Term", new { slug = Model.Slug })">Yeah, great idea!</a>
+                            </div>
+                        </div>
+                    </div>
                     </div>
                 </div>
-                <div class="well" style="min-height: 450px;">
-                    <img style="margin-left: 250px; opacity: .3; position: absolute;" src="@Url.Content("~/Content/Images/yeah.png")" alt="">
-                    @*<a href="#" style="position: absolute; margin-left: 200px; margin-top: 50px;" class="" rel="popover" data-content="And here's some amazing content. It's very engaging. right?" data-original-title="A title">WTF!</a>
-                    <a href="#" style="position: absolute; margin-left: 20px; margin-top: 50px;" class="" rel="popover" data-content="And here's some amazing content. It's very engaging. right?" data-original-title="A title">WTF!</a>
-                    <a href="#" style="position: absolute; margin-left: 350px; margin-top: 300px;" class="" rel="popover" data-content="And here's some amazing content. It's very engaging. right?" data-original-title="A title">WTF!</a>
-                    <a href="#" style="position: absolute; margin-left: 230px; margin-top: 30px;" class="" rel="popover" data-content="And here's some amazing content. It's very engaging. right?" data-original-title="A title">WTF!</a>
-             *@       
-                </div>
+                
             </div>
         </div>
         </section>

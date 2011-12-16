@@ -18,5 +18,7 @@ namespace BizzBingo.Web.Areas.Wiki.Models
         public int Views { get; set; }
         public string CreatedOn { get; set; }
         public List<DetailResourceViewModel> Resources { get; set; }
+        public List<Reaction> PositiveReaction { get; set; }
+        public List<Reaction> NegativeReaction { get; set; }
     }
 }

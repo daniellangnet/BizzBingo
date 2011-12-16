@@ -26,7 +26,7 @@ namespace BizzBingo.Web.Controllers
 
         public ActionResult Share(Term term)
         {
-            if (string.IsNullOrWhiteSpace(term.Title) || string.IsNullOrWhiteSpace(term.Description))
+            if (string.IsNullOrWhiteSpace(term.Title))
                 return Json(false);
 
             term.Id = Guid.NewGuid();

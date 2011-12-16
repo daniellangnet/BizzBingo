@@ -53,7 +53,8 @@
             reaction.Id = Guid.NewGuid();
             reaction.CreatedOn = DateTime.UtcNow;
             reaction.Name = model.Name;
-            reaction.Story = model.Story;
+            reaction.Reason = model.Reason;
+            reaction.Title = model.Title;
             reaction.IsPositive = model.IsPositive;
 
             if (reaction.IsPositive)
@@ -138,6 +139,16 @@
                     viewModelForResource.Votes = resource.Upvotes - resource.Downvotes;
                     model.Resources.Add(viewModelForResource);
                 }
+            }
+            if (word.Reactions != null)
+            {
+                model.PositiveReaction = word.Reactions.Where(x => x.IsPositive == true).ToList();
+                model.NegativeReaction = word.Reactions.Where(x => x.IsPositive == false).ToList();
+            }
+            else
+            {
+                model.PositiveReaction = new List<Reaction>();
+                model.NegativeReaction = new List<Reaction>();
             }
 
             return View(model);

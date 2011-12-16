@@ -18,24 +18,30 @@
 <div class="row">
     <div class="span16">
         <div class="page-header">
-            <h1>Ok, here is my ... <small>(and I try to be nice)</small></h1>
+            <h1>I think, that... <small>(and I try to be nice)</small></h1>
         </div>
         @using (Html.BeginForm("Reaction", "Term", FormMethod.Post)) {
             @Html.Hidden("TermId", Model.Id)
             @Html.Hidden("IsPositive", "false")
         <fieldset>
+            <label for="Title">@Model.Title is</label>
             <div class="clearfix">
-                <label for="Story">Story
-                </label>
                 <div class="input">
-                    <textarea class="xxlarge" name="Story" rows="15"></textarea>
+                    <input class="xxlarge" name="Title" placeholder="complicated" size="30" type="text">
+                </div>
+            </div>
+            <label for="Reason">because
+                </label>
+            <div class="clearfix">
+                <div class="input">
+                    <textarea class="xxlarge" placeholder="I tried it and it didn´t work for me. GNAH!" name="Reason" rows="5"></textarea>
                 </div>
             </div>
             <div class="clearfix">
-                <label for="Name">Name
+                <label for="Name">And my name is
                 </label>
                 <div class="input">
-                    <input class="xxlarge" name="Name" size="30" type="text">
+                    <input class="xxlarge" placeholder="Anonymous" name="Name" size="30" type="text">
                 </div>
             </div>
             <!-- /clearfix -->
