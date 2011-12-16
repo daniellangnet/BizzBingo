@@ -33,8 +33,6 @@
                 @if (topWords.UpVotes > 0)
                 {<span class="label">@topWords.UpVotes awesome stories!</span>}</h3>
             <p>
-                @topWords.Description</p>
-            <p>
                 <a class="btn" href="@Url.Action("Detail", "Term", new { area = "Wiki", slug = topWords.Slug })">
                     View details &raquo;</a></p>
         }
@@ -46,8 +44,6 @@
         { 
             <h3>
                 @newWords.Title <small>@newWords.CreatedOn.ToShortDateString()</small></h3>
-            <p>
-                @newWords.Description</p>
             <p>
                 <a class="btn" href="@Url.Action("Detail", "Term", new { area = "Wiki", slug = newWords.Slug })">
                     View details &raquo;</a></p>
@@ -68,14 +64,6 @@
                         Buzzword</label>
                     <div class="input">
                         <input class="xlarge" name="title" size="30" type="text">
-                    </div>
-                </div>
-                <!-- /clearfix -->
-                <div class="clearfix">
-                    <label for="description">
-                        Description</label>
-                    <div class="input">
-                        <textarea class="xlarge" name="description" rows="3"></textarea>
                     </div>
                 </div>
                 <!-- /clearfix -->

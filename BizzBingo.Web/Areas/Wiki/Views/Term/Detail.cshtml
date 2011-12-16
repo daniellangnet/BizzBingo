@@ -9,7 +9,7 @@
     <h1>
         @Model.Title</h1>
     <p>
-        Everything you always wanted to know about "@Model.Title" but were afraid to ask
+        Everything you always wanted to know about @Model.Title but were afraid to ask
     </p>
 </div>
 <div class="row">
@@ -18,11 +18,21 @@
             <div class="row">
                 <div class="span10">
                     <div class="page-header">
-                        <h2>
-                            Description</h2>
+                        <h2>What is @Model.Title?</h2>
                     </div>
-                    <p>
-                        @Model.Description</p>
+                    <div id="stackoverflowResult"></div>
+                    <div id="stackoverflowResultFound" style="display: none;" class="well">
+                            <p><strong>This information is from the awesome <a href="http://stackoverflow.com/tags/@Model.Title.ToLower()/info">Stackoverflow Community</a></strong>.<br/> Thank you for your great work!</p>
+                            <div class="alert-actions">
+                              <a class="btn small" href="http://stackoverflow.com/tags/@Model.Title.ToLower()/info">Get me to Stackoverflow.com to improve the information!</a>
+                            </div>
+                    </div>
+                    <div id="stackoverflowResultNotFound" style="display: none;" class="alert-message block-message warning">
+                            <p><strong>We searched for the information on <a href="http://stackoverflow.com/">Stackoverflow.com</a>, but didn´t find anything.</strong><br/> But it would be awesome, if you could help and share some information on Stackoverflow too!</p>
+                            <div class="alert-actions">
+                              <a class="btn small" href="http://stackoverflow.com/tags/@Model.Title.ToLower()/info">Get me to Stackoverflow.com to improve the information!</a>
+                            </div>
+                    </div>
                 </div>
                 <div class="span5 offset1">
                     <div class="page-header">
@@ -243,25 +253,23 @@
 {
     <script type="text/javascript">
         $(function () {
-            $("#upvote").click(function () {
-                $.ajax({
-                    url: '@Url.Action("Upvote")?id=@Model.Id',
-                    type: 'PUT',
-                    success: function (result) {
-                        refreshStats(result);
+
+            $.ajax({
+                type: 'GET',
+                url: 'http://api.stackoverflow.com/1.1/tags/@Model.Title/wikis',
+                dataType: 'jsonp',
+                success: function (data) {
+                    if (data.tag_wikis.length > 0) {
+                        $("#stackoverflowResult").html(data.tag_wikis[0].wiki_body);
+                        $("#stackoverflowResultFound").show();                        
                     }
-                });
+                    else {
+                        $("#stackoverflowResultNotFound").show();                        
+                    }
+                },
+                jsonp: 'jsonp'
             });
 
-            $("#downvote").click(function () {
-                $.ajax({
-                    url: '@Url.Action("Downvote")?id=@Model.Id',
-                    type: 'PUT',
-                    success: function (result) {
-                        refreshStats(result);
-                    }
-                });
-            });
 
             $("#url").blur(function () {
                 $.embedly($("#url").val(), { key: Global_EmbedLy_Key, maxWidth: 900 }, function (oembed, dict) {
@@ -282,12 +290,6 @@
                 key: Global_EmbedLy_Key
             });
         });
-
-        function refreshStats(result) {
-            $("#stateViews").html(result.Views);
-            $("#stateDownvotes").html(result.DownVotes);
-            $("#stateUpvotes").html(result.UpVotes);
-        }
 
         function resourceAdded() {
             window.location.reload();

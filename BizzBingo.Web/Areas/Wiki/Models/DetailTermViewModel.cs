@@ -11,7 +11,6 @@ namespace BizzBingo.Web.Areas.Wiki.Models
     {
         public Guid Id { get; set; }
         public string Title { get; set; }
-        public string Description { get; set; }
         public int UpVotes { get; set; }
         public int DownVotes { get; set; }
         public string Slug { get; set; }

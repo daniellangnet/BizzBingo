@@ -75,41 +75,6 @@
         }
 
         [HttpGet]
-        public ViewResult Like(string slug)
-        {
-            Term word = Session.Query<Term>()
-                               .Where(x => x.Slug == slug)
-                               .SingleOrDefault();
-            word.Views = word.Views + 1;
-            Session.Store(word);
-
-            DetailTermViewModel model = new DetailTermViewModel();
-            model.Id = word.Id;
-            model.Views = word.Views;
-            model.Title = word.Title;
-            model.Description = word.Description;
-            model.DownVotes = word.DownVotes;
-            model.UpVotes = word.UpVotes;
-            model.Slug = word.Slug;
-            model.CreatedOn = word.CreatedOn.ToShortDateString();
-            model.Resources = new List<DetailResourceViewModel>();
-            if (word.Resources != null)
-            {
-                foreach (var resource in word.Resources)
-                {
-                    DetailResourceViewModel viewModelForResource = new DetailResourceViewModel();
-                    viewModelForResource.Title = resource.Title;
-                    viewModelForResource.Url = resource.Url;
-                    viewModelForResource.Description = resource.Description;
-                    viewModelForResource.Votes = resource.Upvotes - resource.Downvotes;
-                    model.Resources.Add(viewModelForResource);
-                }
-            }
-
-            return View(model);
-        }
-
-        [HttpGet]
         public ViewResult Detail(string slug)
         {
             Term word = Session.Query<Term>()
@@ -122,7 +87,6 @@
             model.Id = word.Id;
             model.Views = word.Views;
             model.Title = word.Title;
-            model.Description = word.Description;
             model.DownVotes = word.DownVotes;
             model.UpVotes = word.UpVotes;
             model.Slug = word.Slug;
