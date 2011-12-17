@@ -218,6 +218,7 @@
     <Content Include="Content\bootstrap.min.css" />
     <Content Include="Content\Images\cerealman.png" />
     <Content Include="Content\icons.png" />
+    <Content Include="Content\Images\love.png" />
     <Content Include="Content\style.css" />
     <Content Include="Content\Images\wtf.png" />
     <Content Include="Content\Images\yeah.png" />

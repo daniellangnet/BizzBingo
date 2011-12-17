@@ -1,59 +1,130 @@
 ﻿@using BizzBingo.Web.Models.Home
 @{
-    ViewBag.Title = "Home Page";
+    ViewBag.Title = "Welcome!";
 }
 @model IndexViewModel
 <div class="hero-unit">
     <h1>
         Hello, Bizzer!</h1>
     <p>
-        Do you speak Management? Did you hear a super cool new buzzword? Share your best
-        words...</p>
+        Did you hear a super cool new buzzword or technology? We want our opion on these
+        new buzzwords!</p>
     <p>
         <a class="btn primary large" data-controls-modal="modal-from-dom" data-backdrop="static">
             Share a buzzword...</a></p>
 </div>
 <div class="row">
     <div class="span16">
-        <h2>Recently added to those buzzwords</h2>
+        <div class="page-header">
+            <h2>
+                Newest information about</h2>
+        </div>
         <div class="row" id="recentResources">
             @{ Html.RenderAction("MostRecent", "Resource", new { area = "Wiki" }); }
         </div>
     </div>
 </div>
-<br/>
+<br />
 <div class="row">
-    <div class="span8">
-        <h2>
-            Greatest</h2>
-        @foreach (var topWords in Model.Top)
-        { 
-            <h3>
-                @topWords.Title &nbsp;
-                @if (topWords.UpVotes > 0)
-                {<span class="label">@topWords.UpVotes awesome stories!</span>}</h3>
-            <p>
-                <a class="btn" href="@Url.Action("Detail", "Term", new { area = "Wiki", slug = topWords.Slug })">
-                    View details &raquo;</a></p>
-        }
+    <div class="span16">
+        <div class="page-header">
+            <h2>
+                People just love these buzzwords</h2>
+        </div>
+        <div class="row">
+            <div class="span6">
+                <div class="well" style="min-height: 400px;">
+                    <img style="margin-left: 50px; opacity: .3; position: absolute; height: 400px;" src="@Url.Content("~/Content/Images/yeah.png")" alt="">
+                </div>
+            </div>
+            <div class="offset1 span9">
+                @foreach (var words in Model.Top)
+                { 
+                    <div class="row">
+                        <div class="page-header">
+                            <h4>
+                                @words.Title &nbsp;
+                                @if (words.UpVotes > 0)
+                                {<span class="label">@words.UpVotes success stories!</span>}
+                            </h4>
+                        </div>
+                        <p data-tag="@words.Title">
+                        </p>
+                        <div style="display: none;" class="well stackoverflowFound">
+                            <p><strong>This information is from the awesome <a href="http://stackoverflow.com/tags/info">Stackoverflow Community</a>!</strong></p>
+                            <div class="alert-actions">
+                              <a class="btn small" href="http://stackoverflow.com/tags/@words.Title.ToLower()/info">Get me to Stackoverflow.com to improve the information!</a>
+                            </div>
+                        </div>
+                        <div style="display: none;" class="alert-message block-message warning stackoverflowNotFound">
+                                <p><strong>We searched for the information on <a href="http://stackoverflow.com/">Stackoverflow.com</a>, but didn´t find anything.</strong><br/> But it would be awesome, if you could help and share some information on Stackoverflow too!</p>
+                                <div class="alert-actions">
+                                  <a class="btn small" href="http://stackoverflow.com/tags/@words.Title.ToLower()/info">Get me to Stackoverflow.com to improve the information!</a>
+                                </div>
+                        </div>
+                        <p>
+                            <a class="btn primary" href="@Url.Action("Detail", "Term", new { area = "Wiki", slug = words.Slug })">
+                                I want do learn more about @words.Title &raquo;</a>
+                        </p>
+                    </div>
+                }
+                <div class="row">
+                    <div class="alert-message warning">
+                        <p>
+                            <strong>If you think, there should be another great topic in this list:</strong><br />
+                            Just go to a buzzword and write a success story!</p>
+                    </div>
+                </div>
+            </div>
+        </div>
     </div>
-    <div class="span8">
-        <h2>
-            Newest</h2>
-        @foreach (var newWords in Model.Newest)
-        { 
-            <h3>
-                @newWords.Title <small>@newWords.CreatedOn.ToShortDateString()</small></h3>
-            <p>
-                <a class="btn" href="@Url.Action("Detail", "Term", new { area = "Wiki", slug = newWords.Slug })">
-                    View details &raquo;</a></p>
-        }
+</div>
+<div class="row">
+    <div class="span16">
+        <div class="page-header">
+            <h2>Newest buzzwords</h2>
+        </div>
+        <div class="row">
+            <div class="span6">
+                <div class="well" style="min-height: 220px;">
+                    <img style="margin-left: 50px; opacity: .3; position: absolute; height: 200px;" src="@Url.Content("~/Content/Images/love.png")" alt="">
+                </div>
+            </div>
+            <div class="offset1 span9">
+                @foreach (var words in Model.Newest)
+                { 
+                    <div class="row">
+                        <div class="page-header">
+                            <h4>@words.Title &nbsp;<small>@words.CreatedOn.ToShortDateString()</small></h4>
+                        </div>
+                        <p data-tag="@words.Title"></p>
+                        <div style="display: none;" class="well stackoverflowFound">
+                            <p><strong>This information is from the awesome <a href="http://stackoverflow.com/tags/info">Stackoverflow Community</a>!</strong></p>
+                            <div class="alert-actions">
+                              <a class="btn small" href="http://stackoverflow.com/tags/@words.Title.ToLower()/info">Get me to Stackoverflow.com to improve the information!</a>
+                            </div>
+                        </div>
+                        <div style="display: none;" class="alert-message block-message warning stackoverflowNotFound">
+                                <p><strong>We searched for the information on <a href="http://stackoverflow.com/">Stackoverflow.com</a>, but didn´t find anything.</strong><br/> But it would be awesome, if you could help and share some information on Stackoverflow too!</p>
+                                <div class="alert-actions">
+                                  <a class="btn small" href="http://stackoverflow.com/tags/@words.Title.ToLower()/info">Get me to Stackoverflow.com to improve the information!</a>
+                                </div>
+                        </div>
+                        <p>
+                            <a class="btn primary" href="@Url.Action("Detail", "Term", new { area = "Wiki", slug = words.Slug })">
+                                I want do learn more about @words.Title &raquo;</a>
+                        </p>
+                    </div>
+                }
+            </div>
+        </div>
     </div>
 </div>
 <div id="modal-from-dom" class="modal hide fade">
     <div class="modal-header">
         <a href="#" class="close">&times;</a>
-        <h3>Share a new buzzword</h3>
+        <h3>
+            Share a new buzzword</h3>
     </div>
     @using (Ajax.BeginForm("Share", "Home", new AjaxOptions() { HttpMethod = "POST", OnComplete = "shareCallback" }))
     {
@@ -78,10 +149,29 @@
 {
     <script type="text/javascript">
 
-        $(function() {
-            $('#recentResources').embedly({ key: Global_EmbedLy_Key, 
-                                            maxWidth: 450,
-                                            maxHeight: 450});
+        $(function () {
+            $('#recentResources').embedly({ key: Global_EmbedLy_Key,
+                maxWidth: 450,
+                maxHeight: 450
+            });
+
+            $("p[data-tag]").each(function (index, element) {
+                $.ajax({
+                    type: 'GET',
+                    url: 'http://api.stackoverflow.com/1.1/tags/' + $(element).data("tag") + '/wikis',
+                    dataType: 'jsonp',
+                    success: function (data) {
+                        if (data.tag_wikis.length > 0) {
+                            $(element).html(data.tag_wikis[0].wiki_body);
+                            $(element).parent().find(".stackoverflowFound").show();
+                        }
+                        else {
+                            $(element).parent().find(".stackoverflowNotFound").show();                            
+                        }
+                    },
+                    jsonp: 'jsonp'
+                });
+            });
         });
 
         function shareCallback(result) {
