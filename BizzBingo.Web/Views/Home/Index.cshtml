@@ -162,7 +162,7 @@
                     dataType: 'jsonp',
                     success: function (data) {
                         if (data.tag_wikis.length > 0) {
-                            $(element).html(data.tag_wikis[0].wiki_body);
+                            $(element).html(data.tag_wikis[0].wiki_excerpt);
                             $(element).parent().find(".stackoverflowFound").show();
                         }
                         else {
