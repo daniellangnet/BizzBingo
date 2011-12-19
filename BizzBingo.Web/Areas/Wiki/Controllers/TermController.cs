@@ -1,4 +1,7 @@
-﻿namespace BizzBingo.Web.Areas.Wiki.Controllers
+﻿using BizzBingo.Web.Infrastructure.Raven.Indexes;
+using Raven.Client.Linq;
+
+namespace BizzBingo.Web.Areas.Wiki.Controllers
 {
     using System;
     using System.Collections.Generic;
@@ -10,20 +13,6 @@
 
     public class TermController : BaseController
     {
-        [HttpGet]
-        public JsonResult Top()
-        {
-            var result = Session.Query<Term>().OrderBy(x => x.UpVotes).Take(5).ToList();
-            return Json(result);
-        }
-
-        [HttpGet]
-        public JsonResult Latest()
-        {
-            var result = Session.Query<Term>().OrderByDescending(x => x.CreatedOn).Take(5).ToList();
-            return Json(result);
-        }
-
         [HttpGet]
         public ViewResult Suckness(string slug)
         {
@@ -139,7 +128,13 @@
             return Json(word);
         }
 
+        public ViewResult Search(string searchTerm)
+        {
+            SearchResultModel result = new SearchResultModel();
+            result.SearchTerm = searchTerm;
+            result.Results = Session.Query<Term>().Where(x => x.Title.Contains(searchTerm)).ToList();
 
-
+            return View(result);
+        }
     }
 }

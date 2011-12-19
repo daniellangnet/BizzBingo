@@ -38,6 +38,10 @@
                 <ul class="nav">
                     <li><a href="@Url.Action("Index", "Home", new { area = ""})">Home</a></>
                 </ul>
+                @using (Html.BeginForm("Search", "Term", new { id="searchForm", area = "Wiki" }, FormMethod.Get, new { @class = "pull-left", }))
+                {
+                    <input type="text" name="searchTerm" placeholder="Search" />
+                }
             </div>
         </div>
     </div>

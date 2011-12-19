@@ -79,10 +79,24 @@
             </div>
         </section>
         <section>
-        <div class="row" id="wtf">
+            <div id="opinion" class="hero-unit">
+                <img style="margin-left: 655px; opacity: .3; height: 150px; position: absolute;" src="@Url.Content("~/Content/Images/think.png")" alt="" />
+                <h2>
+                    What do you think about @Model.Title?</h2>
+                    <p>
+                        <br/>
+                        <a class="btn success" href="#wtf">
+                        I think, @Model.Title sucks!</a>
+                        <a class="btn danger" href="#omg">
+                        I think, @Model.Title rocks!</a>
+                    </p>
+            </div>        
+        </section>
+        <section id="wtf">
+        <div class="row">
             <div class="span16" >
                 <div class="page-header">
-                    <h3>WTF! @Model.Title sucks!&nbsp;<small data-scrollspy="omg">Wait! That´s not true - IT IS AWESOME! Just scroll down</small></h3>
+                    <h3>WTF! @Model.Title sucks!&nbsp;</h3>
                 </div>
                 <div class="row">
                     <div class="span6">
@@ -114,11 +128,11 @@
             </div>
         </div>
         </section>
-        <section>
-        <div class="row" id="omg">
+        <section id="omg">
+        <div class="row">
             <div class="span16" >
                 <div class="page-header">
-                    <h3>OMG! I &lt;3 @Model.Title!&nbsp;<small data-scrollspy="wtf">Nope, it sucks. - Scroll up.</small></h3>
+                    <h3>OMG! I &lt;3 @Model.Title!&nbsp;</h3>
                 </div>
                 <div class="row">
                     <div class="span6">
@@ -167,7 +181,9 @@
                         {
                             <div class="row">
                                 <div class="span15">
-                                    <h4>@resource.Title &nbsp;@*<small><span class="label">@resource.Votes</span></small>*@</h4>
+                                    <div class="page-header">
+                                        <h3>@resource.Title</h3>
+                                    </div>
                                     <p>@resource.Description</p>
                                 </div>
                             </div>
@@ -261,15 +277,16 @@
                 success: function (data) {
                     if (data.tag_wikis.length > 0) {
                         $("#stackoverflowResult").html(data.tag_wikis[0].wiki_body);
-                        $("#stackoverflowResultFound").show();                        
+                        $("#stackoverflowResultFound").show();
                     }
                     else {
-                        $("#stackoverflowResultNotFound").show();                        
+                        $("#stackoverflowResultNotFound").show();
                     }
                 },
                 jsonp: 'jsonp'
             });
 
+            $("#opinion > a").scrollSpy();
 
             $("#url").blur(function () {
                 $.embedly($("#url").val(), { key: Global_EmbedLy_Key, maxWidth: 900 }, function (oembed, dict) {

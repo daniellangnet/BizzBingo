@@ -33,6 +33,12 @@ namespace BizzBingo.Web.Areas.Wiki
             );
 
             context.MapRoute(
+                "Search",
+                "looking-for",
+                new { controller = "Term", action = "Search"}
+            );
+
+            context.MapRoute(
                 "Wiki_default",
                 "Wiki/{controller}/{action}/{id}",
                 new { action = "Index", id = UrlParameter.Optional }

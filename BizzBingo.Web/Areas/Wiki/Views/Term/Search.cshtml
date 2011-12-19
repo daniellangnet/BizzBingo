@@ -1,0 +1,93 @@
+﻿@using BizzBingo.Web.Areas.Wiki.Models
+@model SearchResultModel
+
+@{
+    ViewBag.Title = "Looking for " + Model.SearchTerm;
+}
+
+<div class="hero-unit">
+    <img style="margin-left: 655px; opacity: .3; height: 150px; position: absolute;" src="@Url.Content("~/Content/Images/think.png")" alt="" />
+    <h1>
+        Looking for @Model.SearchTerm</h1>
+    <p>
+        We found @Model.Results.Count results!
+    </p>
+</div>
+@if (Model.Results.Count > 0)
+{ 
+<div class="row">
+    <div class="span16">
+        <div class="page-header">
+            <h2>
+                Search Results</h2>
+        </div>
+        <div class="row">
+            <div class="span6">
+                <div class="well" style="min-height: 400px;">
+                    <img style="margin-left: 50px; opacity: .3; position: absolute; height: 400px;" src="@Url.Content("~/Content/Images/yeah.png")" alt="">
+                </div>
+            </div>
+            <div class="offset1 span9">
+                @foreach (var words in Model.Results)
+                { 
+                    <div class="row">
+                        <div class="page-header">
+                            <h4>
+                                @words.Title &nbsp;
+                                @if (words.UpVotes > 0)
+                                {<span class="label">@words.UpVotes success stories!</span>}
+                            </h4>
+                        </div>
+                        <p data-tag="@words.Title">
+                        </p>
+                        <div style="display: none;" class="well stackoverflowFound">
+                            <p><strong>This information is from the awesome <a href="http://stackoverflow.com/tags/info">Stackoverflow Community</a>!</strong></p>
+                            <div class="alert-actions">
+                              <a class="btn small" href="http://stackoverflow.com/tags/@words.Title.ToLower()/info">Get me to Stackoverflow.com to improve the information!</a>
+                            </div>
+                        </div>
+                        <div style="display: none;" class="alert-message block-message warning stackoverflowNotFound">
+                                <p><strong>We searched for the information on <a href="http://stackoverflow.com/">Stackoverflow.com</a>, but didn´t find anything.</strong><br/> But it would be awesome, if you could help and share some information on Stackoverflow too!</p>
+                                <div class="alert-actions">
+                                  <a class="btn small" href="http://stackoverflow.com/tags/@words.Title.ToLower()/info">Get me to Stackoverflow.com to improve the information!</a>
+                                </div>
+                        </div>
+                        <p>
+                            <a class="btn primary" href="@Url.Action("Detail", "Term", new { area = "Wiki", slug = words.Slug })">
+                                I want do learn more about @words.Title &raquo;</a>
+                        </p>
+                    </div>
+                }
+
+            </div>
+        </div>
+    </div>
+</div>
+}
+
+@section Scripts
+{
+    <script type="text/javascript">
+
+        $(function () {
+            $("p[data-tag]").each(function (index, element) {
+                $.ajax({
+                    type: 'GET',
+                    url: 'http://api.stackoverflow.com/1.1/tags/' + $(element).data("tag") + '/wikis',
+                    dataType: 'jsonp',
+                    success: function (data) {
+                        if (data.tag_wikis.length > 0) {
+                            $(element).html(data.tag_wikis[0].wiki_excerpt);
+                            $(element).parent().find(".stackoverflowFound").show();
+                        }
+                        else {
+                            $(element).parent().find(".stackoverflowNotFound").show();
+                        }
+                    },
+                    jsonp: 'jsonp'
+                });
+            });
+        });
+	    
+    </script>
+}

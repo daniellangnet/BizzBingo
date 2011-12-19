@@ -19,6 +19,7 @@ namespace BizzBingo.Web.Controllers
             return View(model);
         }
 
+        [HttpGet]
         public ActionResult Contact()
         {
             return View();

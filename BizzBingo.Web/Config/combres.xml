@@ -27,6 +27,7 @@
       <resource path="~/scripts/bootstrap-modal.js" />
       <resource path="~/scripts/bootstrap-tabs.js" />
       <resource path="~/scripts/bootstrap-twipsy.js" />
+      <resource path="~/scripts/bootstrap-scrollspy.js" />
       <resource path="~/scripts/bootstrap-popover.js" />
       <resource path="~/scripts/logger.js" />
     </resourceSet>

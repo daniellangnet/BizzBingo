@@ -184,6 +184,7 @@
   <ItemGroup>
     <Compile Include="App_Start\Combres.cs" />
     <Compile Include="Areas\Wiki\Controllers\ResourceController.cs" />
+    <Compile Include="Areas\Wiki\Models\SearchResultModel.cs" />
     <Compile Include="Areas\Wiki\Controllers\TermController.cs" />
     <Compile Include="Areas\Wiki\Models\CreateReactionModel.cs" />
     <Compile Include="Areas\Wiki\Models\CreateResourceModel.cs" />
@@ -202,6 +203,7 @@
     <Compile Include="Infrastructure\DotNetOAuth\TwitterConsumer.cs" />
     <Compile Include="Infrastructure\Raven\DocumentStoreHolder.cs" />
     <Compile Include="Infrastructure\Raven\Indexes\LatestResourceIndex.cs" />
+    <Compile Include="Infrastructure\Raven\Indexes\SearchIndex.cs" />
     <Compile Include="Infrastructure\Raven\RavenActionFilterAttribute.cs" />
     <Compile Include="Models\Home\IndexViewModel.cs" />
     <Compile Include="Models\Reaction.cs" />
@@ -219,6 +221,7 @@
     <Content Include="Content\Images\cerealman.png" />
     <Content Include="Content\icons.png" />
     <Content Include="Content\Images\love.png" />
+    <Content Include="Content\Images\think.png" />
     <Content Include="Content\style.css" />
     <Content Include="Content\Images\wtf.png" />
     <Content Include="Content\Images\yeah.png" />
@@ -300,6 +303,7 @@
     <Content Include="Areas\Wiki\Views\Resource\MostRecent.cshtml" />
     <Content Include="Areas\Wiki\Views\Term\Suckness.cshtml" />
     <Content Include="Areas\Wiki\Views\Term\Awesomeness.cshtml" />
+    <Content Include="Areas\Wiki\Views\Term\Search.cshtml" />
     <None Include="_bin_deployableAssemblies\System.Web.Mvc.dll" />
     <None Include="_bin_deployableAssemblies\WebMatrix.WebData.xml" />
     <None Include="_bin_deployableAssemblies\WebMatrix.WebData.dll" />
