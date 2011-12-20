@@ -1,0 +1,21 @@
+{
+  "Name": "Posts/ByMonthPublished/Count",
+  "Map": "docs.Posts\r\n\t.Select(post => new {Year = post.PublishAt.Year, Month = post.PublishAt.Month, Count = 1})",
+  "Maps": [
+    "docs.Posts\r\n\t.Select(post => new {Year = post.PublishAt.Year, Month = post.PublishAt.Month, Count = 1})"
+  ],
+  "Reduce": "results\r\n\t.GroupBy(result => new {Year = result.Year, Month = result.Month})\r\n\t.Select(g => new {Year = g.Key.Year, Month = g.Key.Month, Count = g.Sum(x => x.Count)})",
+  "TransformResults": null,
+  "IsMapReduce": true,
+  "IsCompiled": false,
+  "IsTemp": false,
+  "Stores": {},
+  "Indexes": {},
+  "SortOptions": {
+    "Month": "Int",
+    "Year": "Int"
+  },
+  "Analyzers": {},
+  "Fields": [],
+  "Type": "MapReduce"
+}

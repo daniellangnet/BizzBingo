@@ -1,0 +1,18 @@
+{
+  "Name": "Posts/Statistics",
+  "Map": "docs.PostComments\r\n\t.Select(postComment => new {PostsCount = 1, CommentsCount = postComment.Comments.Count})",
+  "Maps": [
+    "docs.PostComments\r\n\t.Select(postComment => new {PostsCount = 1, CommentsCount = postComment.Comments.Count})"
+  ],
+  "Reduce": "results\r\n\t.GroupBy(result => \"constant\")\r\n\t.Select(g => new {PostsCount = g.Sum(x => x.PostsCount), CommentsCount = g.Sum(x => x.CommentsCount)})",
+  "TransformResults": null,
+  "IsMapReduce": true,
+  "IsCompiled": false,
+  "IsTemp": false,
+  "Stores": {},
+  "Indexes": {},
+  "SortOptions": {},
+  "Analyzers": {},
+  "Fields": [],
+  "Type": "MapReduce"
+}

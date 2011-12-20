@@ -1,0 +1,24 @@
+{
+  "Name": "PostComments/CreationDate",
+  "Map": "docs.PostComments\r\n\t.SelectMany(postComment => postComment.Comments, (postComment, comment) => new {postComment = postComment, comment = comment})\r\n\t.Where((Func<dynamic, bool>)(__h__TransparentIdentifier0 => __h__TransparentIdentifier0.comment.IsSpam == false))\r\n\t.Select(__h__TransparentIdentifier0 => new {CreatedAt = __h__TransparentIdentifier0.comment.CreatedAt, CommentId = __h__TransparentIdentifier0.comment.Id, PostCommentsId = __h__TransparentIdentifier0.postComment.Id, PostId = __h__TransparentIdentifier0.postComment.Post.Id, PostPublishAt = __h__TransparentIdentifier0.postComment.Post.PublishAt})",
+  "Maps": [
+    "docs.PostComments\r\n\t.SelectMany(postComment => postComment.Comments, (postComment, comment) => new {postComment = postComment, comment = comment})\r\n\t.Where((Func<dynamic, bool>)(__h__TransparentIdentifier0 => __h__TransparentIdentifier0.comment.IsSpam == false))\r\n\t.Select(__h__TransparentIdentifier0 => new {CreatedAt = __h__TransparentIdentifier0.comment.CreatedAt, CommentId = __h__TransparentIdentifier0.comment.Id, PostCommentsId = __h__TransparentIdentifier0.postComment.Id, PostId = __h__TransparentIdentifier0.postComment.Post.Id, PostPublishAt = __h__TransparentIdentifier0.postComment.Post.PublishAt})"
+  ],
+  "Reduce": null,
+  "TransformResults": null,
+  "IsMapReduce": false,
+  "IsCompiled": false,
+  "IsTemp": false,
+  "Stores": {
+    "CreatedAt": "Yes",
+    "CommentId": "Yes",
+    "PostId": "Yes",
+    "PostCommentsId": "Yes",
+    "PostPublishAt": "Yes"
+  },
+  "Indexes": {},
+  "SortOptions": {},
+  "Analyzers": {},
+  "Fields": [],
+  "Type": "Map"
+}

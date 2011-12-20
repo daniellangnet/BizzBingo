@@ -199,7 +199,7 @@
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
     <Compile Include="Helper\Extensions.cs" />
-    <Compile Include="Infrastructure\DotNetOAuth\RavenDbTokenManager.cs" />
+    <Compile Include="Infrastructure\DotNetOAuth\RavenTokenManager.cs" />
     <Compile Include="Infrastructure\DotNetOAuth\TwitterConsumer.cs" />
     <Compile Include="Infrastructure\Raven\DocumentStoreHolder.cs" />
     <Compile Include="Infrastructure\Raven\Indexes\LatestResourceIndex.cs" />
@@ -209,6 +209,7 @@
     <Compile Include="Models\Reaction.cs" />
     <Compile Include="Models\Resource.cs" />
     <Compile Include="Models\Term.cs" />
+    <Compile Include="Models\User.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>
@@ -296,7 +297,6 @@
     <Content Include="Areas\Wiki\Views\Web.config" />
     <Content Include="Areas\Wiki\Views\Term\Detail.cshtml" />
     <Content Include="Areas\Wiki\Views\_ViewStart.cshtml" />
-    <Content Include="Views\Shared\3rdPartyScripts_DisqusComments.cshtml" />
     <Content Include="Views\Shared\3rdPartyScripts_GoogleAnalytics.cshtml" />
     <Content Include="Views\Shared\3rdPartyScripts_Uservoice.cshtml" />
     <Content Include="Views\Shared\3rdPartyScripts_Embedly.cshtml" />

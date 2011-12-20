@@ -1,0 +1,18 @@
+{
+  "Name": "Tags/Count",
+  "Map": "docs.Posts\r\n\t.SelectMany(post => post.Tags, (post, tag) => new {Name = tag.ToString().ToLower(), Count = 1, LastSeenAt = post.PublishAt})",
+  "Maps": [
+    "docs.Posts\r\n\t.SelectMany(post => post.Tags, (post, tag) => new {Name = tag.ToString().ToLower(), Count = 1, LastSeenAt = post.PublishAt})"
+  ],
+  "Reduce": "results\r\n\t.GroupBy(tagCount => tagCount.Name)\r\n\t.Select(g => new {Name = g.Key, Count = g.Sum(x => x.Count), LastSeenAt = g.Max(x => (System.DateTimeOffset)(x.LastSeenAt))})",
+  "TransformResults": null,
+  "IsMapReduce": true,
+  "IsCompiled": false,
+  "IsTemp": false,
+  "Stores": {},
+  "Indexes": {},
+  "SortOptions": {},
+  "Analyzers": {},
+  "Fields": [],
+  "Type": "MapReduce"
+}

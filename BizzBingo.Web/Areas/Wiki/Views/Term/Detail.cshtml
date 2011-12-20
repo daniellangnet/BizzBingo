@@ -85,9 +85,9 @@
                     What do you think about @Model.Title?</h2>
                     <p>
                         <br/>
-                        <a class="btn success" href="#wtf">
+                        <a class="btn danger" href="#wtf">
                         I think, @Model.Title sucks!</a>
-                        <a class="btn danger" href="#omg">
+                        <a class="btn success" href="#omg">
                         I think, @Model.Title rocks!</a>
                     </p>
             </div>        
@@ -232,6 +232,13 @@
                                                 <textarea class="xlarge" id="description" name="description" rows="3"></textarea>
                                             </div>
                                         </div>
+                                        <div class="clearfix">
+                                            <label for="viasource">
+                                                What was your original source?</label>
+                                            <div class="input">
+                                                <input class="xlarge" id="viasource" name="viasource" size="30" type="text">
+                                            </div>
+                                        </div>
                                         <div class="clearfix" id="preview">
                                         </div>
                                         <div class="actions">
@@ -254,15 +261,6 @@
             </div>
         </div>
         </section>
-        <section>
-        <div class="row">
-            <div class="span10">
-                <h2>
-                    Comments
-                </h2>
-                @{Html.RenderAction("Render3rdPartyScripts", "Meta", new { preventFromRenderingInDevelopment = false, name = "DisqusComments", area = "" });}
-            </div>
-        </div></section>
     </div>
 </div>
 @section Scripts

@@ -2,6 +2,9 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Web;
+using BizzBingo.Web.Infrastructure.Raven;
+using BizzBingo.Web.Models;
+using Raven.Client.Linq;
 
 namespace BizzBingo.Web.Infrastructure.DotNetOAuth
 {
@@ -108,19 +111,19 @@ namespace BizzBingo.Web.Infrastructure.DotNetOAuth
             }
         }
 
-        private static RavenDbTokenManager RavenDbTokenManager
+        private static RavenTokenManager RavenDbTokenManager
         {
             get
             {
                 var store = HttpContext.Current.Session;
-                var tokenManager = (RavenDbTokenManager)store["RavenDbTokenManagerUserSessionTokenManager"];
+                var tokenManager = (RavenTokenManager)store["RavenDbTokenManagerUserSessionTokenManager"];
                 if (tokenManager == null)
                 {
                     string consumerKey = ConfigurationManager.AppSettings["twitterConsumerKey"];
                     string consumerSecret = ConfigurationManager.AppSettings["twitterConsumerSecret"];
                     if (IsTwitterConsumerConfigured)
                     {
-                        tokenManager = new RavenDbTokenManager(consumerKey, consumerSecret);
+                        tokenManager = new RavenTokenManager(consumerKey, consumerSecret);
                         store["RavenDbTokenManagerUserSessionTokenManager"] = tokenManager;
                     }
                     else
@@ -186,6 +189,16 @@ namespace BizzBingo.Web.Infrastructure.DotNetOAuth
             if (response == null)
             {
                 return false;
+            }
+
+            if(string.IsNullOrWhiteSpace(response.AccessToken) == false)
+            using (var s = DocumentStoreHolder.DocumentStore.OpenSession())
+            {
+                var result = s.Query<User>().Search(x => x.OAuthAccessToken, response.AccessToken).Single();
+                result.TwitterId = response.ExtraData["user_id"];
+                result.Name = response.ExtraData["screen_name"];
+                s.Store(result);
+                s.SaveChanges();
             }
 
             screenName = response.ExtraData["screen_name"];

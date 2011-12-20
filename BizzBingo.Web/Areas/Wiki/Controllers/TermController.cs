@@ -119,6 +119,7 @@ namespace BizzBingo.Web.Areas.Wiki.Controllers
             resource.Description = model.Description;
             resource.Url = model.Url;
             resource.Type = model.Type;
+            resource.ViaSource = model.ViaSource;
 
             if (word.Resources == null) word.Resources = new List<Resource>();
             word.Resources.Add(resource);

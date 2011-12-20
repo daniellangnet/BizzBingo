@@ -1,0 +1,20 @@
+{
+  "Name": "Temp/Posts/ByIsDeletedAndPublishAtSortByPublishAt",
+  "Map": "from doc in docs.Posts\r\nselect new { PublishAt = doc.PublishAt, IsDeleted = doc.IsDeleted }",
+  "Maps": [
+    "from doc in docs.Posts\r\nselect new { PublishAt = doc.PublishAt, IsDeleted = doc.IsDeleted }"
+  ],
+  "Reduce": null,
+  "TransformResults": null,
+  "IsMapReduce": false,
+  "IsCompiled": false,
+  "IsTemp": true,
+  "Stores": {},
+  "Indexes": {},
+  "SortOptions": {
+    "PublishAt": "String"
+  },
+  "Analyzers": {},
+  "Fields": [],
+  "Type": "Temp"
+}
