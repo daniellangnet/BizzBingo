@@ -9,9 +9,9 @@ namespace BizzBingo.Web.Models
     {
         public Guid Id { get; set; }
         public string Name { get; set; }
-        public string OAuthToken { get; set; }
-        public string OAuthSecret { get; set; }
-        public string OAuthAccessToken { get; set; }
         public string TwitterId { get; set; }
+        public string OAuthAccessToken { get; set; }
+        public DateTime RegisteredOn { get; set; }
+        public DateTime LastSignIn { get; set; }
     }
 }

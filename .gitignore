@@ -1,8 +1,8 @@
-# Visual Studio Files and security files
+# Visual Studio Files
 ######################
 *.suo
 *.user
-*.Publish.xml
+
 
 # Build Outputs and App_Data
 ######################
@@ -14,3 +14,8 @@ _ReSharper.BizzBingo/
 # OS generated files #
 ######################
 Thumbs.db
+
+# Sensible Files
+######################
+Web.Release.config
+*.Publish.xml

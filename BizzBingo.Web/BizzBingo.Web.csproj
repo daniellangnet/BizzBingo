@@ -199,7 +199,7 @@
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
     <Compile Include="Helper\Extensions.cs" />
-    <Compile Include="Infrastructure\DotNetOAuth\RavenTokenManager.cs" />
+    <Compile Include="Infrastructure\DotNetOAuth\InMemoryTokenManager.cs" />
     <Compile Include="Infrastructure\DotNetOAuth\TwitterConsumer.cs" />
     <Compile Include="Infrastructure\Raven\DocumentStoreHolder.cs" />
     <Compile Include="Infrastructure\Raven\Indexes\LatestResourceIndex.cs" />
@@ -222,6 +222,7 @@
     <Content Include="Content\Images\cerealman.png" />
     <Content Include="Content\icons.png" />
     <Content Include="Content\Images\love.png" />
+    <Content Include="Content\Images\sign-in-with-twitter-d.png" />
     <Content Include="Content\Images\think.png" />
     <Content Include="Content\style.css" />
     <Content Include="Content\Images\wtf.png" />

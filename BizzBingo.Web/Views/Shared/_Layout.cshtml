@@ -36,11 +36,31 @@
             <div class="container">
                 <a class="brand" href="@Url.Action("Index", "Home", new { area = "" })">KnowYourStack</a>
                 <ul class="nav">
-                    <li><a href="@Url.Action("Index", "Home", new { area = ""})">Home</a></>
+                    <li><a href="@Url.Action("Index", "Home", new { area = "" })">Home</a></>
                 </ul>
-                @using (Html.BeginForm("Search", "Term", new { id="searchForm", area = "Wiki" }, FormMethod.Get, new { @class = "pull-left", }))
+                @using (Html.BeginForm("Search", "Term", new { id = "searchForm", area = "Wiki" }, FormMethod.Get, new { @class = "pull-left", }))
                 {
                     <input type="text" name="searchTerm" placeholder="Search" />
+                }
+
+                @if (Request.IsAuthenticated)
+                { 
+                <ul id="topMenuProfile" class="nav secondary-nav">
+                    <li class="menu">
+                          <a href="#" class="menu">@@@HttpContext.Current.User.Identity.Name</a>
+                          <ul class="menu-dropdown">
+                            <li><a href="@Url.Action("Logout", "Auth", new { area = ""} )">Logout</a></li>
+                          </ul>
+                    </li>
+                </ul>    
+                }
+                else
+                {
+                <ul class="nav secondary-nav">
+                    <li>
+                      <a style="height: 10px;" href="@Url.Action("Index", "Auth", new { area = "" })"><img src="@Url.Content("~/Content/Images/sign-in-with-twitter-d.png")" alt="Sign in with Twitter" title="Sign in with Twitter"/></a>
+                    </li>
+                </ul>    
                 }
             </div>
         </div>
@@ -53,7 +73,7 @@
       <div class="container">
         <p class="pull-right"><a href="#">Back to top</a></p>
         <p>
-          Do you want to contact us? Just do <a href="@Url.Action("Contact", "Home", new { area = ""})" title="Contact us">it</a>.<br/>
+          Do you want to contact us? Just do <a href="@Url.Action("Contact", "Home", new { area = "" })" title="Contact us">it</a>.<br/>
           KnowYourStack is an open source project hosted on <a href="https://github.com/robertmuehsig/BizzBingo" title="GitHub">GitHub</a>.<br/>
           Visit the <a href="http://code-inside.de/blog-in" title="Code-Inside Blog">Code-Inside Blog</a> (Form Germany? Try <a href="http://code-inside.de/blog" title="Code-Inside Blog">this</a>.)<br/>
           I &lt;3 <a href="http://ragefac.es">Ragefac.es</a>.<br/>
@@ -65,6 +85,13 @@
     <script src="//ajax.googleapis.com/ajax/libs/jqueryui/1.8.16/jquery-ui.min.js"></script>
     <script src="http://scripts.embed.ly/jquery.embedly.min.js"></script>
     <script src="@Html.CombresUrl("siteJs")"></script>
+    
+    <script type="text/javascript">
+        $(function () {
+            $("#topMenuProfile").dropdown();
+        });
+    </script>
+    
     @RenderSection("Scripts", required: false)
     <!-- end scripts-->
     <!--[if lt IE 7 ]>

@@ -111,20 +111,20 @@ namespace BizzBingo.Web.Infrastructure.DotNetOAuth
             }
         }
 
-        private static RavenTokenManager RavenDbTokenManager
+        private static InMemoryTokenManager RavenDbTokenManager
         {
             get
             {
                 var store = HttpContext.Current.Session;
-                var tokenManager = (RavenTokenManager)store["RavenDbTokenManagerUserSessionTokenManager"];
+                var tokenManager = (InMemoryTokenManager)store["InMemoryTokenManagerUserSessionTokenManager"];
                 if (tokenManager == null)
                 {
                     string consumerKey = ConfigurationManager.AppSettings["twitterConsumerKey"];
                     string consumerSecret = ConfigurationManager.AppSettings["twitterConsumerSecret"];
                     if (IsTwitterConsumerConfigured)
                     {
-                        tokenManager = new RavenTokenManager(consumerKey, consumerSecret);
-                        store["RavenDbTokenManagerUserSessionTokenManager"] = tokenManager;
+                        tokenManager = new InMemoryTokenManager(consumerKey, consumerSecret);
+                        store["InMemoryTokenManagerUserSessionTokenManager"] = tokenManager;
                     }
                     else
                     {
@@ -181,28 +181,20 @@ namespace BizzBingo.Web.Infrastructure.DotNetOAuth
         /// A value indicating whether Twitter authentication was successful;
         /// otherwise <c>false</c> to indicate that no Twitter response was present.
         /// </returns>
-        public static bool TryFinishSignInWithTwitter(out string screenName, out int userId)
+        public static bool TryFinishSignInWithTwitter(out string screenName, out int userId, out string accessToken)
         {
             screenName = null;
             userId = 0;
+            accessToken = null;
             var response = TwitterSignIn.ProcessUserAuthorization();
             if (response == null)
             {
                 return false;
             }
 
-            if(string.IsNullOrWhiteSpace(response.AccessToken) == false)
-            using (var s = DocumentStoreHolder.DocumentStore.OpenSession())
-            {
-                var result = s.Query<User>().Search(x => x.OAuthAccessToken, response.AccessToken).Single();
-                result.TwitterId = response.ExtraData["user_id"];
-                result.Name = response.ExtraData["screen_name"];
-                s.Store(result);
-                s.SaveChanges();
-            }
-
             screenName = response.ExtraData["screen_name"];
             userId = int.Parse(response.ExtraData["user_id"]);
+            accessToken = response.AccessToken;
 
             // If we were going to make this LOOK like OpenID even though it isn't,
             // this seems like a reasonable, secure claimed id to allow the user to assume.
