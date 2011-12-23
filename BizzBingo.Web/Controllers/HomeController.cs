@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Linq;
 using System.Web.Mvc;
+using BizzBingo.Web.Infrastructure.Raven.Indexes;
 using BizzBingo.Web.Models;
 using BizzBingo.Web.Models.Home;
 
@@ -15,7 +16,7 @@ namespace BizzBingo.Web.Controllers
         {
             IndexViewModel model = new IndexViewModel();
             model.Top = Session.Query<Term>().OrderByDescending(x => x.UpVotes).Take(3).ToList();
-            model.Newest = Session.Query<Term>().OrderByDescending(x => x.CreatedOn).Take(3).ToList(); ;
+            model.Newest = Session.Query<Term>().OrderByDescending(x => x.CreatedOn).Take(3).ToList();
             return View(model);
         }
 

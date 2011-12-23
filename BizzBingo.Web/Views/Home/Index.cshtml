@@ -50,16 +50,10 @@
                         <p data-tag="@words.Title">
                         </p>
                         <div style="display: none;" class="well stackoverflowFound">
-                            <p><strong>This information is from the awesome <a href="http://stackoverflow.com/tags/info">Stackoverflow Community</a>!</strong></p>
-                            <div class="alert-actions">
-                              <a class="btn small" href="http://stackoverflow.com/tags/@words.Title.ToLower()/info">Get me to Stackoverflow.com to improve the information!</a>
-                            </div>
+                            <p><strong>This information is from the awesome <a href="http://stackoverflow.com/tags/@words.Slug/info">Stackoverflow Community</a>!</strong></p>
                         </div>
                         <div style="display: none;" class="alert-message block-message warning stackoverflowNotFound">
                                 <p><strong>We searched for the information on <a href="http://stackoverflow.com/">Stackoverflow.com</a>, but didn´t find anything.</strong><br/> But it would be awesome, if you could help and share some information on Stackoverflow too!</p>
-                                <div class="alert-actions">
-                                  <a class="btn small" href="http://stackoverflow.com/tags/@words.Title.ToLower()/info">Get me to Stackoverflow.com to improve the information!</a>
-                                </div>
                         </div>
                         <p>
                             <a class="btn primary" href="@Url.Action("Detail", "Term", new { area = "Wiki", slug = words.Slug })">

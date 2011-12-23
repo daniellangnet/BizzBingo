@@ -22,16 +22,10 @@
                     </div>
                     <div id="stackoverflowResult" style="overflow-x: hidden;"></div>
                     <div id="stackoverflowResultFound" style="display: none;" class="well">
-                            <p><strong>This information is from the awesome <a href="http://stackoverflow.com/tags/@Model.Title.ToLower()/info">Stackoverflow Community</a></strong>.<br/> Thank you for your great work!</p>
-                            <div class="alert-actions">
-                              <a class="btn small" href="http://stackoverflow.com/tags/@Model.Title.ToLower()/info">Get me to Stackoverflow.com to improve the information!</a>
-                            </div>
+                            <p><strong>This information is from the awesome <a href="http://stackoverflow.com/tags/@Model.Slug.ToLower()/info">Stackoverflow Community</a></strong>.<br/> Thank you guys for your great work!</p>
                     </div>
                     <div id="stackoverflowResultNotFound" style="display: none;" class="alert-message block-message warning">
                             <p><strong>We searched for the information on <a href="http://stackoverflow.com/">Stackoverflow.com</a>, but didn´t find anything.</strong><br/> But it would be awesome, if you could help and share some information on Stackoverflow too!</p>
-                            <div class="alert-actions">
-                              <a class="btn small" href="http://stackoverflow.com/tags/@Model.Title.ToLower()/info">Get me to Stackoverflow.com to improve the information!</a>
-                            </div>
                     </div>
                 </div>
                 <div class="span5 offset1">
@@ -274,7 +268,12 @@
                 dataType: 'jsonp',
                 success: function (data) {
                     if (data.tag_wikis.length > 0) {
-                        $("#stackoverflowResult").html(data.tag_wikis[0].wiki_body);
+                        if (data.tag_wikis[0].wiki_body != "") {
+                            $("#stackoverflowResult").html(data.tag_wikis[0].wiki_body);
+                        }
+                        else {
+                            $("#stackoverflowResult").html(data.tag_wikis[0].wiki_excerpt);
+                        }
                         $("#stackoverflowResultFound").show();
                     }
                     else {

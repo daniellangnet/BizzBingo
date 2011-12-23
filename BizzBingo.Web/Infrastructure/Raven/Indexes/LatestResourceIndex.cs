@@ -35,7 +35,7 @@ namespace BizzBingo.Web.Infrastructure.Raven.Indexes
                            };
 
             Reduce = results => from result in results
-                                group result by result.Title
+                                group result by result.Url
                                     into g
                                     select new
                                     {
