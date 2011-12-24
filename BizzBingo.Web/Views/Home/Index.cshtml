@@ -5,7 +5,9 @@
 @model IndexViewModel
 <div class="hero-unit">
     <h1>
-        Hello!</h1>
+        @if (Request.IsAuthenticated) { <text>Hello,</text> @HttpContext.Current.User.Identity.Name<text>!</text> }
+        else { <text>Hello!</text> }
+    </h1>
     <p>
         Want to know more about your tech stack? You want to tell the world, why this or that rocks or sucks? Great! We want our opinion!</p>
     <p>
