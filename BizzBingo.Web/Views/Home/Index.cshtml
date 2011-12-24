@@ -7,7 +7,7 @@
     <h1>
         Hello!</h1>
     <p>
-        Did you hear a super cool new buzzword or technology? We want our opinion!</p>
+        Want to know more about your tech stack? You want to tell the world, why this or that rocks or sucks? Great! We want our opinion!</p>
     <p>
         <a class="btn primary large" data-controls-modal="modal-from-dom" data-backdrop="static">
             Share a buzzword...</a></p>
@@ -16,19 +16,32 @@
     <div class="span16">
         <div class="page-header">
             <h2>
-                Newest information about</h2>
+                Newests presentations or videos</h2>
         </div>
         <div class="row" id="recentResources">
             @{ Html.RenderAction("MostRecent", "Resource", new { area = "Wiki" }); }
         </div>
     </div>
 </div>
-<br />
 <div class="row">
     <div class="span16">
         <div class="page-header">
             <h2>
-                Most success stories</h2>
+                Newests users</h2>
+        </div>
+        <div class="row" id="newestUsers">
+            @foreach (var user in Model.NewestUsers)
+            { 
+                <div class="span1">http://twitter.com/@user.Name</div>
+            }
+        </div>
+    </div>
+</div>
+<!-- top -->
+<div class="row">
+    <div class="span16">
+        <div class="page-header">
+            <h2>Tech Stacks with most success stories</h2>
         </div>
         <div class="row">
             <div class="span6">
@@ -53,7 +66,7 @@
                             <p><strong>This information is from the awesome <a href="http://stackoverflow.com/tags/@words.Slug/info">Stackoverflow Community</a>!</strong></p>
                         </div>
                         <div style="display: none;" class="alert-message block-message warning stackoverflowNotFound">
-                                <p><strong>We searched for the information on <a href="http://stackoverflow.com/">Stackoverflow.com</a>, but didn´t find anything.</strong><br/> But it would be awesome, if you could help and share some information on Stackoverflow too!</p>
+                                <p><strong>We searched for the information on <a href="http://stackoverflow.com/">Stackoverflow.com</a>, but didn´t find anything.</strong><br/> But it would be awesome, if you could help and <a href="http://stackoverflow.com/tags/@words.Title.ToLower()/info">share some information on Stackoverflow</a> too!</p>
                         </div>
                         <p>
                             <a class="btn primary" href="@Url.Action("Detail", "Term", new { area = "Wiki", slug = words.Slug })">
@@ -72,10 +85,59 @@
         </div>
     </div>
 </div>
+<!-- sucks -->
 <div class="row">
     <div class="span16">
         <div class="page-header">
-            <h2>Newest buzzwords</h2>
+            <h2>Tech stacks with most stories about why they are sucking</h2>
+        </div>
+        <div class="row">
+            <div class="span6">
+                <div class="well" style="min-height: 200px;">
+                    <img style="margin-left: 5px; opacity: .3; position: absolute; height: 200px;" src="@Url.Content("~/Content/Images/wtf.png")" alt="">
+                </div>
+            </div>
+            <div class="offset1 span9">
+                @foreach (var words in Model.Bottom)
+                { 
+                    <div class="row">
+                        <div class="page-header">
+                            <h4>
+                                @words.Title &nbsp;
+                                @if (words.DownVotes > 0)
+                                {<span class="label">@words.DownVotes stories about it!</span>}
+                            </h4>
+                        </div>
+                        <p data-tag="@words.Title">
+                        </p>
+                        <div style="display: none;" class="well stackoverflowFound">
+                            <p><strong>This information is from the awesome <a href="http://stackoverflow.com/tags/@words.Slug/info">Stackoverflow Community</a>!</strong></p>
+                        </div>
+                        <div style="display: none;" class="alert-message block-message warning stackoverflowNotFound">
+                                <p><strong>We searched for the information on <a href="http://stackoverflow.com/">Stackoverflow.com</a>, but didn´t find anything.</strong><br/> But it would be awesome, if you could help and <a href="http://stackoverflow.com/tags/@words.Title.ToLower()/info">share some information on Stackoverflow</a> too!</p>
+                        </div>
+                        <p>
+                            <a class="btn primary" href="@Url.Action("Detail", "Term", new { area = "Wiki", slug = words.Slug })">
+                                I want do learn more about @words.Title &raquo;</a>
+                        </p>
+                    </div>
+                }
+                <div class="row">
+                    <div class="alert-message warning">
+                        <p>
+                            <strong>If you think, there should be another great topic in this list:</strong><br />
+                            Just go to a buzzword and write a success story!</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<!-- Newest -->
+<div class="row">
+    <div class="span16">
+        <div class="page-header">
+            <h2>Newest tech stacks on KnowYourStack.com</h2>
         </div>
         <div class="row">
             <div class="span6">
@@ -93,15 +155,9 @@
                         <p data-tag="@words.Title"></p>
                         <div style="display: none;" class="well stackoverflowFound">
                             <p><strong>This information is from the awesome <a href="http://stackoverflow.com/tags/info">Stackoverflow Community</a>!</strong></p>
-                            <div class="alert-actions">
-                              <a class="btn small" href="http://stackoverflow.com/tags/@words.Title.ToLower()/info">Get me to Stackoverflow.com to improve the information!</a>
-                            </div>
                         </div>
-                        <div style="display: none;" class="alert-message block-message warning stackoverflowNotFound">
-                                <p><strong>We searched for the information on <a href="http://stackoverflow.com/">Stackoverflow.com</a>, but didn´t find anything.</strong><br/> But it would be awesome, if you could help and share some information on Stackoverflow too!</p>
-                                <div class="alert-actions">
-                                  <a class="btn small" href="http://stackoverflow.com/tags/@words.Title.ToLower()/info">Get me to Stackoverflow.com to improve the information!</a>
-                                </div>
+                        <div style="display: none;" class="alert-message warning stackoverflowNotFound">
+                                <p><strong>We searched for the information on <a href="http://stackoverflow.com/">Stackoverflow.com</a>, but didn´t find anything.</strong><br/> But it would be awesome, if you could help and <a href="http://stackoverflow.com/tags/@words.Title.ToLower()/info">share some information on Stackoverflow</a> too!</p>
                         </div>
                         <p>
                             <a class="btn primary" href="@Url.Action("Detail", "Term", new { area = "Wiki", slug = words.Slug })">
@@ -144,6 +200,10 @@
 
         $(function () {
             $('#recentResources').embedly({ key: Global_EmbedLy_Key,
+                maxWidth: 450,
+                maxHeight: 450
+            });
+            $('#newestUsers div').embedly({ key: Global_EmbedLy_Key,
                 maxWidth: 450,
                 maxHeight: 450
             });

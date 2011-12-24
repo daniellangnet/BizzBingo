@@ -16,7 +16,9 @@ namespace BizzBingo.Web.Controllers
         {
             IndexViewModel model = new IndexViewModel();
             model.Top = Session.Query<Term>().OrderByDescending(x => x.UpVotes).Take(3).ToList();
+            model.Bottom = Session.Query<Term>().OrderByDescending(x => x.DownVotes).Take(3).ToList();
             model.Newest = Session.Query<Term>().OrderByDescending(x => x.CreatedOn).Take(3).ToList();
+            model.NewestUsers = Session.Query<User>().OrderByDescending(x => x.RegisteredOn).Take(15).ToList();
             return View(model);
         }
 

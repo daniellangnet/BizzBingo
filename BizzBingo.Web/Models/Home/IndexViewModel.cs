@@ -7,5 +7,7 @@ namespace BizzBingo.Web.Models.Home
         public List<Term> Top { get; set; }
         public List<Term> Newest { get; set; }
         public List<Term> MostResources { get; set; }
+        public List<Term> Bottom { get; set; }
+        public List<User> NewestUsers { get; set; }
     }
 }
