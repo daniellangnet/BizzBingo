@@ -15,12 +15,31 @@
         <a href="@Url.Action("Detail", "Term", new { slug = Model.Slug })">← Sry, I´ll tell
             you later!</a></p>
 </div>
+
+<div class="row">
+    <div class="span16" >
+        <div class="page-header">
+            <h2>@Model.Title is...</h2>
+        </div>
+        <div class="row">
+        @foreach (var reaction in Model.Reactions.Where(x => x.IsPositive == false))
+        {
+            <div class="span-one-third">
+                <h3>@reaction.Title <small>@reaction.CreatedOn.ToShortDateString()</small></h3>
+                <p>@reaction.Reason</p>
+                <p>Author: @reaction.Name</p>
+            </div>
+        }
+        </div>
+    </div>
+</div>
 <div class="row">
     <div class="span16">
         <div class="page-header">
-            <h1>I think, that... <small>(and I try to be nice)</small></h1>
+            <h2>I think, that... <small>(and I try to be nice)</small></h2>
         </div>
-        @using (Html.BeginForm("Reaction", "Term", FormMethod.Post)) {
+        @using (Html.BeginForm("Reaction", "Term", FormMethod.Post))
+        {
             @Html.Hidden("TermId", Model.Id)
             @Html.Hidden("IsPositive", "false")
         <fieldset>
