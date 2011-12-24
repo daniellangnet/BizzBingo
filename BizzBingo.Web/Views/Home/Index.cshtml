@@ -23,6 +23,7 @@
         </div>
     </div>
 </div>
+<br/>
 <div class="row">
     <div class="span16">
         <div class="page-header">
@@ -30,10 +31,22 @@
                 Newests users</h2>
         </div>
         <div class="row" id="newestUsers">
-            @foreach (var user in Model.NewestUsers)
-            { 
-                <div class="span1">http://twitter.com/@user.Name</div>
-            }
+            <div class="span10">
+                @foreach (var user in Model.NewestUsers)
+                { 
+                        <a href="http://twitter.com/@user.Name">
+                            <img src="http://api.twitter.com/1/users/profile_image/@user.Name" alt="@user.Name on Twitter" title="@user.Name on Twitter" />
+                        </a>
+                }
+            </div>
+            <div class="span6">
+                <div class="alert-message block-message warning">
+                      <p><strong>Want to be part of this community?</strong></p>
+                      <div class="alert-actions">
+                        <a style="height: 10px;" href="@Url.Action("Index", "Auth", new { area = "" })"><img src="@Url.Content("~/Content/Images/sign-in-with-twitter-d.png")" alt="Just sign in with our Twitter" title="Just sign in with our Twitter"/></a>
+                      </div>
+                </div>
+            </div>
         </div>
     </div>
 </div>
@@ -203,10 +216,6 @@
                 maxWidth: 450,
                 maxHeight: 450
             });
-            $('#newestUsers div').embedly({ key: Global_EmbedLy_Key,
-                maxWidth: 450,
-                maxHeight: 450
-            });
 
             $("p[data-tag]").each(function (index, element) {
                 $.ajax({
@@ -219,7 +228,7 @@
                             $(element).parent().find(".stackoverflowFound").show();
                         }
                         else {
-                            $(element).parent().find(".stackoverflowNotFound").show();                            
+                            $(element).parent().find(".stackoverflowNotFound").show();
                         }
                     },
                     jsonp: 'jsonp'
