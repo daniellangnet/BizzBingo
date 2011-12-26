@@ -15,7 +15,8 @@
         <a href="@Url.Action("Detail", "Term", new { slug = Model.Slug })">← Sry, I´ll tell
             you later!</a></p>
 </div>
-
+@if (Model.Reactions != null && Model.Reactions.Where(x => x.IsPositive == false).Count() > 0)
+{ 
 <div class="row">
     <div class="span16" >
         <div class="page-header">
@@ -33,6 +34,7 @@
         </div>
     </div>
 </div>
+}
 <div class="row">
     <div class="span16">
         <div class="page-header">
