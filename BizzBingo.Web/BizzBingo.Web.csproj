@@ -199,12 +199,17 @@
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
     <Compile Include="Helper\Extensions.cs" />
+    <Compile Include="Infrastructure\Binder\IModelBinder.cs" />
+    <Compile Include="Infrastructure\Binder\ModelBinderProvider.cs" />
+    <Compile Include="Infrastructure\CurrentUser.cs" />
+    <Compile Include="Infrastructure\Binder\CurrentUserBinder.cs" />
     <Compile Include="Infrastructure\DotNetOAuth\InMemoryTokenManager.cs" />
     <Compile Include="Infrastructure\DotNetOAuth\TwitterConsumer.cs" />
     <Compile Include="Infrastructure\Raven\DocumentStoreHolder.cs" />
     <Compile Include="Infrastructure\Raven\Indexes\LatestResourceIndex.cs" />
     <Compile Include="Infrastructure\Raven\Indexes\SearchIndex.cs" />
     <Compile Include="Infrastructure\Raven\RavenActionFilterAttribute.cs" />
+    <Compile Include="Infrastructure\SessionKeys.cs" />
     <Compile Include="Models\Home\IndexViewModel.cs" />
     <Compile Include="Models\Reaction.cs" />
     <Compile Include="Models\Resource.cs" />

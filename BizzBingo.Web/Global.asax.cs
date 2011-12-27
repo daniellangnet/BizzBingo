@@ -48,7 +48,7 @@ namespace BizzBingo.Web
             RegisterRoutes(RouteTable.Routes);
         }
 
-                private static void TryCreatingIndexesOrRedirectToErrorPage()
+        private static void TryCreatingIndexesOrRedirectToErrorPage()
         {
             try
             {
