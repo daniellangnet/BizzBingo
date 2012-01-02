@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Linq;
 using System.Web.Mvc;
+using BizzBingo.Web.Infrastructure;
 using BizzBingo.Web.Infrastructure.Raven.Indexes;
 using BizzBingo.Web.Models;
 using BizzBingo.Web.Models.Home;
@@ -12,7 +13,7 @@ namespace BizzBingo.Web.Controllers
     public class HomeController : BaseController
     {
         [HttpGet]
-        public ActionResult Index()
+        public ActionResult Index(CurrentUserInformation currentUser)
         {
             IndexViewModel model = new IndexViewModel();
             model.Top = Session.Query<Term>().OrderByDescending(x => x.UpVotes).Take(3).ToList();

@@ -4,7 +4,9 @@ using System.Linq;
 using System.Web;
 using System.Web.Mvc;
 using System.Web.Routing;
+using BizzBingo.Web.Infrastructure;
 using BizzBingo.Web.Infrastructure.Raven;
+using Castle.Core;
 
 namespace BizzBingo.Web
 {
@@ -46,9 +48,16 @@ namespace BizzBingo.Web
             TryCreatingIndexesOrRedirectToErrorPage();
             RegisterGlobalFilters(GlobalFilters.Filters);
             RegisterRoutes(RouteTable.Routes);
+            this.InitApp(LifestyleType.PerWebRequest);
         }
 
-                private static void TryCreatingIndexesOrRedirectToErrorPage()
+        public void InitApp(LifestyleType lifestyleType)
+        {
+            Bootstrapper.InstallDependencies(lifestyleType);
+            DependencyResolver.SetResolver(new WindsorDependencyResolver(Bootstrapper.Container));
+        }
+
+        private static void TryCreatingIndexesOrRedirectToErrorPage()
         {
             try
             {

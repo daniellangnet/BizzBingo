@@ -50,12 +50,10 @@
       <HintPath>..\packages\RavenDB-Embedded.1.0.531\lib\net40\AsyncCtpLibrary.dll</HintPath>
     </Reference>
     <Reference Include="Castle.Core, Version=3.0.0.0, Culture=neutral, PublicKeyToken=407dd0808d44fbdc, processorArchitecture=MSIL">
-      <SpecificVersion>False</SpecificVersion>
-      <HintPath>..\packages\Castle.Core.3.0.0.3001\lib\net40-client\Castle.Core.dll</HintPath>
+      <HintPath>..\packages\Castle.Core.3.0.0.4001\lib\net40-client\Castle.Core.dll</HintPath>
     </Reference>
     <Reference Include="Castle.Windsor, Version=3.0.0.0, Culture=neutral, PublicKeyToken=407dd0808d44fbdc, processorArchitecture=MSIL">
-      <SpecificVersion>False</SpecificVersion>
-      <HintPath>..\packages\Castle.Windsor.3.0.0.3001\lib\net40\Castle.Windsor.dll</HintPath>
+      <HintPath>..\packages\Castle.Windsor.3.0.0.4001\lib\net40\Castle.Windsor.dll</HintPath>
     </Reference>
     <Reference Include="Combres, Version=2.2.1.0, Culture=neutral, PublicKeyToken=1ca6b37997dd7536, processorArchitecture=MSIL">
       <HintPath>..\packages\combres.2.2.2.0\lib\net40\Combres.dll</HintPath>
@@ -150,7 +148,6 @@
     </Reference>
     <Reference Include="System.ComponentModel.Composition" />
     <Reference Include="System.Data.Entity" />
-    <Reference Include="System.Data.SqlServerCe, Version=4.0.0.0, Culture=neutral, PublicKeyToken=89845dcd8080cc91" />
     <Reference Include="System.Web.Mvc, Version=3.0.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL" />
     <Reference Include="System.Web.WebPages, Version=1.0.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL" />
     <Reference Include="System.Web.Helpers, Version=1.0.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL" />
@@ -191,6 +188,9 @@
     <Compile Include="Areas\Wiki\Models\DetailResourceViewModel.cs" />
     <Compile Include="Areas\Wiki\Models\DetailTermViewModel.cs" />
     <Compile Include="Areas\Wiki\WikiAreaRegistration.cs" />
+    <Compile Include="Binding\CurrentUserBinder.cs" />
+    <Compile Include="Binding\IModelBinder.cs" />
+    <Compile Include="Binding\ModelBindingProvider.cs" />
     <Compile Include="Controllers\AuthController.cs" />
     <Compile Include="Controllers\BaseController.cs" />
     <Compile Include="Controllers\HomeController.cs" />
@@ -199,12 +199,16 @@
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
     <Compile Include="Helper\Extensions.cs" />
+    <Compile Include="Infrastructure\CurrentUserInformation.cs" />
+    <Compile Include="Infrastructure\Bootstrapper.cs" />
     <Compile Include="Infrastructure\DotNetOAuth\InMemoryTokenManager.cs" />
     <Compile Include="Infrastructure\DotNetOAuth\TwitterConsumer.cs" />
     <Compile Include="Infrastructure\Raven\DocumentStoreHolder.cs" />
     <Compile Include="Infrastructure\Raven\Indexes\LatestResourceIndex.cs" />
     <Compile Include="Infrastructure\Raven\Indexes\SearchIndex.cs" />
     <Compile Include="Infrastructure\Raven\RavenActionFilterAttribute.cs" />
+    <Compile Include="Infrastructure\WebInstaller.cs" />
+    <Compile Include="Infrastructure\WindsorDependencyResolver.cs" />
     <Compile Include="Models\Home\IndexViewModel.cs" />
     <Compile Include="Models\Reaction.cs" />
     <Compile Include="Models\Resource.cs" />
