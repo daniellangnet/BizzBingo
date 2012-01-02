@@ -73,7 +73,7 @@
             </div>
         </section>
         <section>
-            <canvas id="related" width="940" height="400"></canvas>
+            <canvas id="stackoverflowRelated" width="940" height="400"></canvas>
         </section>
         <section>
             <div id="opinion" class="hero-unit">
@@ -262,139 +262,15 @@
 </div>
 @section Scripts
 {
+    <!-- doesn´t like combres -->
     <script type="text/javascript" src="@Url.Content("~/Scripts/arbor.js")"></script>
     <script type="text/javascript" src="@Url.Content("~/Scripts/arbor-graphics.js")"></script>
     
     <script type="text/javascript">
+
         
-        
-(function ($) {
 
-    var Renderer = function (canvas) {
-        var canvas = $(canvas).get(0);
-        var ctx = canvas.getContext("2d");
-        var particleSystem;
-        var gfx = arbor.Graphics(canvas);
-        var _vignette = null;
-        var that = {
-            init: function (system) {
-                //
-                // the particle system will call the init function once, right before the
-                // first frame is to be drawn. it's a good place to set up the canvas and
-                // to pass the canvas size to the particle system
-                //
-                // save a reference to the particle system for use in the .redraw() loop
-                particleSystem = system;
 
-                // inform the system of the screen dimensions so it can map coords for us.
-                // if the canvas is ever resized, screenSize should be called again with
-                // the new dimensions
-                particleSystem.screenSize(canvas.width, canvas.height);
-                particleSystem.screenPadding(80); // leave an extra 80px of whitespace per side
-
-                // set up some event handlers to allow for node-dragging
-                that.initMouseHandling();
-            },
-
-            redraw: function () {
-                gfx.clear();
-                particleSystem.eachEdge(function (edge, p1, p2) {
-                    if (edge.source.data.alpha * edge.target.data.alpha == 0) return;
-                    gfx.line(p1, p2, { stroke: "#BFBFBF", width: 2, alpha: edge.target.data.alpha });
-                });
-                particleSystem.eachNode(function (node, pt) {
-                    var w = Math.max(20, 20 + gfx.textWidth(node.name));
-                    if (node.data.alpha === 0) return;
-                    gfx.rect(pt.x - w / 2, pt.y - 8, w, 20, 4, { fill: "F9F9F9" });
-                    gfx.text(node.name, pt.x, pt.y + 9, { color: "white", align: "center", font: "Arial", size: 12 });
-                    gfx.text(node.name, pt.x, pt.y + 9, { color: "white", align: "center", font: "Arial", size: 12 });
-                });
-            },
-
-            initMouseHandling: function () {
-                // no-nonsense drag and drop (thanks springy.js)
-                var dragged = null;
-
-                // set up a handler object that will initially listen for mousedowns then
-                // for moves and mouseups while dragging
-                var handler = {
-                    clicked: function (e) {
-                        var pos = $(canvas).offset();
-                        _mouseP = arbor.Point(e.pageX - pos.left, e.pageY - pos.top);
-                        dragged = particleSystem.nearest(_mouseP);
-
-                        if (dragged && dragged.node !== null) {
-                            // while we're dragging, don't let physics move the node
-                            dragged.node.fixed = true;
-                        }
-
-                        $(canvas).bind('mousemove', handler.dragged);
-                        $(window).bind('mouseup', handler.dropped);
-
-                        return false;
-                    },
-                    dragged: function (e) {
-                        var pos = $(canvas).offset();
-                        var s = arbor.Point(e.pageX - pos.left, e.pageY - pos.top);
-
-                        if (dragged && dragged.node !== null) {
-                            var p = particleSystem.fromScreen(s);
-                            dragged.node.p = p;
-                        }
-
-                        return false;
-                    },
-
-                    dropped: function (e) {
-                        if (dragged === null || dragged.node === undefined) return;
-                        if (dragged.node !== null) dragged.node.fixed = false;
-                        dragged.node.tempMass = 1000;
-                        dragged = null;
-                        $(canvas).unbind('mousemove', handler.dragged);
-                        $(window).unbind('mouseup', handler.dropped);
-                        _mouseP = null;
-                        return false;
-                    }
-                }
-
-                // start listening
-                $(canvas).mousedown(handler.clicked);
-
-            }
-
-        }
-        return that;
-    }
-
-    $(document).ready(function () {
-        var sys = arbor.ParticleSystem(1000, 600, 0.5); // create the system with sensible repulsion/stiffness/friction
-        sys.parameters({ gravity: true }); // use center-gravity to make the graph settle nicely (ymmv)
-        sys.renderer = Renderer("#related"); // our newly created renderer will have its .init() method called shortly by sys...
-
-        $.ajax({
-            type: 'GET',
-            url: 'http://api.stackexchange.com/2.0/tags/@Model.Slug/related?site=stackoverflow',
-            dataType: 'jsonp',
-            success: function (data) {
-                if (data.items.length > 0) {
-                    for (var c in data.items) {
-                        sys.addNode(data.items[c].name);
-                        sys.addEdge('@Model.Title', data.items[c].name);
-                    }
-                }
-            },
-            jsonp: 'jsonp'
-        });
-
-    })
-
-})(this.jQuery)
-
-    </script>
-
-    @*    <script type="text/javascript" src="@Url.Content("~/Scripts/stackexplorer.js")"></script>*@
-
-    <script type="text/javascript">
         $(function () {
 
             $.ajax({
@@ -410,6 +286,8 @@
                             $("#stackoverflowResult").html(data.tag_wikis[0].wiki_excerpt);
                         }
                         $("#stackoverflowResultFound").show();
+                        searchRelatedTags();
+                        $("#stackoverflowRelated").show();
                     }
                     else {
                         $("#stackoverflowResultNotFound").show();
@@ -443,5 +321,120 @@
         function resourceAdded() {
             window.location.reload();
         }
+
+        function searchRelatedTags() {
+            var sys = arbor.ParticleSystem(1000, 600, 0.5); // create the system with sensible repulsion/stiffness/friction
+            sys.parameters({ gravity: true }); // use center-gravity to make the graph settle nicely (ymmv)
+            sys.renderer = renderRelatedTags("#stackoverflowRelated"); // our newly created renderer will have its .init() method called shortly by sys...
+
+            $.ajax({
+                type: 'GET',
+                url: 'http://api.stackexchange.com/2.0/tags/@Model.Slug/related?site=stackoverflow',
+                dataType: 'jsonp',
+                success: function (data) {
+                    if (data.items.length > 0) {
+                        for (var c in data.items) {
+                            sys.addNode(data.items[c].name);
+                            sys.addEdge('@Model.Title', data.items[c].name);
+                        }
+                    }
+                },
+                jsonp: 'jsonp'
+            });
+        }
+
+        function renderRelatedTags(canvas) {
+            var canvas = $(canvas).get(0);
+            var particleSystem;
+            var gfx = arbor.Graphics(canvas);
+            var that = {
+                init: function (system) {
+                    //
+                    // the particle system will call the init function once, right before the
+                    // first frame is to be drawn. it's a good place to set up the canvas and
+                    // to pass the canvas size to the particle system
+                    //
+                    // save a reference to the particle system for use in the .redraw() loop
+                    particleSystem = system;
+
+                    // inform the system of the screen dimensions so it can map coords for us.
+                    // if the canvas is ever resized, screenSize should be called again with
+                    // the new dimensions
+                    particleSystem.screenSize(canvas.width, canvas.height);
+                    particleSystem.screenPadding(80); // leave an extra 80px of whitespace per side
+
+                    // set up some event handlers to allow for node-dragging
+                    that.initMouseHandling();
+                },
+
+                redraw: function () {
+                    gfx.clear();
+                    particleSystem.eachEdge(function (edge, p1, p2) {
+                        if (edge.source.data.alpha * edge.target.data.alpha == 0) return;
+                        gfx.line(p1, p2, { stroke: "#BFBFBF", width: 2, alpha: edge.target.data.alpha });
+                    });
+                    particleSystem.eachNode(function (node, pt) {
+                        var w = Math.max(20, 20 + gfx.textWidth(node.name));
+                        if (node.data.alpha === 0) return;
+                        gfx.rect(pt.x - w / 2, pt.y - 8, w, 20, 4, { fill: "F9F9F9" });
+                        gfx.text(node.name, pt.x, pt.y + 9, { color: "white", align: "center", font: "Arial", size: 12 });
+                        gfx.text(node.name, pt.x, pt.y + 9, { color: "white", align: "center", font: "Arial", size: 12 });
+                    });
+                },
+
+                initMouseHandling: function () {
+                    // no-nonsense drag and drop (thanks springy.js)
+                    var dragged = null;
+
+                    // set up a handler object that will initially listen for mousedowns then
+                    // for moves and mouseups while dragging
+                    var handler = {
+                        clicked: function (e) {
+                            var pos = $(canvas).offset();
+                            _mouseP = arbor.Point(e.pageX - pos.left, e.pageY - pos.top);
+                            dragged = particleSystem.nearest(_mouseP);
+
+                            if (dragged && dragged.node !== null) {
+                                // while we're dragging, don't let physics move the node
+                                dragged.node.fixed = true;
+                            }
+
+                            $(canvas).bind('mousemove', handler.dragged);
+                            $(window).bind('mouseup', handler.dropped);
+
+                            return false;
+                        },
+                        dragged: function (e) {
+                            var pos = $(canvas).offset();
+                            var s = arbor.Point(e.pageX - pos.left, e.pageY - pos.top);
+
+                            if (dragged && dragged.node !== null) {
+                                var p = particleSystem.fromScreen(s);
+                                dragged.node.p = p;
+                            }
+
+                            return false;
+                        },
+
+                        dropped: function (e) {
+                            if (dragged === null || dragged.node === undefined) return;
+                            if (dragged.node !== null) dragged.node.fixed = false;
+                            dragged.node.tempMass = 1000;
+                            dragged = null;
+                            $(canvas).unbind('mousemove', handler.dragged);
+                            $(window).unbind('mouseup', handler.dropped);
+                            _mouseP = null;
+                            return false;
+                        }
+                    }; // start listening
+                    $(canvas).mousedown(handler.clicked);
+
+                }
+
+            };
+            return that;
+        }
+
+
     </script>
 }
