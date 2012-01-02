@@ -218,6 +218,7 @@
     <Content Include="Config\combres.xml">
       <SubType>Designer</SubType>
     </Content>
+    <Content Include="Scripts\arbor-graphics.js" />
     <Content Include="Content\bootstrap.min.css" />
     <Content Include="Content\Images\cerealman.png" />
     <Content Include="Content\icons.png" />
@@ -232,6 +233,7 @@
     <Content Include="humans.txt" />
     <Content Include="Raven.Studio.xap" />
     <Content Include="robots.txt" />
+    <Content Include="Scripts\arbor.js" />
     <Content Include="Scripts\backbone.js" />
     <Content Include="Scripts\backbone.min.js" />
     <Content Include="Scripts\bootstrap-alerts.js" />
@@ -259,6 +261,7 @@
     <Content Include="Scripts\modernizr-2.0.6-development-only.js" />
     <Content Include="Scripts\logger.js" />
     <Content Include="Scripts\modernizr-2.0.6.js" />
+    <Content Include="Scripts\stackExplorer.js" />
     <Content Include="Scripts\underscore.js" />
     <Content Include="Scripts\underscore.min.js" />
     <Content Include="Web.config">
