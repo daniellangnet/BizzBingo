@@ -51,7 +51,7 @@ namespace BizzBingo.Web.Controllers
             if (IsSlugAlreadyTaken(slug))
             {
                 string newSlug = slug + "-I";
-                SearchForSlug(newSlug);
+                return SearchForSlug(newSlug);
             }
 
             return slug;

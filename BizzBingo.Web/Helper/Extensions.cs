@@ -21,20 +21,12 @@ namespace BizzBingo.Web.Helper
             return Encoding.ASCII.GetString(Encoding.GetEncoding("Cyrillic").GetBytes(s));
         }
 
-        /// <summary>
-        /// Cleanses String for URL.
-        /// Thx: http://chrismckee.co.uk/creating-url-slugs-permalinks-in-csharp/
-        /// </summary>
-        /// <param name="s">string</param>
-        /// <returns>URL Friendly String</returns>
         public static string ToSlug(this string s)
         {
-            var sb = new StringBuilder(
-                Regex.Replace(
-                    HttpUtility.HtmlDecode(s.Replace("&", "and"))
-                                            .RemoveAccent(), @"[^\w\ ]", "")
-                                            .Trim()
-                    );
+            var decoded = HttpUtility.HtmlDecode(s.Replace("&", "and"));
+            var withoutAccent = decoded.RemoveAccent();
+
+            var sb = new StringBuilder(withoutAccent);
             sb.Replace("  ", " ").Replace(" ", "-");
 
             return sb.ToString().ToLower();
