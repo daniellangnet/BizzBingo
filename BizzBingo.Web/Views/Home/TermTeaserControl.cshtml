@@ -1,0 +1,36 @@
+﻿@model BizzBingo.Web.Models.Home.TeaserViewModel
+
+ <div class="row">
+        <div class="page-header">
+            <h4>@Model.Term.Title &nbsp;
+            
+                @* Bad Reactions *@
+                @if (Model.ShowPositiveReactions.HasValue && Model.ShowPositiveReactions.Value == false && Model.Term.DownVotes > 0)
+                {
+                    <span class="label">@Model.Term.DownVotes @if(Model.Term.DownVotes == 1) { <text>story</text> } else {<text>stories</text>} about it!</span>
+                }
+            
+                @* Good Reactions *@
+                @if (Model.ShowPositiveReactions.HasValue && Model.ShowPositiveReactions.Value == true && Model.Term.UpVotes > 0)
+                {
+                    <span class="label">@Model.Term.UpVotes success @if(Model.Term.UpVotes == 1) { <text>story</text> } else {<text>stories</text>}!</span>
+                }
+                                                                                
+                @* Non Reactions *@
+                @if (Model.ShowPositiveReactions.HasValue == false)
+                {<small>@Model.Term.CreatedOn.ToShortDateString()</small>}
+                                                                                
+            </h4>
+        </div>
+        <p data-tag="@Model.Term.Title"></p>
+        <div style="display: none;" class="well stackoverflowFound">
+            <p><strong>This information is from the awesome <a href="http://stackoverflow.com/tags/info">Stackoverflow Community</a>!</strong></p>
+        </div>
+        <div style="display: none;" class="alert-message warning stackoverflowNotFound">
+                <p><strong>We searched for the information on <a href="http://stackoverflow.com/">Stackoverflow.com</a>, but didn´t find anything.</strong><br/> But it would be awesome, if you could help and <a href="http://stackoverflow.com/tags/@Model.Term.Title.ToLower()/info">share some information on Stackoverflow</a> too!</p>
+        </div>
+        <p>
+            <a class="btn primary" href="@Url.Action("Detail", "Term", new { area = "Wiki", slug = Model.Term.Slug })">
+                I want to learn more about @Model.Term.Title &raquo;</a>
+        </p>
+</div>

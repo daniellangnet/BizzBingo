@@ -9,5 +9,6 @@ namespace BizzBingo.Web.Models.Home
         public List<Term> MostResources { get; set; }
         public List<Term> Bottom { get; set; }
         public List<User> NewestUsers { get; set; }
+        public string UserName { get; set; }
     }
 }

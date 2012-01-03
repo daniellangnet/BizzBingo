@@ -210,6 +210,7 @@
     <Compile Include="Infrastructure\WebInstaller.cs" />
     <Compile Include="Infrastructure\WindsorDependencyResolver.cs" />
     <Compile Include="Models\Home\IndexViewModel.cs" />
+    <Compile Include="Models\Home\TeaserViewModel.cs" />
     <Compile Include="Models\Reaction.cs" />
     <Compile Include="Models\Resource.cs" />
     <Compile Include="Models\Term.cs" />
@@ -265,7 +266,6 @@
     <Content Include="Scripts\modernizr-2.0.6-development-only.js" />
     <Content Include="Scripts\logger.js" />
     <Content Include="Scripts\modernizr-2.0.6.js" />
-    <Content Include="Scripts\stackExplorer.js" />
     <Content Include="Scripts\underscore.js" />
     <Content Include="Scripts\underscore.min.js" />
     <Content Include="Web.config">
@@ -294,15 +294,6 @@
     <Content Include="Views\Shared\Error.cshtml" />
     <Content Include="Views\Shared\_Layout.cshtml" />
     <Content Include="Views\Web.config" />
-    <Content Include="Content\bootstrap.less" />
-    <Content Include="Content\forms.less" />
-    <Content Include="Content\mixins.less" />
-    <Content Include="Content\patterns.less" />
-    <Content Include="Content\reset.less" />
-    <Content Include="Content\scaffolding.less" />
-    <Content Include="Content\tables.less" />
-    <Content Include="Content\type.less" />
-    <Content Include="Content\variables.less" />
     <Content Include="Areas\Wiki\Views\Web.config" />
     <Content Include="Areas\Wiki\Views\Term\Detail.cshtml" />
     <Content Include="Areas\Wiki\Views\_ViewStart.cshtml" />
@@ -313,6 +304,7 @@
     <Content Include="Areas\Wiki\Views\Term\Suckness.cshtml" />
     <Content Include="Areas\Wiki\Views\Term\Awesomeness.cshtml" />
     <Content Include="Areas\Wiki\Views\Term\Search.cshtml" />
+    <Content Include="Views\Home\TermTeaserControl.cshtml" />
     <None Include="_bin_deployableAssemblies\System.Web.Mvc.dll" />
     <None Include="_bin_deployableAssemblies\WebMatrix.WebData.xml" />
     <None Include="_bin_deployableAssemblies\WebMatrix.WebData.dll" />

@@ -5,8 +5,10 @@
 @model IndexViewModel
 <div class="hero-unit">
     <h1>
-        @if (Request.IsAuthenticated) { <text>Hello,</text> @HttpContext.Current.User.Identity.Name<text>!</text> }
-        else { <text>Hello!</text> }
+        @if (string.IsNullOrWhiteSpace(Model.UserName))
+        { <text>Hello,</text> @Model.UserName<text>!</text> }
+        else
+        { <text>Hello!</text> }
     </h1>
     <p>
         Want to know more about your tech stack? You want to tell the world, why this or that rocks or sucks? Great! We want our opinion!</p>
@@ -66,28 +68,8 @@
             </div>
             <div class="offset1 span9">
                 @foreach (var words in Model.Top)
-                { 
-                    <div class="row">
-                        <div class="page-header">
-                            <h4>
-                                @words.Title &nbsp;
-                                @if (words.UpVotes > 0)
-                                {<span class="label">@words.UpVotes success stories!</span>}
-                            </h4>
-                        </div>
-                        <p data-tag="@words.Title">
-                        </p>
-                        <div style="display: none;" class="well stackoverflowFound">
-                            <p><strong>This information is from the awesome <a href="http://stackoverflow.com/tags/@words.Slug/info">Stackoverflow Community</a>!</strong></p>
-                        </div>
-                        <div style="display: none;" class="alert-message block-message warning stackoverflowNotFound">
-                                <p><strong>We searched for the information on <a href="http://stackoverflow.com/">Stackoverflow.com</a>, but didn´t find anything.</strong><br/> But it would be awesome, if you could help and <a href="http://stackoverflow.com/tags/@words.Title.ToLower()/info">share some information on Stackoverflow</a> too!</p>
-                        </div>
-                        <p>
-                            <a class="btn primary" href="@Url.Action("Detail", "Term", new { area = "Wiki", slug = words.Slug })">
-                                I want do learn more about @words.Title &raquo;</a>
-                        </p>
-                    </div>
+                {
+                    Html.RenderPartial("TermTeaserControl", new TeaserViewModel() { Term = words, ShowPositiveReactions = true});
                 }
                 <div class="row">
                     <div class="alert-message warning">
@@ -114,28 +96,8 @@
             </div>
             <div class="offset1 span9">
                 @foreach (var words in Model.Bottom)
-                { 
-                    <div class="row">
-                        <div class="page-header">
-                            <h4>
-                                @words.Title &nbsp;
-                                @if (words.DownVotes > 0)
-                                {<span class="label">@words.DownVotes stories about it!</span>}
-                            </h4>
-                        </div>
-                        <p data-tag="@words.Title">
-                        </p>
-                        <div style="display: none;" class="well stackoverflowFound">
-                            <p><strong>This information is from the awesome <a href="http://stackoverflow.com/tags/@words.Slug/info">Stackoverflow Community</a>!</strong></p>
-                        </div>
-                        <div style="display: none;" class="alert-message block-message warning stackoverflowNotFound">
-                                <p><strong>We searched for the information on <a href="http://stackoverflow.com/">Stackoverflow.com</a>, but didn´t find anything.</strong><br/> But it would be awesome, if you could help and <a href="http://stackoverflow.com/tags/@words.Title.ToLower()/info">share some information on Stackoverflow</a> too!</p>
-                        </div>
-                        <p>
-                            <a class="btn primary" href="@Url.Action("Detail", "Term", new { area = "Wiki", slug = words.Slug })">
-                                I want do learn more about @words.Title &raquo;</a>
-                        </p>
-                    </div>
+                {
+                    Html.RenderPartial("TermTeaserControl", new TeaserViewModel() { Term = words, ShowPositiveReactions = false});
                 }
                 <div class="row">
                     <div class="alert-message warning">
@@ -162,23 +124,8 @@
             </div>
             <div class="offset1 span9">
                 @foreach (var words in Model.Newest)
-                { 
-                    <div class="row">
-                        <div class="page-header">
-                            <h4>@words.Title &nbsp;<small>@words.CreatedOn.ToShortDateString()</small></h4>
-                        </div>
-                        <p data-tag="@words.Title"></p>
-                        <div style="display: none;" class="well stackoverflowFound">
-                            <p><strong>This information is from the awesome <a href="http://stackoverflow.com/tags/info">Stackoverflow Community</a>!</strong></p>
-                        </div>
-                        <div style="display: none;" class="alert-message warning stackoverflowNotFound">
-                                <p><strong>We searched for the information on <a href="http://stackoverflow.com/">Stackoverflow.com</a>, but didn´t find anything.</strong><br/> But it would be awesome, if you could help and <a href="http://stackoverflow.com/tags/@words.Title.ToLower()/info">share some information on Stackoverflow</a> too!</p>
-                        </div>
-                        <p>
-                            <a class="btn primary" href="@Url.Action("Detail", "Term", new { area = "Wiki", slug = words.Slug })">
-                                I want do learn more about @words.Title &raquo;</a>
-                        </p>
-                    </div>
+                {
+                    Html.RenderPartial("TermTeaserControl", new TeaserViewModel() { Term = words, ShowPositiveReactions = null});
                 }
             </div>
         </div>
