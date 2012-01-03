@@ -1,10 +1,12 @@
 ﻿using System;
+using System.Collections.Generic;
 using System.Linq;
 using System.Web.Mvc;
 using BizzBingo.Web.Infrastructure;
 using BizzBingo.Web.Infrastructure.Raven.Indexes;
 using BizzBingo.Web.Models;
 using BizzBingo.Web.Models.Home;
+using Action = BizzBingo.Web.Models.Action;
 
 namespace BizzBingo.Web.Controllers
 {
@@ -34,7 +36,7 @@ namespace BizzBingo.Web.Controllers
             return View();
         }
 
-        public ActionResult Share(Term term)
+        public ActionResult Share(Term term, CurrentUserInformation currentUser)
         {
             if (string.IsNullOrWhiteSpace(term.Title))
                 return Json(false);
@@ -43,6 +45,19 @@ namespace BizzBingo.Web.Controllers
             term.CreatedOn = DateTime.UtcNow;
             term.LcId = "1033";
             term.Slug = SearchForSlug(term.Title);
+
+            if(currentUser.IsAuthenticated)
+            {
+                term.SharedByUserId = currentUser.Id;
+                var user = Session.Load<User>(currentUser.Id);
+                user.ReputationPoints += ActionPoints.ShareANewTerm;
+                
+                if(user.ActionFeed == null) user.ActionFeed = new List<Action>();
+                user.ActionFeed.Add(new Action() { Time = DateTime.UtcNow, Type = ActionType.ShareANewTerm, TermIdContext = term.Id });
+
+                Session.Store(user);
+            }
+
             Session.Store(term);
             Session.SaveChanges();
 

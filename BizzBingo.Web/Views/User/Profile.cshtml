@@ -1,0 +1,12 @@
+﻿@model BizzBingo.Web.Models.User
+
+@{
+    ViewBag.Title = "Profile";
+}
+<div class="hero-unit">
+    <img style="margin-left: 750px; opacity: .3; height: 190px; position: absolute;" src="@Url.Content("~/Content/Images/yeah.png")" alt="">
+    <h1>@Model.Name</h1>
+    <p>
+        ... and his reputation of +@Model.ReputationPoints points!</p>
+    <p>
+</div>

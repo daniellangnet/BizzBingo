@@ -39,6 +39,16 @@
         <div class="page-header">
             <h2>I think, that... </h2>
         </div>
+        @if (Request.IsAuthenticated)
+        {
+            <div class="alert-message info">
+                <p><strong>Tell us about your success stories and gain +@ActionPoints.AddReaction reputation!</strong> Let´s rock!</p>
+            </div>
+        }
+        else
+        {
+            Html.RenderPartial("SignIn");
+        }
         @using (Html.BeginForm("Reaction", "Term", FormMethod.Post))
         {
             @Html.Hidden("TermId", Model.Id)
@@ -52,18 +62,21 @@
             </div>
             <label for="Reason">because
                 </label>
-            <div class="clearfix">
-                <div class="input">
-                    <textarea class="xxlarge" placeholder="it is super easy to use and I just can rock on. Yeah!" name="Reason" rows="5"></textarea>
-                </div>
-            </div>
-            <div class="clearfix">
-                <label for="Name">And my name is
-                </label>
-                <div class="input">
-                    <input class="xxlarge" placeholder="Anonymous" name="Name" size="30" type="text">
-                </div>
-            </div>
+           <div class="clearfix">
+               <div class="input">
+                   <textarea class="xxlarge" placeholder="it is super easy to use and I just can rock on. Yeah!" name="Reason" rows="5"></textarea>
+               </div>
+           </div>
+           @if(Request.IsAuthenticated == false)
+           {
+               <div class="clearfix">
+                   <label for="Name">And my name is
+                   </label>
+                   <div class="input">
+                       <input class="xxlarge" placeholder="Anonymous" name="Name" size="30" type="text">
+                   </div>
+               </div>
+            }
             <!-- /clearfix -->
             <div class="actions">
                 <input type="submit" class="btn primary" value="Save changes">&nbsp;

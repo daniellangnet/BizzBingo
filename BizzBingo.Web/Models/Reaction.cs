@@ -10,5 +10,6 @@ namespace BizzBingo.Web.Models
         public string Reason { get; set; }
         public bool IsPositive { get; set; }
         public DateTime CreatedOn { get; set; }
+        public Guid SharedByUserId { get; set; }
     }
 }

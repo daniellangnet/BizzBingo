@@ -13,5 +13,7 @@ namespace BizzBingo.Web.Models
         public string OAuthAccessToken { get; set; }
         public DateTime RegisteredOn { get; set; }
         public DateTime LastSignIn { get; set; }
+        public int ReputationPoints { get; set; }
+        public List<Action> ActionFeed { get; set; } 
     }
 }

@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Web;
 using System.Web.Mvc;
+using BizzBingo.Web.Infrastructure;
 
 namespace BizzBingo.Web.Controllers
 {
@@ -29,6 +30,5 @@ namespace BizzBingo.Web.Controllers
             string script = prefix + name;
             return View(script);
         }
-
     }
 }

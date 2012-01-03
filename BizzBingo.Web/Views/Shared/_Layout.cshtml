@@ -48,9 +48,10 @@
                 <ul id="topMenuProfile" class="nav secondary-nav">
                     <li class="menu">
                           <a href="#" class="menu">@@@HttpContext.Current.User.Identity.Name</a>
-                          <ul class="menu-dropdown">
+                            <ul class="menu-dropdown">
+                            <li><a href="@Url.Action("Profile", "User", new { area = ""} )">Profile</a></li>
                             <li><a href="@Url.Action("Logout", "Auth", new { area = ""} )">Logout</a></li>
-                          </ul>
+                        </ul>
                     </li>
                 </ul>    
                 }
@@ -69,7 +70,7 @@
         <div class="row">
             <div class="span16">
                 <div class="alert-message warning">
-                <p><strong>Awesome Beta.</strong> I try to add new features each day &nbsp; it would be awesome if you could give me <a href="http://twitter.com/robert0muehsig">feedback</a>!</p>
+                <p><strong>Awesome Beta .</strong> I try to add new features each day &nbsp; it would be awesome if you could give me <a href="http://twitter.com/robert0muehsig">feedback</a>!</p>
                 </div>
             </div>
         </div>

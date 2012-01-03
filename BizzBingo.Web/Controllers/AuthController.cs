@@ -38,6 +38,10 @@ namespace BizzBingo.Web.Controllers
                     Session.SaveChanges();
 
                     FormsAuthentication.SetAuthCookie(screenName, false);
+
+                    if (HttpContext.Request.UrlReferrer != null && string.IsNullOrWhiteSpace(HttpContext.Request.UrlReferrer.AbsoluteUri) == false)
+                        return Redirect(HttpContext.Request.UrlReferrer.AbsoluteUri);
+                    
                     return RedirectToAction("Index", "Home");
                 }
                 else

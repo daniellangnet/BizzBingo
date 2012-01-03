@@ -13,6 +13,7 @@ namespace BizzBingo.Web.Models
         public string Url { get; set; }
         public string Type { get; set; }
         public string ViaSource { get; set; }
+        public Guid SharedByUserId { get; set; }
     }
 
 }

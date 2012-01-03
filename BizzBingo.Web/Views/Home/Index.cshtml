@@ -5,7 +5,7 @@
 @model IndexViewModel
 <div class="hero-unit">
     <h1>
-        @if (string.IsNullOrWhiteSpace(Model.UserName))
+        @if (string.IsNullOrWhiteSpace(Model.UserName) == false)
         { <text>Hello,</text> @Model.UserName<text>!</text> }
         else
         { <text>Hello!</text> }
@@ -37,20 +37,21 @@
         <div class="row" id="newestUsers">
             <div class="span10">
                 @foreach (var user in Model.NewestUsers)
-                { 
-                        <a href="http://twitter.com/@user.Name">
-                            <img src="http://api.twitter.com/1/users/profile_image/@user.Name" alt="@user.Name on Twitter" title="@user.Name on Twitter" />
-                        </a>
+                {
+                    Html.RenderPartial("UserTeaserControl", user);
                 }
             </div>
-            <div class="span6">
-                <div class="alert-message block-message warning">
-                      <p><strong>Want to be part of this community?</strong></p>
-                      <div class="alert-actions">
-                        <a style="height: 10px;" href="@Url.Action("Index", "Auth", new { area = "" })"><img src="@Url.Content("~/Content/Images/sign-in-with-twitter-d.png")" alt="Just sign in with our Twitter" title="Just sign in with our Twitter"/></a>
-                      </div>
+            @if (Request.IsAuthenticated == false)
+            {
+                <div class="span6">
+                    <div class="alert-message block-message warning">
+                        <p><strong>Want to be part of this community?</strong></p>
+                        <div class="alert-actions">
+                            <a style="height: 10px;" href="@Url.Action("Index", "Auth", new { area = "" })"><img src="@Url.Content("~/Content/Images/sign-in-with-twitter-d.png")" alt="Just sign in with our Twitter" title="Just sign in with our Twitter"/></a>
+                        </div>
+                    </div>
                 </div>
-            </div>
+            }
         </div>
     </div>
 </div>
@@ -69,7 +70,7 @@
             <div class="offset1 span9">
                 @foreach (var words in Model.Top)
                 {
-                    Html.RenderPartial("TermTeaserControl", new TeaserViewModel() { Term = words, ShowPositiveReactions = true});
+                    Html.RenderPartial("TermTeaserControl", new TeaserViewModel() { Term = words, ShowPositiveReactions = true });
                 }
                 <div class="row">
                     <div class="alert-message warning">
@@ -97,7 +98,7 @@
             <div class="offset1 span9">
                 @foreach (var words in Model.Bottom)
                 {
-                    Html.RenderPartial("TermTeaserControl", new TeaserViewModel() { Term = words, ShowPositiveReactions = false});
+                    Html.RenderPartial("TermTeaserControl", new TeaserViewModel() { Term = words, ShowPositiveReactions = false });
                 }
                 <div class="row">
                     <div class="alert-message warning">
@@ -125,7 +126,7 @@
             <div class="offset1 span9">
                 @foreach (var words in Model.Newest)
                 {
-                    Html.RenderPartial("TermTeaserControl", new TeaserViewModel() { Term = words, ShowPositiveReactions = null});
+                    Html.RenderPartial("TermTeaserControl", new TeaserViewModel() { Term = words, ShowPositiveReactions = null });
                 }
             </div>
         </div>

@@ -198,11 +198,21 @@
 
                         }
                         <div class="row">
-                            <div class="span15">
-                                <legend>
-                                    <h3>
-                                        Add a new resource</h3>
-                                </legend>
+                            <div class="span16">
+                                
+                                <div class="page-header">
+                                    <h3>Add a new resource</h3>
+                                </div>
+                                @if (Model.CurrentUserInformation.IsAuthenticated == false)
+                                {
+                                    Html.RenderPartial("SignIn");
+                                }
+                                else
+                                {
+                                    <div class="alert-message info">
+                                        <p><strong>Sharing a new information gives you +@ActionPoints.AddInformation reputation!</strong> This will gonna be huge!</p>
+                                    </div>
+                                }
                                 @using (Ajax.BeginForm("Resource", "Term", new AjaxOptions() { HttpMethod = "POST", OnComplete = "resourceAdded" }))
                                 {
                                     <fieldset>

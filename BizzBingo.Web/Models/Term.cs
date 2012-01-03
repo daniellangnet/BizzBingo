@@ -14,6 +14,7 @@
         public int Views { get; set; }
         public DateTime CreatedOn { get; set; }
         public IList<Resource> Resources { get; set; }
-        public IList<Reaction> Reactions { get; set; } 
+        public IList<Reaction> Reactions { get; set; }
+        public Guid SharedByUserId { get; set; }
     }
 }
