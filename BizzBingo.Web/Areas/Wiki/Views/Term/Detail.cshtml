@@ -15,63 +15,81 @@
 <div class="row">
     <div class="span16">
         <section>
-            <div class="row">
-                <div class="span10">
-                    <div class="page-header">
-                        <h2>What is @Model.Title?</h2>
-                    </div>
-                    <div id="stackoverflowResult" style="overflow-x: hidden;"></div>
-                    <div id="stackoverflowResultFound" style="display: none;" class="well">
-                        <p><strong>This information is from the awesome <a href="http://stackoverflow.com/tags/@Model.Slug.ToLower()/info">Stackoverflow Community</a></strong>.<br/> Thank you guys for your great work!</p>
-                    </div>
-                    <div id="stackoverflowResultNotFound" style="display: none;" class="alert-message block-message warning">
-                        <p><strong>We searched for the information on <a href="http://stackoverflow.com/">Stackoverflow.com</a>, but didn´t find anything.</strong><br/> But it would be awesome, if you could help and share some information on Stackoverflow too!</p>
-                    </div>
-                </div>
-                <div class="span5 offset1">
-                    <div class="page-header">
-                        <h2>
-                            Stats</h2>
-                    </div>
-                    <table class="zebra-striped">
-                        <tbody>
-                            <tr>
-                                <td>
-                                    Shared on
-                                </td>
-                                <td>
-                                    @Model.CreatedOn
-                                </td>
-                            </tr>
-                            <tr>
-                                <td>
-                                    Views
-                                </td>
-                                <td id="stateViews">
-                                    @Model.Views
-                                </td>
-                            </tr>
-                            <tr>
-                                <td>
-                                    Likes
-                                </td>
-                                <td id="stateUpvotes">
-                                    @Model.UpVotes
-                                </td>
-                            </tr>
-                            <tr>
-                                <td>
-                                    Don´t likes
-                                </td>
-                                <td id="stateDownvotes">
-                                    @Model.DownVotes
-                                </td>
-                            </tr>
-                        </tbody>
-                    </table>
-                </div>
-            </div>
-        </section>
+<div class="row">
+<div class="span10">
+    <div class="page-header">
+        <h2>What is @Model.Title?</h2>
+    </div>
+    <div id="stackoverflowResult" style="overflow-x: hidden;"></div>
+    <div id="stackoverflowResultFound" style="display: none;" class="well">
+        <p><strong>This information is from the awesome <a href="http://stackoverflow.com/tags/@Model.Slug.ToLower()/info">Stackoverflow Community</a></strong>.<br/> Thank you guys for your great work!</p>
+    </div>
+    <div id="stackoverflowResultNotFound" style="display: none;" class="alert-message block-message warning">
+        <p><strong>We searched for the information on <a href="http://stackoverflow.com/">Stackoverflow.com</a>, but didn´t find anything.</strong><br/> But it would be awesome, if you could help and share some information on Stackoverflow too!</p>
+    </div>
+</div>
+<div class="span5 offset1">
+    <div class="page-header">
+        <h2>Stats</h2>
+    </div>
+    <table class="zebra-striped">
+        <tbody>
+            <tr>
+                <td>
+                    Shared on
+                </td>
+                <td>
+                    @Model.CreatedOn
+                </td>
+            </tr>
+            <tr>
+                <td>
+                    Views
+                </td>
+                <td id="stateViews">
+                    @Model.Views
+                </td>
+            </tr>
+            <tr>
+                <td>
+                    Likes
+                </td>
+                <td id="stateUpvotes">
+                    @Model.UpVotes
+                </td>
+            </tr>
+            <tr>
+                <td>
+                    Don´t likes
+                </td>
+                <td id="stateDownvotes">
+                    @Model.DownVotes
+                </td>
+            </tr>
+        </tbody>
+    </table>
+    <div class="page-header">
+        <h2>Supporters</h2>
+    </div>
+    <p>@if (Model.Supporters.Count == 0)
+       {
+            <text>Currently no supporters. Login in & show some love and get +@ActionPoints.AddSupport.ToString() reputation!</text>
+       }
+       else
+       {
+           foreach (var supporter in Model.Supporters)
+           {
+               Html.RenderPartial("UserTeaserControl", new User() { Name = supporter.Name });
+           }
+       }
+    </p>
+    @if (Model.CurrentUserInformation.IsAuthenticated && Model.Supporters.Where(x => x.Id == Model.CurrentUserInformation.Id).Count() == 0)
+    {
+        @Ajax.ActionLink("Add me as a supporter!", "Supporter", "Term", new { termId = Model.Id }, new AjaxOptions() { HttpMethod = "POST", OnComplete = "window.location.reload()" }, new { @class = "btn small" })
+    }
+    </div>
+</div>
+</section>
         <section>
             <canvas id="stackoverflowRelated" width="940" height="400"></canvas>
         </section>
@@ -275,7 +293,6 @@
     <!-- doesn´t like combres -->
     <script type="text/javascript" src="@Url.Content("~/Scripts/arbor.js")"></script>
     <script type="text/javascript" src="@Url.Content("~/Scripts/arbor-graphics.js")"></script>
-    
     <script type="text/javascript">
 
         $(function () {
@@ -302,6 +319,7 @@
                 },
                 jsonp: 'jsonp'
             });
+
 
             $("#opinion > a").scrollSpy();
 

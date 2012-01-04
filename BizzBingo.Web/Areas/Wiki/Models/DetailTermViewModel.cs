@@ -20,6 +20,7 @@ namespace BizzBingo.Web.Areas.Wiki.Models
         public List<DetailResourceViewModel> Resources { get; set; }
         public List<Reaction> PositiveReaction { get; set; }
         public List<Reaction> NegativeReaction { get; set; }
+        public List<User> Supporters { get; set; } 
         public CurrentUserInformation CurrentUserInformation { get; set; }
     }
 }

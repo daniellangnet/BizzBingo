@@ -9,6 +9,7 @@ namespace BizzBingo.Web.Models
     {
         public const int ShareANewTerm = 50;
         public const int AddReaction = 100;
+        public const int AddSupport = 10;
         public const int AddInformation = 25;
     }
 }

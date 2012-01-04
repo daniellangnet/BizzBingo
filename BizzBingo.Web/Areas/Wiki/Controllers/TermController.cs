@@ -77,19 +77,29 @@ namespace BizzBingo.Web.Areas.Wiki.Controllers
 
             Session.Store(word);
             Session.SaveChanges();
-            return RedirectToAction("Detail", new {slug = word.Slug});
+            return RedirectToAction("Detail", new { slug = word.Slug });
         }
 
         [HttpGet]
         public ViewResult Detail(string slug, CurrentUserInformation currentUser)
         {
-            Term word = Session.Query<Term>()
-                               .Where(x => x.Slug == slug)
-                               .SingleOrDefault();
+            //ToDo: Number of Request 2 - not 1. Include doesn´t work.
+            Term word = Session.Query<Term>().Where(x => x.Slug == slug)
+                                             .SingleOrDefault();
+
             word.Views = word.Views + 1;
             Session.Store(word);
 
             DetailTermViewModel model = new DetailTermViewModel();
+            if (word.Supporters != null)
+            {
+                model.Supporters = Session.Query<User>().Where(x => x.Id.In(word.Supporters)).ToList();
+            }
+            else
+            {
+                model.Supporters = new List<User>();
+            }
+
             model.Id = word.Id;
             model.Views = word.Views;
             model.Title = word.Title;
@@ -127,6 +137,33 @@ namespace BizzBingo.Web.Areas.Wiki.Controllers
         }
 
         [HttpPost]
+        public JsonResult Supporter(Guid termId, CurrentUserInformation currentUser)
+        {
+            Term word = Session.Load<Term>(termId);
+
+            if(word.Supporters == null) word.Supporters = new List<Guid>();
+
+            word.Supporters.Add(currentUser.Id);
+
+            Session.Store(word);
+
+            if (currentUser.IsAuthenticated)
+            {
+                var user = Session.Load<User>(currentUser.Id);
+                user.ReputationPoints += ActionPoints.AddSupport;
+
+                if (user.ActionFeed == null) user.ActionFeed = new List<Web.Models.Action>();
+                user.ActionFeed.Add(new Web.Models.Action() { Time = DateTime.UtcNow, Type = ActionType.AddSupport, TermIdContext = termId });
+
+                Session.Store(user);
+            }
+            
+            Session.SaveChanges();
+
+            return Json(word);
+        }
+
+        [HttpPost]
         public JsonResult Resource(CreateResourceModel model, CurrentUserInformation currentUser)
         {
             Term word = Session.Load<Term>(model.TermId);
@@ -139,7 +176,7 @@ namespace BizzBingo.Web.Areas.Wiki.Controllers
             resource.Url = model.Url;
             resource.Type = model.Type;
             resource.ViaSource = model.ViaSource;
-            
+
             if (word.Resources == null) word.Resources = new List<Resource>();
             word.Resources.Add(resource);
 

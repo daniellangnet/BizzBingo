@@ -5,6 +5,7 @@ namespace BizzBingo.Web.Models
         ShareANewTerm,
         AddGoodReaction,
         AddBadReaction,
-        AddInformation
+        AddInformation,
+        AddSupport
     }
 }

@@ -16,5 +16,6 @@
         public IList<Resource> Resources { get; set; }
         public IList<Reaction> Reactions { get; set; }
         public Guid SharedByUserId { get; set; }
+        public IList<Guid> Supporters { get; set; }
     }
 }
