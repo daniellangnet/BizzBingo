@@ -18,8 +18,6 @@
                 >
     <resourceSet name="siteJs" type="js">
       <resource path="~/scripts/json2.min.js" />
-      <resource path="~/Scripts/underscore.min.js" />
-      <resource path="~/Scripts/backbone.min.js" />
       <resource path="~/scripts/jquery.unobtrusive-ajax.min.js" />
       <resource path="~/scripts/bootstrap-alerts.js" />
       <resource path="~/scripts/bootstrap-dropdown.js" />

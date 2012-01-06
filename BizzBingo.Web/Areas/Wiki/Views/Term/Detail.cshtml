@@ -96,7 +96,7 @@
 </div>
 </section>
         <section>
-            <canvas id="stackoverflowRelated" width="940" height="400"></canvas>
+            <canvas id="stackoverflowRelated" style="display: none;" width="940" height="400"></canvas>
         </section>
         <section>
             <div id="opinion" class="hero-unit">
@@ -316,8 +316,11 @@
                             $("#stackoverflowResult").html(data.tag_wikis[0].wiki_excerpt);
                         }
                         $("#stackoverflowResultFound").show();
-                        searchRelatedTags();
-                        $("#stackoverflowRelated").show();
+                        
+                        if ($.browser.msie === undefined) {
+                            $("#stackoverflowRelated").show();
+                            searchRelatedTags();
+                        }
                     }
                     else {
                         $("#stackoverflowResultNotFound").show();
@@ -354,24 +357,25 @@
         }
 
         function searchRelatedTags() {
-            var sys = arbor.ParticleSystem(1000, 600, 0.5); // create the system with sensible repulsion/stiffness/friction
-            sys.parameters({ gravity: true }); // use center-gravity to make the graph settle nicely (ymmv)
-            sys.renderer = renderRelatedTags("#stackoverflowRelated"); // our newly created renderer will have its .init() method called shortly by sys...
+                var sys = arbor.ParticleSystem(1000, 600, 0.5); // create the system with sensible repulsion/stiffness/friction
+                sys.parameters({ gravity: true }); // use center-gravity to make the graph settle nicely (ymmv)
+                sys.renderer = renderRelatedTags("#stackoverflowRelated"); // our newly created renderer will have its .init() method called shortly by sys...
 
-            $.ajax({
-                type: 'GET',
-                url: 'http://api.stackexchange.com/2.0/tags/@Model.Slug/related?site=stackoverflow',
-                dataType: 'jsonp',
-                success: function (data) {
-                    if (data.items.length > 0) {
-                        for (var c in data.items) {
-                            sys.addNode(data.items[c].name);
-                            sys.addEdge('@Model.Title', data.items[c].name);
+                $.ajax({
+                    type: 'GET',
+                    url: 'http://api.stackexchange.com/2.0/tags/@Model.Slug/related?site=stackoverflow',
+                    dataType: 'jsonp',
+                    success: function (data) {
+                        if (data.items.length > 0) {
+                            for (var c in data.items) {
+                                sys.addNode(data.items[c].name);
+                                sys.addEdge('@Model.Title', data.items[c].name);
+                            }
                         }
-                    }
-                },
-                jsonp: 'jsonp'
-            });
+                    },
+                    jsonp: 'jsonp'
+                }); 
+            
         }
 
         function renderRelatedTags(canvas) {
