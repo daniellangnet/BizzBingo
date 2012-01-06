@@ -14,7 +14,8 @@ namespace BizzBingo.Web.Infrastructure.Raven.Indexes
         {
             Map = terms => from term in terms
                             select new { term.Title };
+
             Index(x => x.Title, FieldIndexing.Analyzed);
         }
-    } 
+    }
 }

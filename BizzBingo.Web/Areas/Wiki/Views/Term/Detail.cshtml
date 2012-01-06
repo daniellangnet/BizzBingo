@@ -73,7 +73,7 @@
     </div>
     <p>@if (Model.Supporters.Count == 0)
        {
-            <text>Currently no supporters. Login in & show some love and get +@ActionPoints.AddSupport.ToString() reputation!</text>
+            <text>Currently no supporters. Be the first!</text>
        }
        else
        {
@@ -86,6 +86,11 @@
     @if (Model.CurrentUserInformation.IsAuthenticated && Model.Supporters.Where(x => x.Id == Model.CurrentUserInformation.Id).Count() == 0)
     {
         @Ajax.ActionLink("Add me as a supporter!", "Supporter", "Term", new { termId = Model.Id }, new AjaxOptions() { HttpMethod = "POST", OnComplete = "window.location.reload()" }, new { @class = "btn small" })
+        <p>... and earn <span class="label success">+@ActionPoints.AddSupport.ToString() reputation</span> !</p>
+    }
+    @if(Model.CurrentUserInformation.IsAuthenticated == false)
+    {
+            <text>Login in & show some love and get <span class="label success">+@ActionPoints.AddSupport.ToString() reputation</span> !</text>
     }
     </div>
 </div>
@@ -192,6 +197,7 @@
                 </ul>
                 <div class="tab-content">
                     <div class="tab-pane active" id="all">
+
                         @foreach (DetailResourceViewModel resource in Model.Resources)
                         {
                             <div class="row">

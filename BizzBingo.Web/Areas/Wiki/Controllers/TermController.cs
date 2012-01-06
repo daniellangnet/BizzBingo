@@ -201,7 +201,7 @@ namespace BizzBingo.Web.Areas.Wiki.Controllers
         {
             SearchResultModel result = new SearchResultModel();
             result.SearchTerm = searchTerm;
-            result.Results = Session.Query<Term>().Where(x => x.Title.Contains(searchTerm)).ToList();
+            result.Results = Session.Query<Term, SearchIndex>().Where(x => x.Title.StartsWith(searchTerm)).ToList();
 
             return View(result);
         }
