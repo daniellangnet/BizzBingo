@@ -222,11 +222,13 @@
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>
+    <Content Include="apple-touch-icon.png" />
     <Content Include="App_Readme\glimpse.mvc3.readme.txt" />
     <Content Include="App_Readme\glimpse.readme.txt" />
     <Content Include="Config\combres.xml">
       <SubType>Designer</SubType>
     </Content>
+    <Content Include="favicon.ico" />
     <Content Include="Scripts\arbor-graphics.js" />
     <Content Include="Content\bootstrap.min.css" />
     <Content Include="Content\Images\cerealman.png" />
