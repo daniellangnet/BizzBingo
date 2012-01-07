@@ -88,7 +88,7 @@
         @Ajax.ActionLink("Add me as a supporter!", "Supporter", "Term", new { termId = Model.Id }, new AjaxOptions() { HttpMethod = "POST", OnComplete = "window.location.reload()" }, new { @class = "btn small" })
         <p>... and earn <span class="label success">+@ActionPoints.AddSupport.ToString() reputation</span> !</p>
     }
-    @if(Model.CurrentUserInformation.IsAuthenticated == false)
+    @if (Model.CurrentUserInformation.IsAuthenticated == false)
     {
             <text>Login in & show some love and get <span class="label success">+@ActionPoints.AddSupport.ToString() reputation</span> !</text>
     }
@@ -198,29 +198,20 @@
                 <div class="tab-content">
                     <div class="tab-pane active" id="all">
 
-                        @foreach (DetailResourceViewModel resource in Model.Resources)
-                        {
-                            <div class="row">
-                                <div class="span15">
-                                    <div class="page-header">
-                                        <h3>@resource.Title</h3>
-                                    </div>
-                                    <p>@resource.Description</p>
-                                </div>
+                        
+                        <div class="row">
+                            <div class="span16">
+                                <ul class="media-grid">
+                                
+                                @foreach (DetailResourceViewModel resource in Model.Resources)
+                                {
+                                    <li>
+                                      <a href="@resource.Url">...Loading...</a>
+                                    </li>
+                                }
+                                </ul>
                             </div>
-                            <div class="row">
-                                @*                        <div class="span3">
-                                <div class="well" style="padding: 14px 19px;">
-                                    <input id="upvote" class="btn" type="button" value="+1">
-                                    <input id="downvote" class="btn" type="button" value="-1">
-                                </div>
-                        </div>*@
-                                <div class="span15">
-                                    <a href="@resource.Url">Loading...</a>
-                                </div>
-                            </div>
-
-                        }
+                        </div>
                         <div class="row">
                             <div class="span16">
                                 
@@ -316,7 +307,7 @@
                             $("#stackoverflowResult").html(data.tag_wikis[0].wiki_excerpt);
                         }
                         $("#stackoverflowResultFound").show();
-                        
+
                         if ($.browser.msie === undefined) {
                             $("#stackoverflowRelated").show();
                             searchRelatedTags();
@@ -344,12 +335,23 @@
 
             $('.tabs').tabs();
 
-            $('#all').embedly({
-                maxWidth: 900,
-                wmode: 'transparent',
-                method: 'replace',
-                key: Global_EmbedLy_Key
+            $("#all").embedly({ key: Global_EmbedLy_Key, maxWidth: 150 }, function (oembed, dict) {
+                if (oembed == null)
+                    return;
+                var imageUrl = oembed.thumbnail_url;
+                if (oembed.type === 'link')
+                    imageUrl = "http://image.thumber.de/?size=L&url=" + oembed.url;
+
+                var output = "<a href='" + oembed.url + "' title='" + oembed.title + "'><img style='width: 150px' src='" + imageUrl + "' /></a>";
+                $(dict["node"]).parent().html(output);
             });
+
+            //            $('#all').embedly({
+            //                maxWidth: 900,
+            //                wmode: 'transparent',
+            //                method: 'replace',
+            //                key: Global_EmbedLy_Key
+            //            });
         });
 
         function resourceAdded() {
