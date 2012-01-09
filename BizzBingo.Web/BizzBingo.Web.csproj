@@ -217,6 +217,7 @@
     <Compile Include="Infrastructure\Raven\Indexes\LatestResourceIndex.cs" />
     <Compile Include="Infrastructure\Raven\Indexes\SearchIndex.cs" />
     <Compile Include="Infrastructure\Raven\RavenActionFilterAttribute.cs" />
+    <Compile Include="Infrastructure\Services\Pingback.cs" />
     <Compile Include="Infrastructure\WebInstaller.cs" />
     <Compile Include="Infrastructure\WindsorDependencyResolver.cs" />
     <Compile Include="Models\Action.cs" />

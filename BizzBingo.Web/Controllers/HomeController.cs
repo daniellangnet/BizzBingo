@@ -1,11 +1,14 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Configuration;
 using System.Linq;
 using System.Web.Mvc;
 using BizzBingo.Web.Infrastructure;
 using BizzBingo.Web.Infrastructure.Raven.Indexes;
 using BizzBingo.Web.Models;
 using BizzBingo.Web.Models.Home;
+using Embedly;
+using Embedly.OEmbed;
 using Action = BizzBingo.Web.Models.Action;
 
 namespace BizzBingo.Web.Controllers

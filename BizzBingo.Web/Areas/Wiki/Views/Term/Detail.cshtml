@@ -15,267 +15,279 @@
 <div class="row">
     <div class="span16">
         <section>
-<div class="row">
-<div class="span10">
-    <div class="page-header">
-        <h2>What is @Model.Title?</h2>
-    </div>
-    <div id="stackoverflowResult" style="overflow-x: hidden;"></div>
-    <div id="stackoverflowResultFound" style="display: none;" class="well">
-        <p><strong>This information is from the awesome <a href="http://stackoverflow.com/tags/@Model.Slug.ToLower()/info">Stackoverflow Community</a></strong>.<br/> Thank you guys for your great work!</p>
-    </div>
-    <div id="stackoverflowResultNotFound" style="display: none;" class="alert-message block-message warning">
-        <p><strong>We searched for the information on <a href="http://stackoverflow.com/">Stackoverflow.com</a>, but didn´t find anything.</strong><br/> But it would be awesome, if you could help and share some information on Stackoverflow too!</p>
-    </div>
-</div>
-<div class="span5 offset1">
-    <div class="page-header">
-        <h2>Stats</h2>
-    </div>
-    <table class="zebra-striped">
-        <tbody>
-            <tr>
-                <td>
-                    Shared on
-                </td>
-                <td>
-                    @Model.CreatedOn
-                </td>
-            </tr>
-            <tr>
-                <td>
-                    Views
-                </td>
-                <td id="stateViews">
-                    @Model.Views
-                </td>
-            </tr>
-            <tr>
-                <td>
-                    Likes
-                </td>
-                <td id="stateUpvotes">
-                    @Model.UpVotes
-                </td>
-            </tr>
-            <tr>
-                <td>
-                    Don´t likes
-                </td>
-                <td id="stateDownvotes">
-                    @Model.DownVotes
-                </td>
-            </tr>
-        </tbody>
-    </table>
-    <p>
-        <a href="http://www.google.com/insights/search/#q=@Url.Encode(Model.Title)&cmpt=date" title="Search Insights from Google" alt="Search Insights from Google">
-            <img src="http://www.google.com/trends/viz?q=@Url.Encode(Model.Title)&geo=all&date=ytd&graph=gadget&width=280&height=80&hl=en" />
-        </a>
-    </p>
-    <div class="page-header">
-        <h2>Supporters</h2>
-    </div>
-    <p>@if (Model.Supporters.Count == 0)
-       {
-            <text>Currently no supporters. Be the first!</text>
-       }
-       else
-       {
-           foreach (var supporter in Model.Supporters)
-           {
-               Html.RenderPartial("UserTeaserControl", new User() { Name = supporter.Name });
-           }
-       }
-    </p>
-    @if (Model.CurrentUserInformation.IsAuthenticated && Model.Supporters.Where(x => x.Id == Model.CurrentUserInformation.Id).Count() == 0)
-    {
-        @Ajax.ActionLink("Add me as a supporter!", "Supporter", "Term", new { termId = Model.Id }, new AjaxOptions() { HttpMethod = "POST", OnComplete = "window.location.reload()" }, new { @class = "btn small" })
-        <p>... and earn <span class="label success">+@ActionPoints.AddSupport.ToString() reputation</span> !</p>
-    }
-    @if (Model.CurrentUserInformation.IsAuthenticated == false)
-    {
-            <text>Login in & show some love and get <span class="label success">+@ActionPoints.AddSupport.ToString() reputation</span> !</text>
-    }
-    </div>
-</div>
-</section>
+            <div class="row">
+                <div class="span10">
+                    <div class="page-header">
+                        <h2>What is @Model.Title?</h2>
+                    </div>
+                    <div id="stackoverflowResult" style="overflow-x: hidden;"></div>
+                    <div id="stackoverflowResultFound" style="display: none;" class="well">
+                        <p><strong>This information is from the awesome <a href="http://stackoverflow.com/tags/@Model.Slug.ToLower()/info">Stackoverflow Community</a></strong>.<br/> Thank you guys for your great work!</p>
+                    </div>
+                    <div id="stackoverflowResultNotFound" style="display: none;" class="alert-message block-message warning">
+                        <p><strong>We searched for the information on <a href="http://stackoverflow.com/">Stackoverflow.com</a>, but didn´t find anything.</strong><br/> But it would be awesome, if you could help and share some information on Stackoverflow too!</p>
+                    </div>
+                </div>
+                <div class="span5 offset1">
+                    <div class="page-header">
+                        <h2>Stats</h2>
+                    </div>
+                    <table class="zebra-striped">
+                        <tbody>
+                            <tr>
+                                <td>
+                                    Shared on
+                                </td>
+                                <td>
+                                    @Model.CreatedOn
+                                </td>
+                            </tr>
+                            <tr>
+                                <td>
+                                    Views
+                                </td>
+                                <td id="stateViews">
+                                    @Model.Views
+                                </td>
+                            </tr>
+                            <tr>
+                                <td>
+                                    Likes
+                                </td>
+                                <td id="stateUpvotes">
+                                    @Model.UpVotes
+                                </td>
+                            </tr>
+                            <tr>
+                                <td>
+                                    Don´t likes
+                                </td>
+                                <td id="stateDownvotes">
+                                    @Model.DownVotes
+                                </td>
+                            </tr>
+                        </tbody>
+                    </table>
+                    <p>
+                        <a href="http://www.google.com/insights/search/#q=@Url.Encode(Model.Title)&cmpt=date" title="Search Insights from Google" alt="Search Insights from Google">
+                            <img src="http://www.google.com/trends/viz?q=@Url.Encode(Model.Title)&geo=all&date=ytd&graph=gadget&width=280&height=80&hl=en" />
+                        </a>
+                    </p>
+                    <div class="page-header">
+                        <h2>Supporters</h2>
+                    </div>
+                    <p>@if (Model.Supporters.Count == 0)
+                       {
+                           <text>Currently no supporters. Be the first!</text>
+                       }
+                       else
+                       {
+                           foreach (var supporter in Model.Supporters)
+                           {
+                               Html.RenderPartial("UserTeaserControl", new User() { Name = supporter.Name });
+                           }
+                       }
+                    </p>
+                    @if (Model.CurrentUserInformation.IsAuthenticated && Model.Supporters.Where(x => x.Id == Model.CurrentUserInformation.Id).Count() == 0)
+                    {
+                        @Ajax.ActionLink("Add me as a supporter!", "Supporter", "Term", new { termId = Model.Id }, new AjaxOptions() { HttpMethod = "POST", OnComplete = "window.location.reload()" }, new { @class = "btn small" })
+                        <p>... and earn <span class="label success">+@ActionPoints.AddSupport.ToString() reputation</span> !</p>
+                    }
+                    @if (Model.CurrentUserInformation.IsAuthenticated == false)
+                    {
+                        <text>Login in & show some love and get <span class="label success">+@ActionPoints.AddSupport.ToString() reputation</span> !</text>
+                    }
+                </div>
+            </div>
+        </section>
         <section>
             <canvas id="stackoverflowRelated" style="display: none;" width="940" height="400"></canvas>
+        </section>
+        <section>
+            <div class="row">
+                <div class="span16">
+                    <div class="page-header">
+                        <h2>Learn more about @Model.Title</h2>
+                    </div>
+                    <div class="row">
+                        <div class="span16">
+                            <ul class="media-grid">
+                                @foreach (DetailResourceViewModel resource in Model.Resources)
+                                {
+                                    <li>
+                                        <a href="@resource.Url" title="@resource.Title"><img class="thumbnail" src="@resource.Thumbnail" style="" /></a>
+                                    </li>
+                                }
+                            </ul>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="span16">
+                            <div class="alert-message block-message warning">
+                                <p><strong>Know a good resource? You are a blogger?</strong> <br/>Great! Share your best posts and links for @Model.Title with us!</p>
+                                <div class="alert-actions">
+                                    <a class="btn" data-controls-modal="modal-from-dom" data-backdrop="static" href="#">Share a new helpful link!</a>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
         </section>
         <section>
             <div id="opinion" class="hero-unit">
                 <img style="margin-left: 655px; opacity: .3; height: 150px; position: absolute;" src="@Url.Content("~/Content/Images/think.png")" alt="" />
                 <h2>
                     What do you think about @Model.Title?</h2>
-                    <p>
-                        <br/>
-                        <a class="btn danger" href="#wtf">
+                <p>
+                    <br/>
+                    <a class="btn danger" href="#wtf">
                         I think, @Model.Title sucks!</a>
-                        <a class="btn success" href="#omg">
+                    <a class="btn success" href="#omg">
                         I think, @Model.Title rocks!</a>
-                    </p>
+                </p>
             </div>        
         </section>
         <section id="wtf">
-        <div class="row">
-            <div class="span16" >
-                <div class="page-header">
-                    <h3>WTF! @Model.Title sucks!&nbsp;</h3>
-                </div>
-                <div class="row">
-                    <div class="span6">
-                        <div class="well" style="min-height: 220px;">
-                            <img style="margin-left: 5px; opacity: .3; position: absolute; height: 200px;" src="@Url.Content("~/Content/Images/wtf.png")" alt="">
-                        </div>
+            <div class="row">
+                <div class="span16" >
+                    <div class="page-header">
+                        <h3>WTF! @Model.Title sucks!&nbsp;</h3>
                     </div>
-                    <div class="offset1 span9">
-                    @foreach (var reaction in Model.NegativeReaction)
-                    { 
                     <div class="row">
-                        <div class="page-header">
-                            <h4>@Model.Title <i>is</i> @reaction.Title <small>@reaction.CreatedOn.ToShortDateString()</small></h4>
+                        <div class="span6">
+                            <div class="well" style="min-height: 220px;">
+                                <img style="margin-left: 5px; opacity: .3; position: absolute; height: 200px;" src="@Url.Content("~/Content/Images/wtf.png")" alt="">
+                            </div>
                         </div>
-                        <p><i>because</i> @reaction.Reason</p>
-                    </div>
-                    }
-                    <div class="row">
-                        <div class="alert-message block-message warning">
-                            <p><strong>Your best WTF moment is wanted!</strong> Share your story of pain and tell us why @Model.Title really sucks.</p>
-                            <div class="alert-actions">
-                              <a class="btn small" href="@Url.Action("Suckness", "Term", new { slug = Model.Slug })">Yeah, great idea!</a>
+                        <div class="offset1 span9">
+                            @foreach (var reaction in Model.NegativeReaction)
+                            { 
+                                <div class="row">
+                                    <div class="page-header">
+                                        <h4>@Model.Title <i>is</i> @reaction.Title <small>@reaction.CreatedOn.ToShortDateString()</small></h4>
+                                    </div>
+                                    <p><i>because</i> @reaction.Reason</p>
+                                </div>
+                            }
+                            <div class="row">
+                                <div class="alert-message block-message warning">
+                                    <p><strong>Your best WTF moment is wanted!</strong> Share your story of pain and tell us why @Model.Title really sucks.</p>
+                                    <div class="alert-actions">
+                                        <a class="btn small" href="@Url.Action("Suckness", "Term", new { slug = Model.Slug })">Yeah, great idea!</a>
+                                    </div>
+                                </div>
                             </div>
                         </div>
                     </div>
-                </div>
-                </div>
                 
+                </div>
             </div>
-        </div>
         </section>
         <section id="omg">
-        <div class="row">
-            <div class="span16" >
-                <div class="page-header">
-                    <h3>OMG! I &lt;3 @Model.Title!&nbsp;</h3>
-                </div>
-                <div class="row">
-                    <div class="span6">
-                        <div class="well" style="min-height: 220px;">
-                            <img style="margin-left: 70px; opacity: .3; position: absolute; height: 220px;" src="@Url.Content("~/Content/Images/yeah.png")" alt="">
-                        </div>
+            <div class="row">
+                <div class="span16" >
+                    <div class="page-header">
+                        <h3>OMG! I &lt;3 @Model.Title!&nbsp;</h3>
                     </div>
-                    <div class="offset1 span9">
-                    @foreach (var reaction in Model.PositiveReaction)
-                    { 
                     <div class="row">
-                        <div class="page-header">
-                            <h4>@Model.Title <i>is</i> @reaction.Title <small>@reaction.CreatedOn.ToShortDateString()</small></h4>
+                        <div class="span6">
+                            <div class="well" style="min-height: 220px;">
+                                <img style="margin-left: 70px; opacity: .3; position: absolute; height: 220px;" src="@Url.Content("~/Content/Images/yeah.png")" alt="">
+                            </div>
                         </div>
-                        <p><i>because</i> @reaction.Reason</p>
-                    </div>
-                    }
-                    <div class="row">
-                        <div class="alert-message block-message warning">
-                            <p><strong>Greatest thing since sliced bread?</strong> Share your story of success and why @Model.Title really rocks.</p>
-                            <div class="alert-actions">
-                              <a class="btn small" href="@Url.Action("Awesomeness", "Term", new { slug = Model.Slug })">Yeah, great idea!</a>
+                        <div class="offset1 span9">
+                            @foreach (var reaction in Model.PositiveReaction)
+                            { 
+                                <div class="row">
+                                    <div class="page-header">
+                                        <h4>@Model.Title <i>is</i> @reaction.Title <small>@reaction.CreatedOn.ToShortDateString()</small></h4>
+                                    </div>
+                                    <p><i>because</i> @reaction.Reason</p>
+                                </div>
+                            }
+                            <div class="row">
+                                <div class="alert-message block-message warning">
+                                    <p><strong>Greatest thing since sliced bread?</strong> Share your story of success and why @Model.Title really rocks.</p>
+                                    <div class="alert-actions">
+                                        <a class="btn small" href="@Url.Action("Awesomeness", "Term", new { slug = Model.Slug })">Yeah, great idea!</a>
+                                    </div>
+                                </div>
                             </div>
                         </div>
                     </div>
-                    </div>
-                </div>
                 
-            </div>
-        </div>
-        </section>
-        <section id="learning">
-        <div class="row">
-            <div class="span16">
-                <div class="page-header">
-                    <h2>Learn more about @Model.Title</h2>
-                </div>
-                <div class="row">
-                    <div class="span16">
-                        <ul class="media-grid">
-                                
-                        @foreach (DetailResourceViewModel resource in Model.Resources)
-                        {
-                            <li>
-                                <a href="@resource.Url">...Loading...</a>
-                            </li>
-                        }
-                        </ul>
-                    </div>
-                </div>
-                <div class="row">
-                    <div class="span16">
-                                
-                        <div class="page-header">
-                            <h3>Add a new resource</h3>
-                        </div>
-                        @if (Model.CurrentUserInformation.IsAuthenticated == false)
-                        {
-                            Html.RenderPartial("SignIn");
-                        }
-                        else
-                        {
-                            <div class="alert-message info">
-                                <p><strong>Sharing a new information gives you +@ActionPoints.AddInformation reputation!</strong> This will gonna be huge!</p>
-                            </div>
-                        }
-                        @using (Ajax.BeginForm("Add", "Resource", new AjaxOptions() { HttpMethod = "POST", OnComplete = "resourceAdded" }))
-                        {
-                            <fieldset>
-                                @Html.Hidden("TermId", Model.Id)
-                                @Html.Hidden("Type", "link")
-                                @Html.Hidden("Thumbnail", "")
-                                @Html.Hidden("EmbedCode", "")
-
-                                <div class="clearfix">
-                                    <label for="url">
-                                        Url</label>
-                                    <div class="input">
-                                        <input class="xlarge" id="url" name="url" size="30" type="text">
-                                    </div>
-                                </div>
-                                <div class="clearfix">
-                                    <label for="title">
-                                        Title</label>
-                                    <div class="input">
-                                        <input class="xlarge" id="title" name="title" size="30" type="text">
-                                    </div>
-                                </div>
-                                <div class="clearfix">
-                                    <label for="description">
-                                        Description</label>
-                                    <div class="input">
-                                        <textarea class="xlarge" id="description" name="description" rows="3"></textarea>
-                                    </div>
-                                </div>
-                                <div class="clearfix">
-                                    <label for="viasource">
-                                        What was your original source?</label>
-                                    <div class="input">
-                                        <input class="xlarge" id="viasource" name="viasource" size="30" type="text">
-                                    </div>
-                                </div>
-                                <div class="clearfix" id="preview">
-                                </div>
-                                <div class="actions">
-                                    <input type="submit" class="btn primary" value="Save changes">&nbsp;
-                                    <button type="reset" class="btn">
-                                        Cancel</button>
-                                </div>
-                            </fieldset>
-                        }
-                    </div>
                 </div>
             </div>
-        </div>
         </section>
+        
     </div>
 </div>
+<!-- Share a ressource -->
+<div id="modal-from-dom" class="modal hide fade">
+    <div class="modal-header">
+        <a href="#" class="close">&times;</a>
+        <h3>
+            Add a new resource</h3>
+    </div>
+    @using (Ajax.BeginForm("Add", "Resource", new AjaxOptions() { HttpMethod = "POST", OnComplete = "resourceAdded" }))
+    {
+        @Html.Hidden("TermId", Model.Id)
+        @Html.Hidden("Type", "link")
+        @Html.Hidden("Thumbnail", "")
+        @Html.Hidden("EmbedCode", "")
+        <div class="modal-body">
+            <p>
+            @if (Model.CurrentUserInformation.IsAuthenticated == false)
+            {
+                Html.RenderPartial("SignIn");
+            }
+            else
+            {
+                <div class="alert-message info">
+                    <p><strong>Sharing a new information gives you +@ActionPoints.AddInformation reputation!</strong> This will gonna be huge!</p>
+                </div>
+            }
+            </p>
+            <fieldset>
+                <div class="clearfix">
+                    <label for="url">
+                        Url</label>
+                    <div class="input">
+                        <input class="xlarge" id="url" name="url" size="30" type="text">
+                    </div>
+                </div>
+                <div class="clearfix">
+                    <label for="title">
+                        Title</label>
+                    <div class="input">
+                        <input class="xlarge" id="title" name="title" size="30" type="text">
+                    </div>
+                </div>
+                <div class="clearfix">
+                    <label for="description">
+                        Description</label>
+                    <div class="input">
+                        <textarea class="xlarge" id="description" name="description" rows="3"></textarea>
+                    </div>
+                </div>
+                <div class="clearfix">
+                    <label for="viasource">
+                        What was your original source?</label>
+                    <div class="input">
+                        <input class="xlarge" id="viasource" name="viasource" size="30" type="text">
+                    </div>
+                </div>
+                <div class="clearfix" id="preview" style="padding-left: 150px;">
+                </div>
+            </fieldset>
+        </div>
+        <div class="modal-footer">
+            <input type="submit" id="shareButton" disabled="disabled" value="Share" class="btn primary disabled">
+        </div>
+    }
+</div>
+
 @section Scripts
 {
     <!-- doesn´t like combres -->
@@ -315,34 +327,19 @@
             $("#opinion > a").scrollSpy();
 
             $("#url").blur(function () {
-                $.embedly($("#url").val(), { key: Global_EmbedLy_Key, maxWidth: 900 }, function (oembed, dict) {
+                $.embedly($("#url").val(), { key: Global_EmbedLy_Key, maxWidth: 280 }, function (oembed, dict) {
                     $("#title").val(oembed.title);
                     $("#description").val(oembed.description);
                     $("#preview").html(oembed.html);
                     $("input[name=Type]").val(oembed.type);
                     $("input[name=EmbedCode]").val(oembed.code);
                     $("input[name=Thumbnail]").val(oembed.thumbnail_url);
+                    $("#shareButton").removeClass("disabled");
+                    $("#shareButton").removeAttr("disabled");
                 });
 
             });
 
-            $("#learning").embedly({ key: Global_EmbedLy_Key, maxWidth: 150 }, function (oembed, dict) {
-                if (oembed == null)
-                    return;
-                var imageUrl = oembed.thumbnail_url;
-                if (oembed.type === 'link')
-                    imageUrl = "http://image.thumber.de/?size=L&url=" + oembed.url;
-
-                var output = "<a href='" + oembed.url + "' title='" + oembed.title + "'><img style='width: 150px' src='" + imageUrl + "' /></a>";
-                $(dict["node"]).parent().html(output);
-            });
-
-            //            $('#all').embedly({
-            //                maxWidth: 900,
-            //                wmode: 'transparent',
-            //                method: 'replace',
-            //                key: Global_EmbedLy_Key
-            //            });
         });
 
         function resourceAdded() {

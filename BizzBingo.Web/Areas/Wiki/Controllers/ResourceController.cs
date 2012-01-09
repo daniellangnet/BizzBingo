@@ -1,5 +1,7 @@
 ﻿using System.Configuration;
+using System.Web.Routing;
 using BizzBingo.Web.Infrastructure;
+using BizzBingo.Web.Infrastructure.Services;
 using Embedly;
 using Embedly.OEmbed;
 
@@ -64,6 +66,12 @@ namespace BizzBingo.Web.Areas.Wiki.Controllers
 
             Session.Store(word);
             Session.SaveChanges();
+
+            // Pingback for blogger
+            UrlHelper helper = new UrlHelper(this.ControllerContext.RequestContext);
+            var source = helper.Action("Detail", "Term", new {Slug = word.Slug}, "http");
+            Pingback.Send(new Uri(source), new Uri(resource.Url));
+
             return Json(word);
         }
     }

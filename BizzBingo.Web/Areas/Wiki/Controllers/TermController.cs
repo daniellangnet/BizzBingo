@@ -117,6 +117,15 @@ namespace BizzBingo.Web.Areas.Wiki.Controllers
                     viewModelForResource.Url = resource.Url;
                     viewModelForResource.Description = resource.Description;
                     viewModelForResource.Votes = resource.Upvotes - resource.Downvotes;
+                    if(resource.Type == "link")
+                    {
+                        viewModelForResource.Thumbnail = "http://image.thumber.de/?size=L&url=" + resource.Url;
+                    }
+                    else
+                    {
+                        viewModelForResource.Thumbnail = resource.ThumbnailUrl;
+                    }
+                    viewModelForResource.Html = resource.EmbedCode;
                     model.Resources.Add(viewModelForResource);
                 }
             }

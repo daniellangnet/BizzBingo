@@ -17,6 +17,7 @@ namespace BizzBingo.Web.Infrastructure.Raven.Indexes
             public DateTimeOffset CreatedOn { get; set; }
             public string TermTitle { get; set; }
             public string TermSlug { get; set; }
+            public string Html { get; set; }
             public string Type { get; set; }
         }
 
@@ -29,6 +30,7 @@ namespace BizzBingo.Web.Infrastructure.Raven.Indexes
                                Title = resources.Title,
                                CreatedOn = resources.CreatedOn,
                                Url = resources.Url,
+                               Html = resources.EmbedCode,
                                TermTitle = term.Title,
                                TermSlug = term.Slug,
                                Type = resources.Type
@@ -42,6 +44,7 @@ namespace BizzBingo.Web.Infrastructure.Raven.Indexes
                                         Title = g.Key,
                                         CreatedOn = g.Max(x => (DateTimeOffset)x.CreatedOn),
                                         Url = g.Select(x => x.Url).First(),
+                                        Html = g.Select(x => x.Html).First(),
                                         TermTitle = g.Select(x => x.TermTitle).First(),
                                         TermSlug = g.Select(x => x.TermSlug).First(),
                                         Type = g.Select(x => x.Type).First()

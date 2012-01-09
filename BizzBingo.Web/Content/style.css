@@ -12,6 +12,11 @@ section {
     color: #404040;
 }
 
+.thumbnail {
+    width: 150px;
+    height: 112px;
+}
+
 .footer
 {
     background-color: #EEE;
