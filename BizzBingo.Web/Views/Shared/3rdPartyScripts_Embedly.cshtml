@@ -1,8 +1,9 @@
-﻿@{
+﻿@using System.Configuration
+@{
     Layout = "";   
 }
 <script type="text/javascript">
 
-    var Global_EmbedLy_Key = 'b2b01a5011e311e191924040d3dc5c07';
+    var Global_EmbedLy_Key = '@ConfigurationManager.AppSettings["embedlyKey"]';
 
 </script>

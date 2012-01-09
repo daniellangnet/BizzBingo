@@ -1,4 +1,9 @@
-﻿namespace BizzBingo.Web.Areas.Wiki.Controllers
+﻿using System.Configuration;
+using BizzBingo.Web.Infrastructure;
+using Embedly;
+using Embedly.OEmbed;
+
+namespace BizzBingo.Web.Areas.Wiki.Controllers
 {
     using System;
     using System.Collections.Generic;
@@ -25,5 +30,41 @@
             return View(result);
         }
 
+        //ToDo: Validation of CreateResourceModel
+        [HttpPost]
+        public JsonResult Add(CreateResourceModel model, CurrentUserInformation currentUser)
+        {
+            Term word = Session.Load<Term>(model.TermId);
+
+            Resource resource = new Resource();
+            resource.Id = Guid.NewGuid();
+            resource.CreatedOn = DateTime.UtcNow;
+            resource.Title = model.Title;
+            resource.Description = model.Description;
+            resource.Url = model.Url;
+            resource.EmbedCode = model.EmbedCode;
+            resource.ThumbnailUrl = model.Thumbnail;
+            resource.Type = model.Type;
+            resource.ViaSource = model.ViaSource;
+
+            if (word.Resources == null) word.Resources = new List<Resource>();
+            word.Resources.Add(resource);
+
+            if (currentUser.IsAuthenticated)
+            {
+                resource.SharedByUserId = currentUser.Id;
+                var user = Session.Load<User>(currentUser.Id);
+                user.ReputationPoints += ActionPoints.AddInformation;
+
+                if (user.ActionFeed == null) user.ActionFeed = new List<Web.Models.Action>();
+                user.ActionFeed.Add(new Web.Models.Action() { Time = DateTime.UtcNow, Type = ActionType.AddInformation, ResourceIdContext = resource.Id, TermIdContext = model.TermId });
+
+                Session.Store(user);
+            }
+
+            Session.Store(word);
+            Session.SaveChanges();
+            return Json(word);
+        }
     }
 }

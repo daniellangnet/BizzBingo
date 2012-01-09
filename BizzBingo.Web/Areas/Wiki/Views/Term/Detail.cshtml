@@ -228,11 +228,14 @@
                                         <p><strong>Sharing a new information gives you +@ActionPoints.AddInformation reputation!</strong> This will gonna be huge!</p>
                                     </div>
                                 }
-                                @using (Ajax.BeginForm("Resource", "Term", new AjaxOptions() { HttpMethod = "POST", OnComplete = "resourceAdded" }))
+                                @using (Ajax.BeginForm("Add", "Resource", new AjaxOptions() { HttpMethod = "POST", OnComplete = "resourceAdded" }))
                                 {
                                     <fieldset>
                                         @Html.Hidden("TermId", Model.Id)
-                                        @Html.Hidden("Type", "link", new { id = "type" })
+                                        @Html.Hidden("Type", "link")
+                                        @Html.Hidden("Thumbnail", "")
+                                        @Html.Hidden("EmbedCode", "")
+
                                         <div class="clearfix">
                                             <label for="url">
                                                 Url</label>
@@ -328,7 +331,9 @@
                     $("#title").val(oembed.title);
                     $("#description").val(oembed.description);
                     $("#preview").html(oembed.html);
-                    $("#type").val(oembed.type);
+                    $("input[name=Type]").val(oembed.type);
+                    $("input[name=EmbedCode]").val(oembed.code);
+                    $("input[name=Thumbnail]").val(oembed.thumbnail_url);
                 });
 
             });
