@@ -1,12 +1,93 @@
-﻿@model BizzBingo.Web.Models.User
+﻿@using BizzBingo.Web.Models
+@model BizzBingo.Web.Models.User
 
 @{
     ViewBag.Title = "Profile";
 }
 <div class="hero-unit">
-    <img style="margin-left: 750px; opacity: .3; height: 190px; position: absolute;" src="@Url.Content("~/Content/Images/yeah.png")" alt="">
+    <img style="margin-left: 750px; opacity: .3; height: 150px; position: absolute;" src="@Url.Content("~/Content/Images/yeah.png")" alt="">
     <h1>@Model.Name</h1>
     <p>
         ... and his reputation of +@Model.ReputationPoints points!</p>
     <p>
 </div>
+<div class="row">
+    <div class="span16">
+        <div class="page-header">
+            <h2>Recent activities</h2>
+        </div>
+        <div class="row">
+            <div class="span6">
+                <div class="well" style="min-height: 220px;">
+                    <img style="margin-left: 50px; opacity: .3; position: absolute; height: 200px;" src="@Url.Content("~/Content/Images/love.png")" alt="">
+                </div>
+            </div>
+            <div class="span10">
+                @foreach (var action in Model.ActionFeed)
+                {
+                    <div class="row">
+                        <div class="span1" style="padding-top: 10px;">
+                            <a href="http://twitter.com/@Model.Name"> <img src="http://api.twitter.com/1/users/profile_image/@Model.Name" alt="@Model.Name on Twitter" title="@Model.Name on Twitter" /></a>
+                        </div>
+                        <div class="span7">
+                            <h4>@Model.Name @GetTitleMessage(action.Type) &nbsp;  <span class="label">+@GetPointsForAction(action.Type)</span></h4>
+                            <p><small>@action.Time.ToShortDateString() - @action.Time.ToShortTimeString()</small></p>
+                        </div>
+                    </div>
+                }
+            </div>
+        </div>
+    </div>
+</div>
+
+@functions
+{
+    string GetTitleMessage(ActionType actionType)
+    {
+        if (actionType == ActionType.AddInformation)
+        {
+            return "added a new information";
+        }
+        else if (actionType == ActionType.AddSupport)
+        {
+            return "supports now a new tech";
+        }
+        else if (actionType == ActionType.ShareANewTerm)
+        {
+            return "shared a new technology";
+        }
+        else if (actionType == ActionType.AddGoodReaction)
+        {
+            return "added a new success story";
+        }
+        else if (actionType == ActionType.AddBadReaction)
+        {
+            return "shared his story of pain";
+        }
+
+        return "";
+    }
+
+    string GetPointsForAction(ActionType actionType)
+    {
+        if (actionType == ActionType.AddInformation)
+        {
+            return ActionPoints.AddInformation.ToString();
+        }
+        else if (actionType == ActionType.AddSupport)
+        {
+            return ActionPoints.AddSupport.ToString();
+        }
+        else if (actionType == ActionType.ShareANewTerm)
+        {
+            return ActionPoints.ShareANewTerm.ToString();
+        }
+        else if (actionType == ActionType.AddGoodReaction || actionType == ActionType.AddBadReaction)
+        {
+            return ActionPoints.AddReaction.ToString();
+        }
+
+        return "";
+    }
+
+}
