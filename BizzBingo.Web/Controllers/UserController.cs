@@ -18,6 +18,8 @@ namespace BizzBingo.Web.Controllers
         {
             var user = Session.Load<User>(currentUser.Id);
 
+            //var result = Session.Query<UserActivityFeedIndex.UserFeedResult, UserActivityFeedIndex>().Where(x => x.Name == currentUser.Name).ToList(); ;
+
             return View(user);
         }
     }

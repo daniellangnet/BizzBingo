@@ -4,6 +4,7 @@ using System.Linq;
 using System.Web;
 using BizzBingo.Web.Models;
 using global::Raven.Client.Indexes;
+using Action = BizzBingo.Web.Models.Action;
 
 namespace BizzBingo.Web.Infrastructure.Raven.Indexes
 {

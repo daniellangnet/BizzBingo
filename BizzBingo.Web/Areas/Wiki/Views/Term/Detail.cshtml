@@ -230,7 +230,7 @@
         <h3>
             Add a new resource</h3>
     </div>
-    @using (Ajax.BeginForm("Add", "Resource", new AjaxOptions() { HttpMethod = "POST", OnComplete = "resourceAdded" }))
+    @using (Ajax.BeginForm("Add", "Resource", new AjaxOptions() { HttpMethod = "POST", OnBegin = "disableButtons", OnComplete = "resourceAdded" }))
     {
         @Html.Hidden("TermId", Model.Id)
         @Html.Hidden("Type", "link")
@@ -341,6 +341,11 @@
             });
 
         });
+        
+        function disableButtons() {
+            $("#shareButton").addClass("disabled");
+            $("#shareButton").attr("disabled");
+        }
 
         function resourceAdded() {
             window.location.reload();
