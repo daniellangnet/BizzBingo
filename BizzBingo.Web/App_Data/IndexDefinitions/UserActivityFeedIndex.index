@@ -1,11 +1,11 @@
 {
   "Name": "UserActivityFeedIndex",
-  "Map": "docs.Users\r\n\t.SelectMany(user => user.ActionFeed, (user, action) => new {UserId = user.__document_id, Name = user.Name, Time = action.Time, RelatedTermId = action.TermIdContext.ToString()})",
+  "Map": "docs.Users\r\n\t.SelectMany(user => user.ActionFeed, (user, action) => new {UserId = \"dfdf\", Name = user.Name, RelatedTermId = action.TermIdContext.ToString()})",
   "Maps": [
-    "docs.Users\r\n\t.SelectMany(user => user.ActionFeed, (user, action) => new {UserId = user.__document_id, Name = user.Name, Time = action.Time, RelatedTermId = action.TermIdContext.ToString()})"
+    "docs.Users\r\n\t.SelectMany(user => user.ActionFeed, (user, action) => new {UserId = \"dfdf\", Name = user.Name, RelatedTermId = action.TermIdContext.ToString()})"
   ],
   "Reduce": null,
-  "TransformResults": "results\r\n\t.Select(action => new {action = action, alias = Database.Load(action.RelatedTermId)})\r\n\t.Select((Func<dynamic, dynamic>)(__h__TransparentIdentifier1 => new {UserId = __h__TransparentIdentifier1.action.UserId, Name = __h__TransparentIdentifier1.action.Name, Time = __h__TransparentIdentifier1.action.Time, ActionRelatedTermTitle = __h__TransparentIdentifier1.alias.Title, ActionRelatedTermSlug = __h__TransparentIdentifier1.alias.Slug}))",
+  "TransformResults": "results\r\n\t.Select(action => new {action = action, alias = Database.Load(action.RelatedTermId)})\r\n\t.Select((Func<dynamic, dynamic>)(__h__TransparentIdentifier1 => new {UserId = __h__TransparentIdentifier1.action.UserId, Name = __h__TransparentIdentifier1.action.Name, ActionRelatedTermTitle = __h__TransparentIdentifier1.alias.Title, ActionRelatedTermSlug = __h__TransparentIdentifier1.alias.Slug}))",
   "IsMapReduce": false,
   "IsCompiled": false,
   "IsTemp": false,

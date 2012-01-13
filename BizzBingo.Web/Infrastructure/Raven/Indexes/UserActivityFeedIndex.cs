@@ -5,16 +5,8 @@ using Raven.Client.Indexes;
 
 namespace BizzBingo.Web.Infrastructure.Raven.Indexes
 {
-    public class UserActivityFeedIndex : AbstractIndexCreationTask<User, UserActivityFeedIndex.MapResult>
+    public class UserActivityFeedIndex : AbstractIndexCreationTask<User>
     {
-        public class MapResult
-        {
-            public string UserId { get; set; }
-            public string Name { get; set; }
-            public DateTime Time { get; set; }
-            public string RelatedTermId { get; set; }
-        }
-
         public class Result
         {
             public string UserId { get; set; }
@@ -27,27 +19,24 @@ namespace BizzBingo.Web.Infrastructure.Raven.Indexes
         public UserActivityFeedIndex()
         {
             Map = users => from user in users
-                           from action in user.ActionFeed
                            select new
                                       {
-                                          UserId = user.Id,
-                                          Name = user.Name,
-                                          Time = action.Time,
-                                          RelatedTermId = action.TermIdContext.ToString()
+                                          UserId = user.Id.ToString(),
+                                          Name = user.Name
                                       };
 
             TransformResults =
-                (database, actions) => from action in actions
-                                       let alias = database.Load<Term>(action.RelatedTermId)
-                                       select
-                                           new
-                                               {
-                                                   UserId = action.UserId,
-                                                   Name = action.Name,
-                                                   Time = action.Time,
-                                                   ActionRelatedTermTitle = alias.Title,
-                                                   ActionRelatedTermSlug = alias.Slug
-                                               };
+                (database, users) => from user in users
+                                     from action in user.ActionFeed
+                                     let relatedTerm = database.Load<Term>("terms/" + action.TermIdContext.ToString())
+                                     select new
+                                                {
+                                                    UserId = user.Id,
+                                                    Name = user.Name,
+                                                    Time = action.Time,
+                                                    ActionRelatedTermTitle = relatedTerm.Title,
+                                                    ActionRelatedTermSlug = relatedTerm.Slug
+                                                };
         }
     }
 }
