@@ -5,51 +5,49 @@ using Raven.Client.Indexes;
 
 namespace BizzBingo.Web.Infrastructure.Raven.Indexes
 {
-    public class UserActivityFeedIndex : AbstractMultiMapIndexCreationTask<UserActivityFeedIndex.UserFeedResult>
+    public class UserActivityFeedIndex : AbstractIndexCreationTask<User, UserActivityFeedIndex.MapResult>
     {
-        public class UserFeedResult
+        public class MapResult
         {
             public string UserId { get; set; }
             public string Name { get; set; }
+            public DateTime Time { get; set; }
+            public string RelatedTermId { get; set; }
+        }
+
+        public class Result
+        {
+            public string UserId { get; set; }
+            public string Name { get; set; }
+            public DateTime Time { get; set; }
             public string ActionRelatedTermTitle { get; set; }
             public string ActionRelatedTermSlug { get; set; }
-            public DateTime Time { get; set; }
         }
 
         public UserActivityFeedIndex()
         {
-            AddMap<User>(users => from user in users
-                                  from action in user.ActionFeed
-                                  select new
-                                             {
-                                                 ActionRelatedTermSlug = (string)null,
-                                                 ActionRelatedTermTitle = (string)null,
-                                                 Time = action.Time,
-                                                 Name = user.Name,
-                                                 UserId = user.Id
-                                             });
+            Map = users => from user in users
+                           from action in user.ActionFeed
+                           select new
+                                      {
+                                          UserId = user.Id,
+                                          Name = user.Name,
+                                          Time = action.Time,
+                                          RelatedTermId = action.TermIdContext.ToString()
+                                      };
 
-            AddMap<Term>(terms => from term in terms
-                                  select new
-                                             {
-                                                 ActionRelatedTermSlug = term.Slug,
-                                                 ActionRelatedTermTitle = term.Title,
-                                                 UserId = term.SharedByUserId,
-                                                 Time = DateTime.MinValue,
-                                                 Name = (string)null
-                                             });
-
-            Reduce = results => from result in results
-                                group result by result.UserId
-                                into g
-                                select new
-                                           {
-                                               Name = g.Select(x => x.Name),
-                                               UserId = g.Select(x => x.UserId),
-                                               ActionRelatedTermTitle = g.Select(x => x.ActionRelatedTermTitle).Where(x => x != null).FirstOrDefault(),
-                                               ActionRelatedTermSlug = g.Select(x => x.ActionRelatedTermSlug).Where(x => x != null).FirstOrDefault(),
-                                               Time = g.Select(x => x.Time).Where(x => x != DateTime.MinValue).FirstOrDefault(),
-                                           };
+            TransformResults =
+                (database, actions) => from action in actions
+                                       let alias = database.Load<Term>(action.RelatedTermId)
+                                       select
+                                           new
+                                               {
+                                                   UserId = action.UserId,
+                                                   Name = action.Name,
+                                                   Time = action.Time,
+                                                   ActionRelatedTermTitle = alias.Title,
+                                                   ActionRelatedTermSlug = alias.Slug
+                                               };
         }
     }
 }

@@ -1,0 +1,18 @@
+{
+  "Name": "LatestResourceIndex",
+  "Map": "docs.Terms\r\n\t.SelectMany(term => term.Resources, (term, resources) => new {Title = resources.Title, CreatedOn = resources.CreatedOn, Url = resources.Url, Html = resources.EmbedCode, TermTitle = term.Title, TermSlug = term.Slug, Type = resources.Type})",
+  "Maps": [
+    "docs.Terms\r\n\t.SelectMany(term => term.Resources, (term, resources) => new {Title = resources.Title, CreatedOn = resources.CreatedOn, Url = resources.Url, Html = resources.EmbedCode, TermTitle = term.Title, TermSlug = term.Slug, Type = resources.Type})"
+  ],
+  "Reduce": "results\r\n\t.GroupBy(result => result.Url)\r\n\t.Select(g => new {Title = g.Key, CreatedOn = g.Max(x => (System.DateTimeOffset)(x.CreatedOn)), Url = g\r\n\t.Select(x => x.Url).First(), Html = g\r\n\t.Select(x => x.Html).First(), TermTitle = g\r\n\t.Select(x => x.TermTitle).First(), TermSlug = g\r\n\t.Select(x => x.TermSlug).First(), Type = g\r\n\t.Select(x => x.Type).First()})",
+  "TransformResults": null,
+  "IsMapReduce": true,
+  "IsCompiled": false,
+  "IsTemp": false,
+  "Stores": {},
+  "Indexes": {},
+  "SortOptions": {},
+  "Analyzers": {},
+  "Fields": [],
+  "Type": "MapReduce"
+}

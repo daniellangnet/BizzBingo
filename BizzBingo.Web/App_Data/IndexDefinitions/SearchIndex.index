@@ -1,0 +1,20 @@
+{
+  "Name": "SearchIndex",
+  "Map": "docs.Terms\r\n\t.Select(term => new {Title = term.Title})",
+  "Maps": [
+    "docs.Terms\r\n\t.Select(term => new {Title = term.Title})"
+  ],
+  "Reduce": null,
+  "TransformResults": null,
+  "IsMapReduce": false,
+  "IsCompiled": false,
+  "IsTemp": false,
+  "Stores": {},
+  "Indexes": {
+    "Title": "Analyzed"
+  },
+  "SortOptions": {},
+  "Analyzers": {},
+  "Fields": [],
+  "Type": "Map"
+}

@@ -1,0 +1,20 @@
+{
+  "Name": "Temp/Terms/ByDownVotesSortByDownVotes",
+  "Map": "from doc in docs.Terms\r\nselect new { DownVotes = doc.DownVotes }",
+  "Maps": [
+    "from doc in docs.Terms\r\nselect new { DownVotes = doc.DownVotes }"
+  ],
+  "Reduce": null,
+  "TransformResults": null,
+  "IsMapReduce": false,
+  "IsCompiled": false,
+  "IsTemp": true,
+  "Stores": {},
+  "Indexes": {},
+  "SortOptions": {
+    "DownVotes": "Int"
+  },
+  "Analyzers": {},
+  "Fields": [],
+  "Type": "Temp"
+}

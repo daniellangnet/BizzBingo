@@ -1,0 +1,20 @@
+{
+  "Name": "Temp/Terms/ByUpVotesSortByUpVotes",
+  "Map": "from doc in docs.Terms\r\nselect new { UpVotes = doc.UpVotes }",
+  "Maps": [
+    "from doc in docs.Terms\r\nselect new { UpVotes = doc.UpVotes }"
+  ],
+  "Reduce": null,
+  "TransformResults": null,
+  "IsMapReduce": false,
+  "IsCompiled": false,
+  "IsTemp": true,
+  "Stores": {},
+  "Indexes": {},
+  "SortOptions": {
+    "UpVotes": "Int"
+  },
+  "Analyzers": {},
+  "Fields": [],
+  "Type": "Temp"
+}

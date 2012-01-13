@@ -1,0 +1,20 @@
+{
+  "Name": "Temp/Users/ByRegisteredOnSortByRegisteredOn",
+  "Map": "from doc in docs.Users\r\nselect new { RegisteredOn = doc.RegisteredOn }",
+  "Maps": [
+    "from doc in docs.Users\r\nselect new { RegisteredOn = doc.RegisteredOn }"
+  ],
+  "Reduce": null,
+  "TransformResults": null,
+  "IsMapReduce": false,
+  "IsCompiled": false,
+  "IsTemp": true,
+  "Stores": {},
+  "Indexes": {},
+  "SortOptions": {
+    "RegisteredOn": "String"
+  },
+  "Analyzers": {},
+  "Fields": [],
+  "Type": "Temp"
+}
