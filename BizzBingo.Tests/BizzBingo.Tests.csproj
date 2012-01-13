@@ -5,7 +5,7 @@
     <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
     <ProductVersion>8.0.30703</ProductVersion>
     <SchemaVersion>2.0</SchemaVersion>
-    <ProjectGuid>30c052ee-c7da-493d-95f3-ca568d94906f</ProjectGuid>
+    <ProjectGuid>{0061612B-35DF-486D-8D78-7D05961921CD}</ProjectGuid>
     <OutputType>Library</OutputType>
     <AppDesignerFolder>Properties</AppDesignerFolder>
     <RootNamespace>BizzBingo.Tests</RootNamespace>
@@ -38,10 +38,23 @@
     <Reference Include="Microsoft.CSharp" />
     <Reference Include="System.Data" />
     <Reference Include="System.Xml" />
+    <Reference Include="xunit">
+      <HintPath>..\packages\xunit.1.9.0.1566\lib\xunit.dll</HintPath>
+    </Reference>
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="Class1.cs" />
+    <Compile Include="Indexes\UserActivityFeedIndex.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="RavenTest.cs" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="packages.config" />
+  </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\BizzBingo.Web\BizzBingo.Web.csproj">
+      <Project>{4CCE371A-65CD-4E0D-847A-6B34FFE6436F}</Project>
+      <Name>BizzBingo.Web</Name>
+    </ProjectReference>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
